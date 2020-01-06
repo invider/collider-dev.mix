@@ -1,5 +1,21 @@
 'use strict'
 
+function getLocal(name) {
+    if (!isFrame(_.cmd)) return
+
+    const fn = _.cmd._dir[name]
+    if (!isFun(fn)) return
+    return fn
+}
+
+function getGlobal(name) {
+    if (!isFrame($.cmd)) return
+
+    const fn = $.cmd._dir[name]
+    if (!isFun(fn)) return
+    return fn
+}
+
 module.exports = function setup() {
 
     const hud = lab.spawn('hud/Hud', {
@@ -11,8 +27,13 @@ module.exports = function setup() {
         name: 'console',
         x: 0,
         y: 0,
-        w: ctx.width,
-        h: ctx.height/2,
+        //w: ctx.width,
+        //h: ctx.height/2,
+
+        adjust: function() {
+            this.w = ctx.width
+            this.h = ctx.height/2
+        },
     })
 
     function print(msg) {
@@ -35,19 +56,23 @@ module.exports = function setup() {
         const command = words[0]
 
         // find a function
-        let fn
-        if (sys.isFrame(_$.cmd)) {
-            fn = _$.cmd._dir[command]
-        }
-        if (!sys.isFun(fn) && sys.isFrame(_.cmd)) {
-            fn = _.cmd._dir[command]
-        }
+        let fn = getGlobal(command)
+        if (!fn) fn = getLocal(command)
 
-        if (sys.isFun(fn)) {
+        if (fn) {
             const res = fn(words, cmd, con)
             if (res) con.print(res)
         } else {
-            con.print('unknown command: [' + command + ']')
+            // check default handler
+            fn = getGlobal('_default')
+            if (!fn) fn = getLocal('_default')
+
+            if (fn) {
+                const res = fn(words, cmd, con)
+                if (res) con.print(res)
+            } else {
+                con.print('unknown command: [' + command + ']')
+            }
         }
     }
 }
