@@ -27,8 +27,6 @@ module.exports = function setup() {
         name: 'console',
         x: 0,
         y: 0,
-        //w: ctx.width,
-        //h: ctx.height/2,
 
         adjust: function() {
             this.w = ctx.width
