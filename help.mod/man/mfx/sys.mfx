@@ -1,0 +1,18 @@
+
+/sys/augment
+------------
+head: augment object
+
+args: abs(n)
+    n - number
+
+details:
+Replacing mixing. Values will be replaced by other object
+
+see: supplement()
+
+examples:
+
+notes:
+Some data might be here.
+

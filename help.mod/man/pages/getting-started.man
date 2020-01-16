@@ -1,0 +1,4 @@
+name: Getting Started
+
+To start, install collider.jam and start coding!
+

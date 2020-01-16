@@ -1,0 +1,6 @@
+name: Installation
+
+To install collider.jam type:
+
+npm install -g collider.jam
+
