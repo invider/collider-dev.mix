@@ -1,0 +1,64 @@
+
+----------------------------------
+/mod/explorer
+head: debug scene browser
+details:
+Implements UI components for node structure exploration.
+
+----------------------------------
+/mod/help
+head: man pages and metadata collectors
+details:
+When included, inspect the scene and patches metadata.
+Man pages are .mfx and .page files located in /man
+node of any mod.
+
+notes:
+Metadata patching works in global context,
+so .mfx patches included in help.mod
+cover many global objects (like $, /sys, /lib etc...).
+
+----------------------------------
+/mod/console
+head: drop-down debug console
+details:
+Convenient drop-down console.
+Press F4 to show/hide.
+
+New commands can be introduced by adding
+functions to /cmd frame.
+
+Each command is a function that accepts
+an array of arguments, original line
+and a link to the console node:
+
+    cmd([args], [line], [console])
+
+Console object can be used to print out
+command results, but a standard log.out()
+will do just fine.
+
+
+----------------------------------
+/mod/status
+head: debug status info
+details:
+Convenient on-screen status info.
+Press F2 to show/hide.
+
+Shows time, FPS and any values
+from $.env.statusInfo object
+
+notes:
+For example, you need to observe
+a hero coordinates.
+In /lab/hero.evo(dt) after coordinates
+update, just set:
+
+    env.statusInfo = {
+        heroPos: `${this.x}:${this.y}`
+    }
+
+Then press F2 after page update
+and you will get coordinates
+on the screen.

@@ -21,7 +21,7 @@ to see what goes where.
 -------------------------------------------------------------------
 /res
 
-head: container for resource autoload
+head: container for auto-loaded resources
 details:
 Resources are located and loaded automatically.
 After upload, they are patched according
@@ -51,6 +51,52 @@ system state.
 Timers, score counters, fine tuning of game parameters
 and various configs are stored here.
 
+
+
+-------------------------------------------------------------------
+/lib
+head: library functions
+details:
+Place any utilitary standalone functions here.
+A function belongs to the particular mod
+it was defined for and can be accessed through
+that mod only unless manually shared.
+
+
+-------------------------------------------------------------------
+/sys
+head: system functions
+details:
+All system functions are going here.
+The main difference between this and <a href="#./lib">lib</a>
+is that sys is common among all mods.
+
+
+-------------------------------------------------------------------
+/dna
+head: game entities constructors, factories and prototypes
+details:
+Any constructor or factory to spawn an entity goes here.
+
+* Constructor() - capitalized functions considered to be constructors, so these entities are going to be spawned by
+invoking new Constructor(st), where st is init object.
+
+* factory() - low-cased functions are considered to be factories,
+so these entities will be spawned by applying corresponding
+factory(st) function with an init object as an argument.
+The factory supposed to return a newly constructed object.
+
+* plan js object - a regular object is going to be cloned
+to spawn a new entity. If an object has a clone() method,
+it will be called like object.clone(st), where [st]
+is an init object. Otherwise, deep copy of the object
+will be made and augmented with [st] init object
+passed to the spawn function.
+
+
+
+
+
 -------------------------------------------------------------------
 /lab
 head: live entities
@@ -66,4 +112,132 @@ head: child modes
 -------------------------------------------------------------------
 /trap
 head: event traps 
+details:
+This frame contains named function nodes
+each representing a trap for event.
+The trap() itself is a function
+and can be invoked like trap([name], [event-data]).
+That would locate a trap [name] and apply it
+with [event-data] as an argument.
+
+
+-------------------------------------------------------------------
+/job
+head: service jobs
+
+details:
+A place for miscellaneous supporting services
+like server sync, metadata reporter etc...
+
+-------------------------------------------------------------------
+/pub
+head: public frame for sharing between mods
+
+details:
+Can be used for convenient data sharing between different mods.
+
+
+notes:
+There are other objects that can be used for global sharing.
+<a href="#./">The root mod $</a> is an obvious candidate,
+but there are others like <a href="#./sys">sys</a>
+and <a href="#./log">log</a>.
+
+However, it is not a good practice to pollute
+the root mod or sys frame which already
+have a lot of different responsibilities.
+
+So keeping shared values in a dedicated frame
+is a much cleaner approach to the sharing problem.
+
+
+
+-------------------------------------------------------------------
+/log
+head: logging functions
+
+details:
+A placeholder for the logging functions.
+
+Use log(msg) for the regular level logging
+and:
+    * log.out(msg)
+    * log.debug(msg)
+    * log.warn(msg)
+    * log.err(msg)
+    * log.raw(msg)
+    * log.dump(obj)
+for more specific levels.
+
+--------
+/log/out
+head: default logging, prefixed by ">", the same as log(msg)
+----------
+
+/log/debug
+head: debug level log, prefixed by "."
+
+----------
+/log/warn
+head: warn level log, prefixed by "?"
+
+----------
+/log/err
+head: error level log, prefixed by "!"
+
+----------
+/log/raw
+head: log with no prefix, just like console.log()
+
+---------
+/log/dump
+head: dumps object structure and values
+
+--------
+/log/tab
+head: dumps object as a table
+
+----------
+/log/sys
+head: used by collider.jam for system messages
+details:
+Use it to log low-level life-cycle related
+activities or jobs.
+Most of the sys level messages are printed
+during the bootstrap, loading and setup.
+
+
+-------------------------------------------------------------------
+/boot
+head: loading screen
+
+details:
+Loads in the 0 batch and starts rendering cycle while
+all other resources are loaded and evaluated.
+Boot uses loading progress information from
+<a href="#./res">/res</a> to show loading indicator.
+
+Standard draw() and evo(dt) functions must be present.
+
+The boot is over when the root mod goes into a [started] mode.
+
+-------------------------------------------------------------------
+/pak
+head: unit packaging info
+
+-------------------------------------------------------------------
+/setup
+head: setup function or frame
+details:
+Setup can be a single function or a frame with multiple functions
+if necessary.
+
+It runs when all resources and objects are loaded, evaluated
+and initialized just before the evolution begins.
+
+Initial game objects can be created here.
+
+-------------------------------------------------------------------
+/man
+head: manual metadata
 

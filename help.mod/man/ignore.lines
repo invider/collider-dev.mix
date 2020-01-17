@@ -1,0 +1,7 @@
+*_meta$
+/man.*
+*/mod/man/*
+/mod/explorer/*
+/mod/help/*
+/mod/console/*
+/mod/status/*

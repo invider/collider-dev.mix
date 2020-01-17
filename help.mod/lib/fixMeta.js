@@ -29,10 +29,10 @@ function processModPages(pageFrame) {
     const parsedPages = []
 
     Object.keys(pageFrame._dir).forEach( name => {
-        let page = pageFrame._dir[name]
+        const pageSrc = pageFrame._dir[name]
 
-        if (isString(page)) {
-            page = lib.ext.man(page)
+        if (isString(pageSrc)) {
+            const page = lib.ext.man(pageSrc, name)
             if (page) {
                 page.name = name
                 parsedPages.push(page)
@@ -58,7 +58,7 @@ function fixMod(mod) {
 
 function fixMeta() {
     if (!$.env.config.debug) return
-    log.debug('fixing help meta...')
+    log.sys('fixing help meta...')
 
     fixMod($)
 }

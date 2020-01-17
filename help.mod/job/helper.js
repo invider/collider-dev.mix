@@ -19,56 +19,25 @@ function init() {
     */
 }
 
-function doReport() {
-    const cache = {
-        id: 0,
-        node: [],
-        meta: [],
-        annotatedCount: 0,
-    }
+function match(path, ignore) {
+    let ignored = false
 
-    const meta = {}
-
-    meta.scene = inspect($, '$', '', cache)
-    //meta.pages = listPages($.man.pages, cache)
-    meta.pages = {}
-    listPages($, cache, meta.pages)
-    meta.nodesInspected = cache.id
-    meta.nodesAnnotated = cache.annotatedCount
-    
-    fetch('help/sync', {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify(meta),
-        
-    }).then((res) => {
-        if (res.status !== 200) {
-            log.error(`unable to sync help data - http response ${res.status}`)
-        } else {
-            res.text().then( txt => log('metadata upload: ' + txt))
-        }
-
-    }).catch((err) => {
-        log.error(`unable to sync help data - ${err}`)
+    ignore.forEach(r => {
+        if (path.match(r)) ignored = true
     })
-}
 
-function report() {
-    lib.fixMeta()
-
-    if ($.env.config.dynamic) {
-        doReport()
-    } else {
-        log.warn('ignoring metadata report - not in dynamic mode')
-    }
+    return ignored 
 }
 
 function inspect(node, name, path, cache, parentMeta, modMeta) {
     if (node._meta && node._meta.hint === 'ignore') return
 
     const meta = {}
+
+    if (path === '') meta.path = '/'
+    else meta.path = addPath(path, name)
+
+    if (match(meta.path, cache.ignore)) return
 
     const icache = cache.node.indexOf(node)
     if (icache >= 0) {
@@ -78,10 +47,9 @@ function inspect(node, name, path, cache, parentMeta, modMeta) {
     cache.meta.push(meta)
 
     meta.id = ++cache.id
+    cache.nodesCount ++ 
     meta.name = name || node.name
     meta.type = typeof node
-    if (path === '') meta.path = '/'
-    else meta.path = addPath(path, name)
     if (parentMeta) meta.parent = parentMeta.id
     if (modMeta) {
         meta.mod = modMeta.id
@@ -169,6 +137,7 @@ function listModPages(pages, cache, pageSet) {
         const page = augment({}, p)
         page.kind = 'page'
         page.id = ++cache.id
+        cache.pagesCount ++
         page.name = p.pageName
         page.path = p.name
         pageSet[p.name] = page
@@ -186,3 +155,79 @@ function listPages(mod, cache, pageSet) {
         })
     }
 }
+
+function doReport(ignore) {
+    const cache = {
+        id: 0,
+        node: [],
+        meta: [],
+        ignore: ignore,
+        nodesCount: 0,
+        pagesCount: 0,
+        annotatedCount: 0,
+    }
+
+    const meta = {}
+
+    meta.scene = inspect($, '$', '', cache)
+    //meta.pages = listPages($.man.pages, cache)
+    meta.pages = {}
+    listPages($, cache, meta.pages)
+    meta.pagesInspected = cache.pagesCount
+    meta.nodesAnnotated = cache.annotatedCount
+    meta.nodesInspected = cache.nodesCount
+    
+    fetch('help/sync', {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify(meta),
+        
+    }).then((res) => {
+        if (res.status !== 200) {
+            log.error(`unable to sync help data - http response ${res.status}`)
+        } else {
+            res.text().then( txt => log('metadata upload: ' + txt))
+        }
+
+    }).catch((err) => {
+        log.error(`unable to sync help data - ${err}`)
+    })
+}
+
+function collectIgnoreRules(mod, ignore) {
+    if (mod.man && mod.man.ignore) {
+        ignore.push(mod.man.ignore)
+    }
+
+    if (mod.mod.length > 0) {
+        mod.mod._ls.forEach(submod => {
+            collectIgnoreRules(submod, ignore)
+        })
+    }
+
+    return ignore
+}
+
+function normalizeIgnoreRules(ignore) {
+    let rules = ignore.flat()
+    rules = rules.filter(r => r.length > 0 && !r.startsWith('--'))
+                .map(r => r.replace('/', '\\/').replace('*', '.*'))
+    return rules
+}
+
+
+function report() {
+    lib.fixMeta()
+
+    let ignore = collectIgnoreRules($, [])
+    ignore = normalizeIgnoreRules(ignore)
+
+    if ($.env.config.dynamic) {
+        doReport(ignore)
+    } else {
+        log.warn('ignoring metadata report - not in dynamic mode')
+    }
+}
+

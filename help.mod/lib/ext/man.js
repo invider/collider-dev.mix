@@ -1,6 +1,6 @@
-function man(src) {
+function man(src, name) {
     const man = {
-        name: 'unknown',
+        name: name,
         tags: [],
     }
 
@@ -34,6 +34,9 @@ function man(src) {
             }
         })
 
-    if (!man.body) return
+    if (!man.body) {
+        log(`[man-page-parser] no body - ignoring page [${name}]`)
+        return
+    }
     return man
 }
