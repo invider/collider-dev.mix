@@ -12,7 +12,7 @@ function processMFX(mfx) {
         })
 
     } else {
-        log.err(`can't find target for: ${mfx.path}`)
+        log.warn('[help-fix]', `can't find target for: ${mfx.path}`)
     }
 }
 
@@ -58,7 +58,7 @@ function fixMod(mod) {
 
 function fixMeta() {
     if (!$.env.config.debug) return
-    log.sys('fixing help meta...')
+    log.sys('[help-fix]', 'fixing help meta...')
 
     fixMod($)
 }
