@@ -56,7 +56,7 @@ function metaSummary(meta) {
 
     let res = `<a href="#.${meta.path}">`
         + type + ' <b>' + meta.name + '</b>'
-        + (meta.data? ' - ' + meta.data.head : '')
+        + (meta.data && meta.data.head? ' - ' + meta.data.head : '')
         + '</a>'
     return res
 }
@@ -120,10 +120,15 @@ function metaToHtml(meta) {
     } else {
         head += meta.type + ' <b>' + meta.name + '</b>'
     }
-    head += (meta.data? ' - ' + meta.data.head : '')
+    head += (meta.data && meta.data.head? ' - ' + meta.data.head : '')
 
     let headClass = meta.data? 'metaHead' : 'missingHead'
     body += `<div class="${headClass}">${head}</div>`
+
+    if (meta.data && meta.data.usage) {
+        body += `<hr><div class="metaSection">Usage</div>`
+                + `<pre>${meta.data.usage}</pre>`
+    }
 
     if (meta.data && meta.data.details) {
         body += `<hr><div class="metaSection">Details</div>`
