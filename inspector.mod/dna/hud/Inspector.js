@@ -41,6 +41,7 @@ Inspector.prototype.init = function() {
 
     this.panel[1].disabled = false
     this.adjust()
+    this.sync()
 }
 
 Inspector.prototype.switchLayout = function(mode) {
