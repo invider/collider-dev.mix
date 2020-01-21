@@ -40,10 +40,10 @@ module.exports = function setup() {
 
     // bind log functions to out console
     _.env.logToConsole = true
-    sys.after(_$.log, 'debug', (msg) => print('# ' + msg))
-    sys.after(_$.log, 'out', (msg) => print(msg))
-    sys.after(_$.log, 'warn', (msg) => print('? ' + msg))
-    sys.after(_$.log, 'err', (msg) => print('! ' + msg))
+    sys.after(_$.log, 'debug', (msg, more) => print('# ' + msg + (more? more : '')))
+    sys.after(_$.log, 'out', (msg, more) => print(msg +(more? more: '' )))
+    sys.after(_$.log, 'warn', (msg, more) => print('? ' + msg + (more? more : '')))
+    sys.after(_$.log, 'err', (msg, more) => print('! ' + msg + (more? more : '')))
     sys.after(_$.log, 'dump', (obj) => { print(obj) })
 
     // define command processing
