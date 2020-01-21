@@ -30,6 +30,7 @@ function match(path, ignore) {
 }
 
 function inspect(node, name, path, cache, parentMeta, modMeta) {
+    if (!node) return
     if (node._meta && node._meta.hint === 'ignore') return
 
     const meta = {}

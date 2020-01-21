@@ -12,7 +12,7 @@ function processMFX(mfx) {
         })
 
     } else {
-        log.warn('[help-fix]', `can't find target for: ${mfx.path}`)
+        log.sys('[help-fix]', `unable to patch metadata for: ${mfx.path}`)
     }
 }
 
