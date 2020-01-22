@@ -62,7 +62,7 @@ function inspect(node, name, path, cache, parentMeta, modMeta) {
     if (node._meta) cache.annotatedCount ++
 
     if (isFrame(node)) {
-        meta.kind = 'Frame'
+        meta.kind = node._dna? node._dna : 'Frame'
         if (node.constructor) meta.proto = node.constructor.name
         meta.data = node._meta
 

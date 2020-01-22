@@ -115,7 +115,9 @@ function metaToHtml(meta) {
     }
 
     let head = ''
-    if (meta.type === 'object' && meta.proto) {
+    if (meta.type === 'object' && meta.kind) {
+        head += meta.kind + ' <b>' + meta.name + '</b>'
+    } else if (meta.type === 'object' && meta.proto) {
         head += meta.proto + ' <b>' + meta.name + '</b>'
     } else {
         head += meta.type + ' <b>' + meta.name + '</b>'
