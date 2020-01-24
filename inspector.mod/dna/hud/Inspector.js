@@ -28,13 +28,13 @@ Inspector.prototype.init = function() {
         inspector.sync()
     }
 
-    this.panel.push(this.spawn('hud/gadget/Explorer', def))
-    this.panel.push(this.spawn('hud/gadget/Explorer', def))
-    this.panel.push(this.spawn('hud/gadget/Explorer', def))
-    this.panel.push(this.spawn('hud/gadget/Explorer', def))
+    this.panel.push(this.spawn('hud/gadget/NodeInspector', def))
+    this.panel.push(this.spawn('hud/gadget/NodeInspector', def))
+    this.panel.push(this.spawn('hud/gadget/NodeInspector', def))
+    this.panel.push(this.spawn('hud/gadget/NodeInspector', def))
 
     for (const p of this.panel) {
-        p.pane.onMove = function() {
+        p.onMove = function() {
             inspector.sync()
         }
     }
@@ -50,11 +50,14 @@ Inspector.prototype.switchLayout = function(mode) {
 }
 
 Inspector.prototype.sync = function() {
-    const dir = this.panel[1].dir
+    const dir = this.panel[1].getDir()
     const node = this.panel[1].selectedNode()
 
     if (dir && dir.__) this.panel[0].open(dir.__)
+    else this.panel[0].open()
+
     if (node) this.panel[2].open(node)
+    else this.panel[2].open()
 }
 
 Inspector.prototype.adjust = function() {
