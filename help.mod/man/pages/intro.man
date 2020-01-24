@@ -16,7 +16,6 @@ making it a good candidate for language introduction.
 
 To start, check out <a href="#.getting-started">Getting Started</a>.
 
-
 Collider.JAM keeps everything in the right place,
 so it is crucial to know the structure.
 Investigate <a href="#./">the root node</a>.

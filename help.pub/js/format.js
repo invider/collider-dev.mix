@@ -1,5 +1,6 @@
-import { cache } from './cache.js'
 
+import { cache } from './cache.js'
+import { markdownToHtml } from './markdown.js'
 import { parentPath } from './util.js'
 
 function metaTag(meta) {
@@ -44,7 +45,9 @@ export function pageToHtml(page) {
     const head = `${page.name}`
     body += `<div class="metaTitle">${head}</div>` 
     body += '<hr>'
-    body += `<pre>${page.body}</pre>`
+
+    const content = markdownToHtml(page.body)
+    body += `${content}`
     body += '</div>'
 
     res.body = body
@@ -90,8 +93,8 @@ export function metaToHtml(meta) {
     }
 
     if (meta.data && meta.data.details) {
-        body += `<hr><div class="metaSection">Details</div>`
-                + `<pre>${meta.data.details}</pre>`
+        const details = markdownToHtml(meta.data.details)
+        body += `<hr><div class="metaSection">Details</div>${details}`
     }
 
     if (meta.dir) {
@@ -105,8 +108,8 @@ export function metaToHtml(meta) {
     }
 
     if (meta.data && meta.data.notes) {
-        body += `<hr><div class="metaSection">Notes</div>`
-                + `<pre>${meta.data.notes}</pre>`
+        const notes = markdownToHtml(meta.data.notes)
+        body += `<hr><div class="metaSection">Notes</div>${notes}`
     }
 
     body += '</div>'

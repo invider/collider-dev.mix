@@ -92,10 +92,9 @@ function inspect(node, name, path, cache, parentMeta, modMeta) {
         meta.kind = 'function'
         meta.data = node._meta
 
-        if (node.prototype && node.prototype.constructor === node
-                && (Object.keys(node.prototype).length > 1
+        if (node.prototype && (Object.keys(node.prototype).length > 1
                     || node.name.match(/^[A-Z].*/))) {
-            meta.kind = 'constructor'
+            meta.kind = 'cons'
 
             meta.dir = {}
             Object.keys(node.prototype).forEach(name => {
