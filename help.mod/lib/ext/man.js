@@ -1,7 +1,6 @@
 function man(src, name) {
     const man = {
         name: name,
-        tags: [],
     }
 
     function setProperty(name, val) {

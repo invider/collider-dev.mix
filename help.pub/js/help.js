@@ -2,6 +2,7 @@
 
 import { toHtml, preformat } from './format.js'
 import { cache } from './cache.js'
+import { find } from './filter.js'
 import { clear } from './util.js'
 
 const HELP_DATA_URL = '../help/data'
@@ -77,63 +78,12 @@ function open(locator) {
     return meta
 }
 
-function filter(data, string, tags) {
-    const res = []
-
-    function filterPages(dir) {
-        // now processing flat without subfolders
-        Object.values(dir).forEach(page => {
-            if (page.path.toLowerCase().includes(string)) {
-                // dirty rule - intro page should always be first
-                if (page.path === 'intro') res.unshift(page)
-                else res.push(page)
-            }
-        })
-    }
-
-    function subfilter(meta) {
-        if (!meta) return
-
-        if (meta.kind === 'Frame' || meta.dir) {
-            if (meta.name
-                    && meta.name.toLowerCase().includes(string)) {
-                res.push(meta)
-            }
-            Object.values(meta.dir).forEach(submeta => {
-                subfilter(submeta)
-            })
-
-        } else if (meta.type === 'function') {
-            if (meta.name
-                    && meta.name.toLowerCase().includes(string)) {
-                res.push(meta)
-            }
-
-        } else {
-            //console.log('ignoring ' + meta.name + ' - ' + meta.type
-            //+ ' - ' + meta.link)
-        }
-    }
-
-    filterPages(data.pages)
-    subfilter(data.scene)
-
-    return res
-}
-
-function search(data, string) {
+function search(string) {
     if (state.searchString === string) return
 
     clear()
 
-    let res
-    if (cache.results[string]) {
-        res = cache.results[string]
-        //console.log('found in cache')
-
-    } else {
-        res = filter(data, string.trim().toLowerCase())
-    }
+    const res = find(string)
     printResults(res)
     state.result = res
     state.searchString = string
@@ -149,7 +99,7 @@ function update(data) {
     // TODO make meta processing more generic with recursive tree
     cache.updateData(data)
     preformat()
-    //search(data, '')
+    //search('')
     syncHash()
 }
 
@@ -185,7 +135,7 @@ function setup() {
             field.blur()
             //field.value = ''
         } else {
-            search(cache.data, field.value)
+            search(field.value)
         }
     }
 
@@ -208,7 +158,7 @@ function syncHash() {
         const searchString = decodeURI(location.hash.substring(1))
 
         if (searchString !== cache.searchString) {
-            search(cache.data, searchString)
+            search(searchString)
         }
 
     } else {
@@ -247,4 +197,3 @@ window.onkeydown = function(e) {
         }
     }
 }
-
