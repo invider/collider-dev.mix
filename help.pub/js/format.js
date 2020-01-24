@@ -10,7 +10,7 @@ function metaTag(meta) {
 
     res += `<div class="tagPath">${path}</div>`
         + `<div class="tagTitle">${meta.name}</div>`
-        + `<div>`
+        + `</div>`
 
     return res
 }
@@ -42,12 +42,10 @@ export function pageToHtml(page) {
     let body = `<div id=".${page.path}" class="meta">`
     
     const head = `${page.name}`
-    body += `<div class="metaHead">${head}</div>` 
+    body += `<div class="metaTitle">${head}</div>` 
     body += '<hr>'
     body += `<pre>${page.body}</pre>`
     body += '</div>'
-    cache.links[page.id] = page
-    cache.links[page.path] = page
 
     res.body = body
     return res
@@ -59,8 +57,6 @@ export function metaToHtml(meta) {
     res.tag = metaTag(meta)
 
     let body = `<div id=".${meta.path}" class="meta">`
-    cache.links[meta.id] = meta
-    cache.links[meta.path] = meta
 
     const upPath = parentPath(meta.path)
     if (upPath) {
@@ -71,18 +67,22 @@ export function metaToHtml(meta) {
         //body += `<div class="path">${meta.path}</div>`
     }
 
-    let head = ''
+    let title = ''
     if (meta.type === 'object' && meta.kind) {
-        head += meta.kind + ' <b>' + meta.name + '</b>'
+        title += meta.kind + ' <b>' + meta.name + '</b>'
     } else if (meta.type === 'object' && meta.proto) {
-        head += meta.proto + ' <b>' + meta.name + '</b>'
+        title += meta.proto + ' <b>' + meta.name + '</b>'
+    } else if (meta.kind) {
+        title += meta.kind + ' <b>' + meta.name + '</b>'
     } else {
-        head += meta.type + ' <b>' + meta.name + '</b>'
+        title += meta.type + ' <b>' + meta.name + '</b>'
     }
-    head += (meta.data && meta.data.head? ' - ' + meta.data.head : '')
 
-    let headClass = meta.data? 'metaHead' : 'missingHead'
-    body += `<div class="${headClass}">${head}</div>`
+    let headClass = meta.data? 'metaTitle' : 'missingTitle'
+    body += `<div class="${headClass}">${title}</div>`
+
+    body += (meta.data && meta.data.head?
+        `<div class="metaSubtitle">${meta.data.head}</div>` : '')
 
     if (meta.data && meta.data.usage) {
         body += `<hr><div class="metaSection">Usage</div>`

@@ -25,6 +25,10 @@ function match(meta, criteria, res) {
         res.misc.push(meta)
     } else if (meta.notes && criteria.match(meta.notes)) {
         res.misc.push(meta)
+    } else if (meta.type && criteria.match(meta.type)) {
+        res.misc.push(meta)
+    } else if (meta.kind && criteria.match(meta.kind)) {
+        res.misc.push(meta)
     }
 }
 
@@ -119,6 +123,9 @@ export function find(searchString) {
         //console.log('found in cache')
     } else {
         res = filter(cache.data, extractCriteria(searchString))
+
+        res.search = searchString
+        cache.results[searchString] = res
     }
     return res
 }

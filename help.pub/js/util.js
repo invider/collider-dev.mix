@@ -1,9 +1,13 @@
 
+export function dump(index, content) {
+    const panel = document.getElementById('tags')
+    const body = document.getElementById('help')
+    panel.innerHTML = index
+    body.innerHTML = content
+}
+
 export function clear() {
-    const help = document.getElementById('help')
-    const tags = document.getElementById('tags')
-    help.innerHTML = ''
-    tags.innerHTML = ''
+    dump('', '')
 }
 
 export function parentPath(path) {

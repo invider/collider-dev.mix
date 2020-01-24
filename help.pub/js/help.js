@@ -3,11 +3,14 @@
 import { toHtml, preformat } from './format.js'
 import { cache } from './cache.js'
 import { find } from './filter.js'
-import { clear } from './util.js'
+import { clear, dump } from './util.js'
 
 const HELP_DATA_URL = '../help/data'
 
 const FIELD = 'searchField'
+
+const SEARCH_DELAY = 300
+const PRINT_DELAY = 20
 
 const DATA_MISSING = 'Missing help data!<br>'
                 + 'Make sure jam is running '
@@ -21,7 +24,7 @@ var state = {}
 
 function print(content) {
     const help = document.getElementById('help')
-    help.innerHTML += '<p>' + content + '</p>'
+    help.innerHTML += content
 }
 
 function printTag(content) {
@@ -30,6 +33,7 @@ function printTag(content) {
 }
 
 function printResults(res) {
+    const field = document.getElementById(FIELD)
 
     if (res.html) {
         const help = document.getElementById('help')
@@ -41,25 +45,36 @@ function printResults(res) {
     } else {
         cache.links = {}
 
-        res.forEach(meta => {
-            printTag(meta.html.tag)
-            print(meta.html.body)
-            cache.links[meta.path] = true
-            /*
-            const out = toHtml(meta)
-            printTag(out.tag)
-            print(out.body)
-            */
-        })
+        function cacheRendering() {
+            const tags = document.getElementById('tags')
+            const help = document.getElementById('help')
+            res.tags = tags.innerHTML
+            res.html = help.innerHTML
+            res.links = cache.links
+        }
 
-        // buffer the rendering
-        const tags = document.getElementById('tags')
-        const help = document.getElementById('help')
-        res.tags = tags.innerHTML
-        res.html = help.innerHTML
-        res.links = cache.links
+        function printMore(i, index, body) {
+            if (field.value !== res.search) return // skip
+
+            if (i >= res.length) {
+                cacheRendering()
+            } else {
+                const meta = res[i]
+                //printTag(meta.html.tag)
+                //print(meta.html.body)
+                index += meta.html.tag
+                body += meta.html.body
+                dump(index, body)
+                cache.links[meta.path] = meta
+
+                setTimeout(() => printMore(i+1, index, body), PRINT_DELAY)
+            }
+        }
+        printMore(0, '', '')
+
+        //res.forEach(meta => { })
+
     }
-
     //printTag(`<b>Total Results: ${res.length}</b>`)
 }
 
@@ -68,12 +83,16 @@ function open(locator) {
     if (!meta) return
 
     const res = [ meta ]
+    res.search = locator
+    const field = document.getElementById(FIELD).value = locator
+
     clear()
     printResults(res)
 
     state.result = res
     state.searchString = '#.' + locator
     cache.results[state.searchString] = res
+
 
     return meta
 }
@@ -88,7 +107,14 @@ function search(string) {
     state.result = res
     state.searchString = string
 
-    cache.results[string] = res
+}
+
+function scheduleSearch(string) {
+
+    setTimeout(() => {
+        const field = document.getElementById(FIELD)
+        if (field.value === string) search(string)
+    }, SEARCH_DELAY)
 }
 
 function setSearch(string) {
@@ -105,7 +131,7 @@ function update(data) {
 
 function showError(msg) {
     clear()
-    print(`<h3>${msg}</h3>`)
+    print(`<div class='message'>${msg}</div>`)
 }
 
 function loadMeta() {
@@ -135,7 +161,8 @@ function setup() {
             field.blur()
             //field.value = ''
         } else {
-            search(field.value)
+            //search(field.value)
+            scheduleSearch(field.value)
         }
     }
 
