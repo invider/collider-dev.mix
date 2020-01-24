@@ -2,8 +2,8 @@ name: Intro
 
 tags: jam, intro, start, begin, beginner, preface, home
 
-
-<a href="#./">root</a> - <a href="#.getting-started">start</a> - <a href="#.jam-card">jamcard</a> - <a href="#.tips">tips</a> - <a href="#.powerups">powerups</a> - <a href="#.games">games</a>
+<a href="#.getting-started">start</a> - <a href="#.jam-card">jamcard</a> - <a href="#.tips">tips</a> - <a href="#.powerups">powerups</a> - <a href="#.games">games</a>
+<hr><a href="#./">root/$</a> - <a href="#./res">res</a> - <a href="#./lib">lib</a> - <a href="#./dna">dna</a> - <a href="#./env">env</a> - <a href="#./lab">lab</a> - <a href="#./trap">trap</a> - <a href="#./setup">setup</a>
 <hr>
 
 <b>Collider.JAM</b> is a JavaScript game framework

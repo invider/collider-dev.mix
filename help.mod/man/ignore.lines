@@ -2,6 +2,7 @@
 /man.*
 */mod/man/*
 /mod/explorer/*
+/mod/inspector/*
 /mod/help/*
 /mod/console/*
 /mod/status/*

@@ -86,7 +86,7 @@ so these entities will be spawned by applying corresponding
 factory(st) function with an init object as an argument.
 The factory supposed to return a newly constructed object.
 
-* plan js object - a regular object is going to be cloned
+* plain js object - a regular object is going to be cloned
 to spawn a new entity. If an object has a clone() method,
 it will be called like object.clone(st), where [st]
 is an init object. Otherwise, deep copy of the object

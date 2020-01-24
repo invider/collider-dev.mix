@@ -78,6 +78,7 @@ function inspect(node, name, path, cache, parentMeta, modMeta) {
                 const submeta = inspect(next, k, meta.path,
                     cache, meta, pmod)
                 meta.dir[k] = submeta
+
             } else {
                 const id = cache.meta[icache].id
                 meta.dir[k] = {
@@ -90,6 +91,22 @@ function inspect(node, name, path, cache, parentMeta, modMeta) {
     } else if (isFun(node)) {
         meta.kind = 'function'
         meta.data = node._meta
+
+        if (node.prototype && node.prototype.constructor === node
+                && (Object.keys(node.prototype).length > 1
+                    || node.name.match(/^[A-Z].*/))) {
+            meta.kind = 'constructor'
+
+            meta.dir = {}
+            Object.keys(node.prototype).forEach(name => {
+                const fn = node.prototype[name]
+                if (fn.name === constructor) return
+                const submeta = inspect(fn, name, meta.path,
+                    cache, meta, modMeta)
+                meta.dir[name] = submeta
+            })
+        }
+
         // TODO do we really have a use case for source here?
         //meta.src = node.toString()
 
@@ -99,7 +116,7 @@ function inspect(node, name, path, cache, parentMeta, modMeta) {
         meta.data = node._meta
 
     } else if (isObj(node)) {
-        meta.kind = 'Node Object'
+        meta.kind = 'Node'
         if (node.constructor) meta.proto = node.constructor.name
         meta.data = node._meta
 
@@ -140,6 +157,7 @@ function listModPages(pages, cache, pageSet) {
         page.id = ++cache.id
         cache.pagesCount ++
         page.name = p.pageName
+        delete page.pageName
         page.path = p.name
         pageSet[p.name] = page
     })
