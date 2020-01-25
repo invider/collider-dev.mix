@@ -29,6 +29,31 @@ function match(path, ignore) {
     return ignored 
 }
 
+function inspectPrototype(node, name, path, cache,
+                parentMeta, modMeta, meta, usageRefinements) {
+
+    Object.keys(node).forEach(name => {
+        const fn = node[name]
+        if (fn.name === 'constructor') return
+        const submeta = inspect(fn, name, meta.path,
+            cache, meta, modMeta)
+
+        if (submeta) {
+            submeta.data = supplement(submeta.data,
+                usageRefinements[name])
+        }
+
+        if (!meta.dir[name]) {
+            meta.dir[name] = submeta
+        }
+    })
+
+    if (node.__proto__) {
+        inspectPrototype(node.__proto__, name, path, cache,
+            parentMeta, modMeta, meta, usageRefinements)
+    }
+}
+
 function inspect(node, name, path, cache, parentMeta, modMeta) {
     if (!node) return
     if (node._meta && node._meta.hint === 'ignore') return
@@ -92,18 +117,19 @@ function inspect(node, name, path, cache, parentMeta, modMeta) {
         meta.kind = 'function'
         meta.data = node._meta
 
+        let usageRefinements = {}
+        if (meta.data && meta.data.dir) {
+            usageRefinements = meta.data.dir
+            delete meta.data.dir
+        }
+
         if (node.prototype && (Object.keys(node.prototype).length > 1
                     || node.name.match(/^[A-Z].*/))) {
             meta.kind = 'cons'
+            meta.dir = meta.dir || {}
 
-            meta.dir = {}
-            Object.keys(node.prototype).forEach(name => {
-                const fn = node.prototype[name]
-                if (fn.name === constructor) return
-                const submeta = inspect(fn, name, meta.path,
-                    cache, meta, modMeta)
-                meta.dir[name] = submeta
-            })
+            inspectPrototype(node.prototype, name, path, cache,
+                    parentMeta, modMeta, meta, usageRefinements)
         }
 
         // TODO do we really have a use case for source here?
@@ -122,6 +148,8 @@ function inspect(node, name, path, cache, parentMeta, modMeta) {
         meta.dir = {}
 
         Object.keys(node).forEach(k => {
+            if (k.startsWith('_')) return
+
             const next = node[k]
             if (cache.node.indexOf(next) < 0) {
                 const submeta = inspect(next, k, meta.path,
@@ -204,13 +232,13 @@ function doReport(ignore) {
         
     }).then((res) => {
         if (res.status !== 200) {
-            log.error(`unable to sync help data - http response ${res.status}`)
+            log.err(`unable to sync help data - http response ${res.status}`)
         } else {
             res.text().then( txt => log('metadata upload: ' + txt))
         }
 
     }).catch((err) => {
-        log.error(`unable to sync help data - ${err}`)
+        log.err(`unable to sync help data - ${err}`)
     })
 }
 

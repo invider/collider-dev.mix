@@ -2,7 +2,7 @@
 -- in-scope functions 
 
 -------------------------------------------------------------------
-/alt
+/null/alt
 head: defines in-scope functions and objects
 .
 details:
@@ -23,7 +23,7 @@ But this is theoretical for now - I've never ever really checked :)
 
 
 -------------------------------------------------------------------
-/alt/line
+/null/alt/line
 
 head: draw a line 
 usage: line(x1, y1, x2, y2)
