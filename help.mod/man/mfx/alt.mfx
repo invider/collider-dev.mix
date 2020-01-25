@@ -1,0 +1,32 @@
+
+-- in-scope functions 
+
+-------------------------------------------------------------------
+/alt
+head: defines in-scope functions and objects
+.
+details:
+This frame contains shortcuts to widely used functions, structures
+and values.
+To access those, you don't have to specify any container.
+Just name the entity directly, e.g.:
+    PI
+    stroke(.2, .4, .5)
+    line(10, 10, 100, 100)
+    fill('#808080')
+    rect(120, 120, 60, 60)
+    kill(this)
+.
+notes:
+You can define your own in-scope values.
+But this is theoretical for now - I've never ever really checked :)
+
+
+-------------------------------------------------------------------
+/alt/line
+
+head: draw a line 
+usage: line(x1, y1, x2, y2)
+details:
+You have to provide scope first
+
