@@ -1,6 +1,6 @@
 
 import { cache } from './cache.js'
-import { markdownToHtml } from './markdown.js'
+import { md2html } from './markdown.js'
 import { parentPath } from './util.js'
 
 function metaTag(meta) {
@@ -25,10 +25,12 @@ export function metaSummary(meta) {
 
     const type = meta.kind? meta.kind : meta.type
 
+    const head = (meta.data && meta.data.head)?
+                ' - ' + md2html(meta.data.head, true) : ''
+
     let res = `<a href="#.${meta.path}">`
-        + type + ' <b>' + meta.name + '</b>'
-        + (meta.data && meta.data.head? ' - ' + meta.data.head : '')
-        + '</a>'
+        + type + ' <b>' + meta.name + '</b></a>'
+        + head
     return res
 }
 
@@ -38,6 +40,7 @@ export function pageToHtml(page) {
     /*
     res.tag = `<div class="tag"><a href="#.${page.path}">${page.title}</a></div>`
     */
+
     res.tag = metaTag(page)
 
     let body = `<div id=".${page.path}" class="meta">`
@@ -46,7 +49,7 @@ export function pageToHtml(page) {
     body += `<div class="metaTitle">${head}</div>` 
     body += '<hr>'
 
-    const content = markdownToHtml(page.body)
+    const content = md2html(page.body)
     body += `${content}`
     body += '</div>'
 
@@ -84,8 +87,9 @@ export function metaToHtml(meta) {
     let headClass = meta.data? 'metaTitle' : 'missingTitle'
     body += `<div class="${headClass}">${title}</div>`
 
-    body += (meta.data && meta.data.head?
-        `<div class="metaSubtitle">${meta.data.head}</div>` : '')
+    const subtitle = (meta.data && meta.data.head)?
+                            md2html(meta.data.head) : ''
+    body += `<div class="metaSubtitle">${subtitle}</div>`
 
     if (meta.data && meta.data.usage) {
         body += `<hr><div class="metaSection">Usage</div>`
@@ -93,7 +97,7 @@ export function metaToHtml(meta) {
     }
 
     if (meta.data && meta.data.details) {
-        const details = markdownToHtml(meta.data.details)
+        const details = md2html(meta.data.details)
         body += `<hr><div class="metaSection">Details</div>${details}`
     }
 
@@ -108,7 +112,7 @@ export function metaToHtml(meta) {
     }
 
     if (meta.data && meta.data.notes) {
-        const notes = markdownToHtml(meta.data.notes)
+        const notes = md2html(meta.data.notes)
         body += `<hr><div class="metaSection">Notes</div>${notes}`
     }
 

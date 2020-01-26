@@ -1,7 +1,7 @@
 
 const TAB = 4
 
-function parse(md) {
+function parse(md, nowrap) {
     let pos = 0
     let line = 0
     let linePos = 0
@@ -40,23 +40,10 @@ function parse(md) {
 
     function isSpecial(c) {
         switch(c) {
-            case "'": case '"': case '`':
-            case '/':
-
-            case ':': case ';':
-            case '.': case ',':
-            case '{': case '}':
-            case '[': case ']':
-            case '(': case ')':
-            case '=': case '!':
-            case '<': case '>':
-            case '-': case '+':
-            case '*': case '/':
-            case '|': case '&':
-            case '^': case '%':
+            case '*': case '_':
                 return true
 
-        default:
+            default:
                 return false
         }
     }
@@ -111,6 +98,8 @@ function parse(md) {
     const NL = 1
     const SPAN = 2
     const SHIFT = 3
+    const STAR = 4
+    const UNDERSCORE = 5
 
     function nextSpan() {
 
@@ -131,13 +120,26 @@ function parse(md) {
             }
         }
 
+        switch (c) {
+            case '*':
+            return {
+                t: STAR,
+                v: ''
+            }
+            case '_': return {
+                t: UNDERSCORE,
+                v: ''
+            }
+        }
+
         let span = ''
-        while(c && !isNewLine(c)) {
+        while(c && !isNewLine(c) && !isSpecial(c)) {
             span += c
             c = getc()
         }
         retc()
 
+        console.log('sp: [' + span + ']')
         return {
             t: SPAN,
             v: span
@@ -153,7 +155,7 @@ function parse(md) {
         let lineSpan = 0
 
         if (!span) return out
-        else out += '<p>'
+        else if (!nowrap) out += '<p>'
 
         while(span) {
             if (span.t === NL) { 
@@ -161,6 +163,26 @@ function parse(md) {
                 if (lastSpan.t === NL) out += '</p><p>'
             } else {
                 lineSpan ++
+            }
+
+            if (span.t === STAR) {
+                if (state.bold) {
+                    out += '</b>'
+                    state.bold = false
+                } else {
+                    out += '<b>'
+                    state.bold = true
+                }
+            }
+
+            if (span.t === UNDERSCORE) {
+                if (state.italic) {
+                    out += '</i>'
+                    state.italic = false
+                } else {
+                    out += '<i>'
+                    state.italic = true
+                }
             }
 
             if (span.t === SHIFT) {
@@ -182,15 +204,15 @@ function parse(md) {
             span = nextSpan()
         }
 
-        out += '</p>'
+        if (!nowrap) out += '</p>'
         return out
     }
     const out = process()
     return out
 }
 
-export function markdownToHtml(md) {
+export function md2html(md, nowrap) {
     //if (md.includes('JavaScript edges')) return parse(md)
-    return parse(md)
+    return parse(md, nowrap)
 }
 
