@@ -2,7 +2,7 @@
 -- in-scope functions 
 
 -------------------------------------------------------------------
-/null/alt
+/alt
 head: defines in-scope functions and objects
 .
 details:
@@ -23,10 +23,192 @@ But this is theoretical for now - I've never ever really checked :)
 
 
 -------------------------------------------------------------------
-/null/alt/line
+/alt/line
 
 head: draw a line 
 usage: line(x1, y1, x2, y2)
 details:
-You have to provide scope first
+Usually preceided by stroke(color) and lineWidth(number) to set the style.
 
+
+-------------------------------------------------------------------
+-- core math --
+-------------------------------------------------------------------
+
+-------------------------------------------------------------------
+/alt/abs
+
+head: returns the absolute value of *n*
+tags: math
+usage: abs(n)
+notes: Just a reference to Math.abs().
+
+-------------------------------------------------------------------
+/alt/pow
+
+head: returns *n* raised to the power of *p*
+tags: math
+usage: pow(n, p)
+notes: Just a reference to Math.pow().
+
+-------------------------------------------------------------------
+/alt/sqrt
+
+head: returns the positive square root of *n*
+tags: math
+usage: sqrt(n)
+notes: Just a reference to Math.sqrt().
+
+
+-------------------------------------------------------------------
+/alt/min
+
+head: returns the smallest of numbers
+tags: math
+usage: sqrt(n1, n2...)
+
+details:
+Running without parameters returns Infinity
+    min() === Infinity
+notes: Just a reference to Math.min().
+
+-------------------------------------------------------------------
+/alt/max
+
+head: returns the largest of numbers
+tags: math
+usage: sqrt(n1, n2...)
+
+details:
+Running without parameters returns -Infinity
+    max() === -Infinity
+notes: Just a reference to Math.max().
+
+-------------------------------------------------------------------
+/alt/ceil
+
+head: returns the smallest integer greater than or equal to *n*
+tags: math
+usage: ceil(n)
+notes: Just a reference to Math.ceil().
+
+-------------------------------------------------------------------
+/alt/floor
+
+head: returns the largest integer less than or equal to *n*
+tags: math
+usage: floor(n)
+notes: Just a reference to Math.floor().
+
+-------------------------------------------------------------------
+/alt/round
+
+head: returns *n* rounded to the nearest integer
+tags: math
+usage: round(n)
+notes: Just a reference to Math.round().
+
+-------------------------------------------------------------------
+/alt/sin
+
+head: returns the sine of the angle *r*
+tags: math
+usage: sin(r)
+details: The angle *r* is in radians.
+notes: Just a reference to Math.sin().
+
+-------------------------------------------------------------------
+/alt/cos
+
+head: returns the cosine of the angle *r*
+tags: math
+usage: cos(r)
+details: The angle *r* is in radians.
+notes: Just a reference to Math.cos().
+
+-------------------------------------------------------------------
+/alt/tan
+
+head: returns the tangent of the angle *r*
+tags: math
+usage: tan(r)
+details: The angle *r* is in radians.
+notes: Just a reference to Math.tan().
+
+-------------------------------------------------------------------
+/alt/asin
+
+head: returns the arcsine of the number *n*
+tags: math
+usage: asin(n)
+details: Arcsine is the angle in radians, whose sine is *n*.
+notes: Just a reference to Math.asin().
+
+-------------------------------------------------------------------
+/alt/acos
+
+head: returns the arccosine of the number *n*
+tags: math
+usage: acos(n)
+details: Arccosine is the angle in radians, whose cosine is *n*.
+notes: Just a reference to Math.acos().
+
+
+-------------------------------------------------------------------
+/alt/atan
+
+head: returns the arctangent of the number *n*
+tags: math
+usage: atan(n)
+details: Arctangent is the angle in radians, whose tangent is *n*.
+notes: Just a reference to Math.atan().
+
+
+-------------------------------------------------------------------
+/alt/atan2
+
+head: returns the arctangent of the number *n*
+tags: math
+usage: atan2(y, x)
+details: Arctangent of two is the angle in radians, whose tangent is *y*/*x*.
+notes:
+Note, that *y* goes first and *x* after. It can be confusing sometimes.
+
+This function is just a reference to Math.atan2().
+
+
+-------------------------------------------------------------------
+/alt/rnd
+
+head: returns a pseudo-random number between [0..1] or between provided values
+tags: math
+usage: rnd(n1, n2)
+details:
+When both *n1* and *n2* are provided, it returns a value between *n1*..*n2*.
+
+When there is only *n1* present, it returns a value between 0..*n1*.
+
+When no parameters are provided, it returns a value between 0..1.
+
+-------------------------------------------------------------------
+/alt/RND
+
+head: returns a pseudo-random integer between 0..1 or between provided integer values
+tags: math
+usage: RND(i1, i2)
+details:
+When both values are provided, returns a value between *i1*..*i2*.
+
+When only one provided, the returned value is in the range of 0..*i1*
+
+When no parameters are provided, it returns 0.
+
+function limit
+function within
+function warp
+function lerp
+function map
+function dist
+function length
+function angle
+function bearing
