@@ -4,12 +4,17 @@ function processMFX(mfx) {
     const target = mfx.path === '/'? $ : $.selectOne(mfx.path)
 
     if (target) {
-        if (!target._meta) target._meta = {}
+        if (isObj(target) || isFun(target)) {
+            if (!target._meta) target._meta = {}
 
-        Object.keys(mfx).forEach(k => {
-            if (k === 'path') return
-            target._meta[k] = mfx[k]
-        })
+            Object.keys(mfx).forEach(k => {
+                if (k === 'path') return
+                target._meta[k] = mfx[k]
+            })
+
+        } else {
+            log.sys('[help-fix]', `TODO unable to patch metadata for primitive values, go for the parent: ${mfx.path}`)
+        }
 
     } else {
         log.sys('[help-fix]', `unable to patch metadata for: ${mfx.path}`)
@@ -21,7 +26,7 @@ function processModMFX(mfxFrame) {
         if (isString(fixSet)) {
             fixSet = lib.ext.mfx(fixSet)
         }
-        fixSet.ls.forEach( mfx => processMFX(mfx) )
+        if (fixSet) fixSet.ls.forEach( mfx => processMFX(mfx) )
     })
 }
 

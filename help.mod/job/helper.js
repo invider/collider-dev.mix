@@ -34,6 +34,7 @@ function inspectPrototype(node, name, path, cache,
 
     Object.keys(node).forEach(name => {
         const fn = node[name]
+
         if (fn.name === 'constructor') return
         const submeta = inspect(fn, name, meta.path,
             cache, meta, modMeta)
@@ -69,8 +70,11 @@ function inspect(node, name, path, cache, parentMeta, modMeta) {
     if (icache >= 0) {
         return cache.meta[icache]
     }
-    cache.node.push(node)
-    cache.meta.push(meta)
+
+    if (!isNumber(node)) {
+        cache.node.push(node)
+        cache.meta.push(meta)
+    }
 
     meta.id = ++cache.id
     cache.nodesCount ++ 
@@ -222,7 +226,7 @@ function doReport(ignore) {
     meta.pagesInspected = cache.pagesCount
     meta.nodesAnnotated = cache.annotatedCount
     meta.nodesInspected = cache.nodesCount
-    
+
     fetch('help/sync', {
         headers: {
             'Content-Type': 'application/json',

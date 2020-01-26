@@ -1,0 +1,281 @@
+-------------------------------------------------------------------
+-- context draw --
+-------------------------------------------------------------------
+
+-------------------------------------------------------------------
+/alt/width
+tags: draw, context, 2d
+head: returns context width
+-------------------------------------------------------------------
+/alt/height
+tags: draw, context, 2d
+head: returns context height
+-------------------------------------------------------------------
+/alt/rx
+tags: draw, context, 2d
+head: relative x coordinate, where *n* sets horizontal screen
+position between [0..1]
+usage: (n)
+details:
+rx(.5) - returns half of the canvas width.
+-------------------------------------------------------------------
+/alt/ry
+tags: draw, context, 2d
+head: relative y coordinate, where *n* sets vertical screen
+position between [0..1]
+usage: (n)
+ry(.5) - returns half of the canvas height.
+-------------------------------------------------------------------
+/alt/save
+tags: draw, context, 2d
+head: save current drawing context state
+-------------------------------------------------------------------
+/alt/restore
+tags: draw, context, 2d
+head: restore previously saved drawing context state
+-------------------------------------------------------------------
+/alt/scale
+tags: draw, context, 2d
+head: scale the drawing context by *horizontal* and *vertical* factors
+usage: (horizontal, vertical)
+-------------------------------------------------------------------
+/alt/rotate
+tags: draw, context, 2d
+head: rotate the drawing context on the angle *a* (in radians)
+usage: (a)
+-------------------------------------------------------------------
+/alt/translate
+tags: draw, context, 2d
+head: translate drawing context to provided coordinates *x* and *y*
+usage: (x, y)
+-------------------------------------------------------------------
+/alt/clip
+tags: draw, context, 2d
+head: clip the drawing context to provided rectangular area
+usage: (x, y, w, h)
+details: Everything outside the clipping area will not be drawn.
+-------------------------------------------------------------------
+/alt/smooth
+tags: draw, context, 2d
+head: draw images with anti-aliasing
+-------------------------------------------------------------------
+/alt/blocky
+tags: draw, context, 2d
+head: draw images without anti-aliasing (pixel-art mode!)
+-------------------------------------------------------------------
+/alt/alpha
+tags: draw, context, 2d
+head: set global alpha for drawing operations
+usage: (n)
+-------------------------------------------------------------------
+/alt/stroke
+tags: draw, context, 2d
+head: set stroke mode and asign a line color
+usage: (color)
+details:
+Color can be accepted as
+    '#ffffffaa'  - as a string of hex color values
+    (r, g, b)    - RGB integers in [0..255] range
+    (r, g, b, a) - RGBA integers
+    (.1, .5, .3) - HSL floats, at least one value
+                   should be a floating number
+-------------------------------------------------------------------
+/alt/lineWidth
+tags: draw, context, 2d
+head: set line width
+usage: (width)
+-------------------------------------------------------------------
+/alt/fill
+tags: draw, context, 2d
+head: set fill mode and asign a fill color
+usage: (color, [color])
+details:
+Color can be accepted as
+    '#ffffffaa'  - as a string of hex color values
+    (r, g, b)    - RGB integers in [0..255] range
+    (r, g, b, a) - RGBA integers
+    (.1, .5, .3) - HSL floats, at least one value
+                   should be a floating number
+If a second color is provided, turns the mix mode with both
+fill and stroke over the filled form.
+-------------------------------------------------------------------
+/alt/background
+tags: draw, context, 2d
+head: fills background with provided color
+usage: (color)
+details: Colors can be provided as a hex string, RGB and HSL values.
+-------------------------------------------------------------------
+/alt/lineline
+tags: draw, context, 2d
+head: draw a line between 2 provided points
+usage: (x1, y1, x2, y2)
+-------------------------------------------------------------------
+/alt/plot
+tags: draw, context, 2d
+head: draw a point with lineWidth as it's canvas size
+usage: (x, y, w, h)
+details: Set the color with fill()
+-------------------------------------------------------------------
+/alt/triangle
+tags: draw, context, 2d
+head: draw a triangle
+usage: (x1, y1, x2, y2, x3, y3)
+details: Use stroke() or fill() to set the mode and color.
+-------------------------------------------------------------------
+/alt/quad
+tags: draw, context, 2d
+head: draw a quad
+usage: (x1, y1, x2, y2, x3, y3, x4, y4)
+details: Use stroke() or fill() to set the mode and color.
+-------------------------------------------------------------------
+/alt/rect
+tags: draw, context, 2d
+head: draw a rectangle
+usage: (x, y, w, h)
+details: Use stroke() or fill() to set the mode and color.
+-------------------------------------------------------------------
+/alt/circle
+tags: draw, context, 2d
+head: draw a cirlce
+usage: (x, y, radius)
+details: Use stroke() or fill() to set the mode and color.
+-------------------------------------------------------------------
+/alt/ellipse
+tags: draw, context, 2d
+head: draw an ellipse
+usage: (x, y, verticalRadius, horizontalRadius, [rotation])
+details: Rotation is in radians and optional.
+-------------------------------------------------------------------
+/alt/arc
+tags: draw, context, 2d
+head: draw an arc centered at *x*/*y* with given *radius* and angles
+usage: (x, y, radius, startAngle, endAngle)
+-------------------------------------------------------------------
+/alt/earc
+tags: draw, context, 2d
+head: draw an elliptical arc centered at *x*/*y*
+usage: (x, y, radiusX, radiusY, rotation, startAngle, endAngle)
+-------------------------------------------------------------------
+/alt/polygon
+tags: draw, context, 2d
+head: draw a polygon from array of points
+usage: (points)
+details: Use stroke() or fill() to set the mode and color.
+-------------------------------------------------------------------
+/alt/moveTo
+tags: draw, context, 2d
+head: move to the next point of the shape
+usage: (x, y)
+details: Begins new path if none has been started yet.
+-------------------------------------------------------------------
+/alt/lineTo
+tags: draw, context, 2d
+head: adds a line to current path
+usage: (x, y)
+-------------------------------------------------------------------
+/alt/arcTo
+tags: draw, context, 2d
+head: adds an arc to the current path using 2 provided control points and radius
+usage: (x1, y1, x2, y2, radius)
+-------------------------------------------------------------------
+/alt/quadraticTo
+tags: draw, context, 2d
+head: adds a quadratic Bezier curve to current path
+usage: (cpx, cpy, x, y)
+-------------------------------------------------------------------
+/alt/bezierTo
+tags: draw, context, 2d
+head: adds a cubic Bezier curve to current path
+usage: (cpx1, cpx2, cpx2, cpy2, x, y)
+-------------------------------------------------------------------
+/alt/close
+tags: draw, context, 2d
+head: close current path
+-------------------------------------------------------------------
+/alt/shape
+tags: draw, context, 2d
+head: stroke or fill current shape according to assigned mode
+-------------------------------------------------------------------
+/alt/font
+tags: draw, context, 2d
+head: set current font
+usage: (font)
+-------------------------------------------------------------------
+/alt/alignLeft
+tags: draw, context, 2d
+head: align text to the left
+-------------------------------------------------------------------
+/alt/alignCenter
+tags: draw, context, 2d
+head: align text to the center
+-------------------------------------------------------------------
+/alt/alignRight
+tags: draw, context, 2d
+head: align text to the right
+-------------------------------------------------------------------
+/alt/baseTop
+tags: draw, context, 2d
+head: base text on top
+-------------------------------------------------------------------
+/alt/baseMiddle
+tags: draw, context, 2d
+head: base text in the middle
+-------------------------------------------------------------------
+/alt/baseBottom
+tags: draw, context, 2d
+head: base text at the bottom
+-------------------------------------------------------------------
+/alt/text
+tags: draw, context, 2d
+head: draw text
+usage: (text, x, y)
+-------------------------------------------------------------------
+/alt/textWidth
+tags: draw, context, 2d
+head: determine the width of provided text for current font settings
+usage: (text)
+-------------------------------------------------------------------
+/alt/textHeight
+tags: draw, context, 2d
+head: determine the height of text for current font settings
+-------------------------------------------------------------------
+/alt/image
+tags: draw, context, 2d
+head: draw an image
+usage: (img, x, y, [w, h, [dx, dy, dw, dh]])
+-------------------------------------------------------------------
+/alt/rgb
+tags: draw, context, 2d
+head: get the hex string color representation of provided rgb floats 
+usage: (r, g, b)
+details: Values are expected to be floats in the [0..1] range.
+-------------------------------------------------------------------
+/alt/rgba
+tags: draw, context, 2d
+head: get the hex string color representation of provided rgba floats 
+usage: (r, g, b, a)
+details: Values are expected to be floats in the [0..1] range.
+-------------------------------------------------------------------
+/alt/RGB
+tags: draw, context, 2d
+head: get the hex string color representation of provided RGB integers
+usage: (R, G, B)
+details: Values are expected to be integers in the [0..255] range.
+-------------------------------------------------------------------
+/alt/RGBA
+tags: draw, context, 2d
+head: get the hex string color representation of provided RGBA integers
+usage: (R, G, B, A)
+details: Values are expected to be integers in the [0..255] range.
+-------------------------------------------------------------------
+/alt/hsl
+tags: draw, context, 2d
+head: get the hex string color representation of provided hsl floats 
+usage: (h, s, l)
+details: Values are expected to be floats in the [0..1] range.
+-------------------------------------------------------------------
+/alt/hsla
+tags: draw, context, 2d
+head: get the hex string color representation of provided hsla floats 
+usage: (h, s, l, a)
+details: Values are expected to be floats in the [0..1] range.
