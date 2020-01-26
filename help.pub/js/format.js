@@ -25,11 +25,16 @@ export function metaSummary(meta) {
 
     const type = meta.kind? meta.kind : meta.type
 
+    let usage = ''
+    if (meta.type === 'function') {
+        usage = (meta.data && meta.data.usage)? `${meta.data.usage}` : '()'
+    }
+
     const head = (meta.data && meta.data.head)?
                 ' - ' + md2html(meta.data.head, true) : ''
 
     let res = `<a href="#.${meta.path}">`
-        + type + ' <b>' + meta.name + '</b></a>'
+        + type + ' <b>' + meta.name + usage + '</b></a>'
         + head
     return res
 }
@@ -73,15 +78,20 @@ export function metaToHtml(meta) {
         //body += `<div class="path">${meta.path}</div>`
     }
 
+    let usage = ''
+    if (meta.type === 'function') {
+        usage = (meta.data && meta.data.usage)? `${meta.data.usage}` : '()'
+    }
+
     let title = ''
     if (meta.type === 'object' && meta.kind) {
         title += meta.kind + ' <b>' + meta.name + '</b>'
     } else if (meta.type === 'object' && meta.proto) {
         title += meta.proto + ' <b>' + meta.name + '</b>'
     } else if (meta.kind) {
-        title += meta.kind + ' <b>' + meta.name + '</b>'
+        title += meta.kind + ' <b>' + meta.name + usage + '</b>'
     } else {
-        title += meta.type + ' <b>' + meta.name + '</b>'
+        title += meta.type + ' <b>' + meta.name + usage + '</b>'
     }
 
     let headClass = meta.data? 'metaTitle' : 'missingTitle'
@@ -91,10 +101,6 @@ export function metaToHtml(meta) {
                             md2html(meta.data.head) : ''
     body += `<div class="metaSubtitle">${subtitle}</div>`
 
-    if (meta.data && meta.data.usage) {
-        body += `<hr><div class="metaSection">Usage</div>`
-                + `<pre>${meta.data.usage}</pre>`
-    }
 
     if (meta.data && meta.data.details) {
         const details = md2html(meta.data.details)
