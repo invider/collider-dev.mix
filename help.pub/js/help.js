@@ -10,7 +10,7 @@ const HELP_DATA_URL = '../help/data'
 const FIELD = 'searchField'
 
 const SEARCH_DELAY = 300
-const PRINT_DELAY = 20
+const PRINT_DELAY = 10
 
 const DATA_MISSING = 'Missing help data!<br>'
                 + 'Make sure jam is running '
