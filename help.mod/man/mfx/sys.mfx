@@ -1,1 +1,114 @@
+-------------------------------------------------------------------
+/sys/Frame
+tags: core
+head: a group node
+details:
+Frame constructs a basic node container
+to manage node collections.
 
+Named nodes (the ones with 'name' property defined)
+are stored in a directory *[_dir]* object.
+
+All nodes can be accessed by index in *[_ls]*.
+
+The named nodes have direct shortcuts
+in the Frame object, so can be accessed
+directly from the frame node as *node.childName*.
+However, to list named nodes use ._dir,
+since the Frame object itself has a bunch
+of service fields like __, attach(), detach() etc...
+
+-------------------------------------------------------------------
+/sys/Frame._frame
+head: always *true* for any kind of frame.
+notes:
+*TODO* maybe migrate to a duck-typing style definition
+when any node with _dir object and _ls array is considered to be a frame.
+
+-------------------------------------------------------------------
+/sys/Frame/prototype/path
+head: returns the path of the node
+usage: ()
+note:
+The parent must be present to determine the path,
+so it obviously doesn't work for detached nodes.
+
+-------------------------------------------------------------------
+/sys/Frame/prototype/touch
+head: makes sure that specified container exists in the path, create new onces if needed
+usage: (path)
+-------------------------------------------------------------------
+/sys/Frame/prototype/attach
+head: 
+usage: ()
+-------------------------------------------------------------------
+/sys/Frame/prototype/onAttached
+head: 
+usage: ()
+-------------------------------------------------------------------
+/sys/Frame/prototype/link
+head: 
+usage: ()
+-------------------------------------------------------------------
+/sys/Frame/prototype/detach
+head: 
+usage: ()
+-------------------------------------------------------------------
+/sys/Frame/prototype/detachAll
+head: 
+usage: ()
+-------------------------------------------------------------------
+/sys/Frame/prototype/detachByName
+head: 
+usage: ()
+-------------------------------------------------------------------
+/sys/Frame/prototype/apply
+head: 
+usage: ()
+-------------------------------------------------------------------
+/sys/Frame/prototype/collide
+head: 
+usage: ()
+-------------------------------------------------------------------
+/sys/Frame/prototype/select
+head: select instances matching the string or function predicate
+usage: (predicate)
+details:
+String predicates are in path format and can include *
+to match all nodes, e.g.:
+    /res/sfx/*
+    /dna/hud/Window
+-------------------------------------------------------------------
+/sys/Frame/prototype/selectOne
+head: select a single node matching the string or function predicate
+usage: (predicate)
+details:
+String predicates are in path format and can include *
+to match all nodes, e.g.:
+    /res/sfx/*
+    /dna/hud/Window
+The same, as select(), but returns the top result.
+-------------------------------------------------------------------
+/sys/Frame/prototype/selectInstance
+head: returns the list of included objects of provided type
+usage: (of)
+-------------------------------------------------------------------
+/sys/Frame/prototype/selectOneNumber
+head: returns the list of included objects of provided type
+usage: (predicate)
+-------------------------------------------------------------------
+/sys/Frame/prototype/kill
+head:
+usage: (predicate)
+-------------------------------------------------------------------
+/sys/Frame/prototype/map
+head: not implemented
+usage: ()
+-------------------------------------------------------------------
+/sys/Frame/prototype/flatMap
+head: not implemented
+usage: ()
+-------------------------------------------------------------------
+/sys/Frame/prototype/reduce
+head: not implemented
+usage: ()

@@ -30,18 +30,22 @@ function match(path, ignore) {
 }
 
 function inspectPrototype(node, name, path, cache,
-                parentMeta, modMeta, meta, usageRefinements) {
+                parentMeta, modMeta, meta, usageRefinements, skipCache) {
 
     Object.keys(node).forEach(name => {
         const fn = node[name]
 
+        //if (name === 'attach' && meta.name === 'Frame') debugger
+
         if (fn.name === 'constructor') return
-        const submeta = inspect(fn, name, meta.path,
+        let submeta = inspect(fn, name, meta.path,
             cache, meta, modMeta)
 
         if (submeta) {
-            submeta.data = supplement(submeta.data,
-                usageRefinements[name])
+            submeta = sys.clone(submeta)
+            submeta.path = addPath(meta.path, name)
+            const refine = usageRefinements[name]
+            if (refine) submeta.data = supplement(submeta.data, refine)
         }
 
         if (!meta.dir[name]) {
@@ -51,11 +55,11 @@ function inspectPrototype(node, name, path, cache,
 
     if (node.__proto__) {
         inspectPrototype(node.__proto__, name, path, cache,
-            parentMeta, modMeta, meta, usageRefinements)
+            parentMeta, modMeta, meta, usageRefinements, true)
     }
 }
 
-function inspect(node, name, path, cache, parentMeta, modMeta) {
+function inspect(node, name, path, cache, parentMeta, modMeta, skipCache) {
     if (!node) return
     if (node._meta && node._meta.hint === 'ignore') return
 
@@ -71,7 +75,7 @@ function inspect(node, name, path, cache, parentMeta, modMeta) {
         return cache.meta[icache]
     }
 
-    if (!isNumber(node)) {
+    if (!isNumber(node) && !isString(node) && !skipCache) {
         cache.node.push(node)
         cache.meta.push(meta)
     }
@@ -88,8 +92,6 @@ function inspect(node, name, path, cache, parentMeta, modMeta) {
         modMeta = meta
     }
 
-    if (node._meta) cache.annotatedCount ++
-
     if (isFrame(node)) {
         meta.kind = node._dna? node._dna : 'Frame'
         if (node.constructor) meta.proto = node.constructor.name
@@ -105,7 +107,7 @@ function inspect(node, name, path, cache, parentMeta, modMeta) {
                 let pmod = modMeta
                 if (parentMeta && parentMeta.name === 'mod') pmod = meta
                 const submeta = inspect(next, k, meta.path,
-                    cache, meta, pmod)
+                    cache, meta, pmod, skipCache)
                 meta.dir[k] = submeta
 
             } else {
@@ -134,6 +136,7 @@ function inspect(node, name, path, cache, parentMeta, modMeta) {
 
             inspectPrototype(node.prototype, name, path, cache,
                     parentMeta, modMeta, meta, usageRefinements)
+            if (isEmpty(meta.dir)) delete meta.dir
         }
 
         // TODO do we really have a use case for source here?
@@ -177,6 +180,18 @@ function inspect(node, name, path, cache, parentMeta, modMeta) {
         meta['class'] = typeof node
         meta.title = 'unknown'
     }
+
+    if (node._meta) {
+        cache.annotatedCount ++
+    }
+
+
+    if (isEmpty(meta.data)) delete meta.data
+
+    if (!meta.data || !meta.data.head) {
+        cache.todo.push(meta.path)
+    }
+
     return meta
 }
 
@@ -215,6 +230,7 @@ function doReport(ignore) {
         nodesCount: 0,
         pagesCount: 0,
         annotatedCount: 0,
+        todo: [],
     }
 
     const meta = {}
@@ -226,6 +242,7 @@ function doReport(ignore) {
     meta.pagesInspected = cache.pagesCount
     meta.nodesAnnotated = cache.annotatedCount
     meta.nodesInspected = cache.nodesCount
+    meta.todo = cache.todo
 
     fetch('help/sync', {
         headers: {

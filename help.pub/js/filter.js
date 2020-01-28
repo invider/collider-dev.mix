@@ -58,7 +58,7 @@ function filter(data, criteria) {
         if (meta.kind === 'Frame' || meta.dir) {
             match(meta, criteria, res)
 
-            Object.values(meta.dir).forEach(submeta => {
+            !meta.dir || Object.values(meta.dir).forEach(submeta => {
                 subfilter(submeta)
             })
 

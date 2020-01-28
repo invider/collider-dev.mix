@@ -139,7 +139,6 @@ function parse(md, nowrap) {
         }
         retc()
 
-        console.log('sp: [' + span + ']')
         return {
             t: SPAN,
             v: span

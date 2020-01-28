@@ -138,6 +138,14 @@ head: determines if *target* is an Array
 usage: (target)
 
 -------------------------------------------------------------------
+/alt/isEmpty
+head: checks if the *target* object/array is empty 
+usage: (target)
+details:
+Returns true for undefined, null, '', 0, false.
+Returns false for any non-object and non-array values.
+
+-------------------------------------------------------------------
 /alt/sfx
 head: play a sound effect
 usage: (sound, volume, panorama)

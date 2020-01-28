@@ -286,7 +286,7 @@ usage: (x1, y1, x2, y2)
 notes:
 Want to shoot a laser toward an enemy spaceship?
 
-This function is what you actually need!
+This function is what you need!
 
 Get the direction angle by providing the coordinates
 of your ship and the enemy coordinates. Ready? Fire!
