@@ -1,200 +1,6 @@
 /*
  * Inspect scene and send gathered metadata to jam server.
  */
-
-function addPath(base, path) {
-    if (!base) return path
-    if (!path) return base
-
-    if (base.endsWith('/')) return base + path
-    else return base + '/' + path
-}
-
-function init() {
-    /*
-    // start helper job when in dymanic mode
-    if (env.config.dynamic && env.config.debug) {
-        setTimeout(report, 1000)
-    }
-    */
-}
-
-function match(path, ignore) {
-    let ignored = false
-
-    ignore.forEach(r => {
-        if (path.match(r)) ignored = true
-    })
-
-    return ignored 
-}
-
-function inspectPrototype(node, name, path, cache,
-                parentMeta, modMeta, meta, usageRefinements, skipCache) {
-
-    Object.keys(node).forEach(name => {
-        const fn = node[name]
-
-        //if (name === 'attach' && meta.name === 'Frame') debugger
-
-        if (fn.name === 'constructor') return
-        let submeta = inspect(fn, name, meta.path,
-            cache, meta, modMeta)
-
-        if (submeta) {
-            submeta = sys.clone(submeta)
-            submeta.path = addPath(meta.path, name)
-            const refine = usageRefinements[name]
-            if (refine) submeta.data = supplement(submeta.data, refine)
-        }
-
-        if (!meta.dir[name]) {
-            meta.dir[name] = submeta
-        }
-    })
-
-    if (node.__proto__) {
-        inspectPrototype(node.__proto__, name, path, cache,
-            parentMeta, modMeta, meta, usageRefinements, true)
-    }
-}
-
-function inspect(node, name, path, cache, parentMeta, modMeta, skipCache) {
-    if (!node) return
-    if (node._meta && node._meta.hint === 'ignore') return
-
-    const meta = {}
-
-    if (path === '') meta.path = '/'
-    else meta.path = addPath(path, name)
-
-    if (match(meta.path, cache.ignore)) return
-
-    const icache = cache.node.indexOf(node)
-    if (icache >= 0) {
-        return cache.meta[icache]
-    }
-
-    if (!isNumber(node) && !isString(node) && !skipCache) {
-        cache.node.push(node)
-        cache.meta.push(meta)
-    }
-
-    meta.id = ++cache.id
-    cache.nodesCount ++ 
-    meta.name = name || node.name
-    meta.type = typeof node
-    if (parentMeta) meta.parent = parentMeta.id
-    if (modMeta) {
-        meta.mod = modMeta.id
-        meta.modName = modMeta.name
-    } else {
-        modMeta = meta
-    }
-
-    if (isFrame(node)) {
-        meta.kind = node._dna? node._dna : 'Frame'
-        if (node.constructor) meta.proto = node.constructor.name
-        meta.data = node._meta
-
-        meta.dir = {}
-
-        Object.keys(node._dir).forEach(k => {
-
-            const next = node._dir[k]
-            const icache = cache.node.indexOf(next)
-            if (icache < 0) {
-                let pmod = modMeta
-                if (parentMeta && parentMeta.name === 'mod') pmod = meta
-                const submeta = inspect(next, k, meta.path,
-                    cache, meta, pmod, skipCache)
-                meta.dir[k] = submeta
-
-            } else {
-                const id = cache.meta[icache].id
-                meta.dir[k] = {
-                    name: k,
-                    link: id,
-                }
-            }
-        })
-
-    } else if (isFun(node)) {
-        meta.kind = 'function'
-        meta.data = node._meta
-
-        let usageRefinements = {}
-        if (meta.data && meta.data.dir) {
-            usageRefinements = meta.data.dir
-            delete meta.data.dir
-        }
-
-        if (node.prototype && (Object.keys(node.prototype).length > 1
-                    || node.name.match(/^[A-Z].*/))) {
-            meta.kind = 'cons'
-            meta.dir = meta.dir || {}
-
-            inspectPrototype(node.prototype, name, path, cache,
-                    parentMeta, modMeta, meta, usageRefinements)
-            if (isEmpty(meta.dir)) delete meta.dir
-        }
-
-        // TODO do we really have a use case for source here?
-        //meta.src = node.toString()
-
-    } else if (isArray(node)) {
-        meta.kind = 'array'
-        if (node.constructor) meta.proto = node.constructor.name
-        meta.data = node._meta
-
-    } else if (isObj(node)) {
-        meta.kind = 'Node'
-        if (node.constructor) meta.proto = node.constructor.name
-        meta.data = node._meta
-
-        meta.dir = {}
-
-        Object.keys(node).forEach(k => {
-            if (k.startsWith('_')) return
-
-            const next = node[k]
-            if (cache.node.indexOf(next) < 0) {
-                const submeta = inspect(next, k, meta.path,
-                    cache, meta, modMeta)
-                if (submeta) meta.dir[k] = submeta
-
-            } else {
-                return
-                /*
-                meta.dir[k] = {
-                    name: k,
-                    'class': typeof next,
-                    title: 'circular',
-                }
-                */
-            }
-        })
-
-    } else {
-        meta.name = name
-        meta['class'] = typeof node
-        meta.title = 'unknown'
-    }
-
-    if (node._meta) {
-        cache.annotatedCount ++
-    }
-
-
-    if (isEmpty(meta.data)) delete meta.data
-
-    if (!meta.data || !meta.data.head) {
-        cache.todo.push(meta.path)
-    }
-
-    return meta
-}
-
 function listModPages(pages, cache, pageSet) {
     pages._ls.forEach(p => {
         if (isString(p)) return
@@ -221,29 +27,7 @@ function listPages(mod, cache, pageSet) {
     }
 }
 
-function doReport(ignore) {
-    const cache = {
-        id: 0,
-        node: [],
-        meta: [],
-        ignore: ignore,
-        nodesCount: 0,
-        pagesCount: 0,
-        annotatedCount: 0,
-        todo: [],
-    }
-
-    const meta = {}
-
-    meta.scene = inspect($, '$', '', cache)
-    //meta.pages = listPages($.man.pages, cache)
-    meta.pages = {}
-    listPages($, cache, meta.pages)
-    meta.pagesInspected = cache.pagesCount
-    meta.nodesAnnotated = cache.annotatedCount
-    meta.nodesInspected = cache.nodesCount
-    meta.todo = cache.todo
-
+function postMetadata(meta) {
     fetch('help/sync', {
         headers: {
             'Content-Type': 'application/json',
@@ -261,6 +45,34 @@ function doReport(ignore) {
     }).catch((err) => {
         log.err(`unable to sync help data - ${err}`)
     })
+}
+
+function doReport(ignore) {
+    const cache = {
+        id: 0,
+        node: [],
+        meta: [],
+        ignore: ignore,
+        nodesCount: 0,
+        pagesCount: 0,
+        annotatedCount: 0,
+        todo: [],
+    }
+
+    const meta = {}
+
+    meta.scene = lib.inspect($, '$', '', cache)
+    //meta.pages = listPages($.man.pages, cache)
+    meta.pages = {}
+    listPages($, cache, meta.pages)
+    lib.reference(meta, cache)
+
+    meta.pagesInspected = cache.pagesCount
+    meta.nodesAnnotated = cache.annotatedCount
+    meta.nodesInspected = cache.nodesCount
+    meta.todo = cache.todo
+
+    postMetadata(meta)
 }
 
 function collectIgnoreRules(mod, ignore) {
@@ -297,4 +109,3 @@ function report() {
         log.warn('ignoring metadata report - not in dynamic mode')
     }
 }
-

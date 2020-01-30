@@ -3,6 +3,9 @@ name: Releases
 DR1 - First public development release
 
 [+] mod structure
+
 [+] context functions
+
 [+] npm packaging
+
 

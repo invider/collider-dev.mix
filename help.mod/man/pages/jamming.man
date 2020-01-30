@@ -6,7 +6,5 @@ tags: jam, collider.jam, intro, start
 
 <a href="#./">root</a>
 
-<a href="#.intro"</a>
-
 How to start jamming fast.
 
