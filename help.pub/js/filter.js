@@ -1,5 +1,7 @@
 
 import { cache } from './cache.js'
+import { isEmpty } from './util.js'
+
 
 function flatResult(r) {
     return r.exact.concat( r.tag.concat( r.path.concat( r.misc)))
@@ -116,6 +118,20 @@ function extractCriteria(searchString) {
     return criteria
 }
 
+function cleanUp(res) {
+    return res.filter(meta => {
+
+        if (meta.type === 'function'
+            && !meta.data) return false
+
+        if (meta.type === 'object'
+            && isEmpty(meta.data)
+            && isEmpty(meta.dir)) return false
+
+        return true
+    })
+}
+
 export function find(searchString) {
     let res
     if (cache.results[searchString]) {
@@ -123,6 +139,7 @@ export function find(searchString) {
         //console.log('found in cache')
     } else {
         res = filter(cache.data, extractCriteria(searchString))
+        if (searchString === '') res = cleanUp(res)
 
         res.search = searchString
         cache.results[searchString] = res

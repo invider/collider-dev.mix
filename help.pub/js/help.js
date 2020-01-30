@@ -32,8 +32,26 @@ function printTag(content) {
     tags.innerHTML += content
 }
 
+function createLoadingLabel() {
+    const loading = document.createElement('div')
+    loading.id = 'loading'
+    loading.innerHTML = 'Loading...'
+    document.body.appendChild(loading)
+}
+
+function updateLoadingLabel(msg) {
+    const loading = document.getElementById('loading')
+    loading.innerHTML = msg
+}
+
+function removeLoadingLabel() {
+    const loading = document.getElementById('loading')
+    loading.remove()
+}
+
 function printResults(res) {
     const field = document.getElementById(FIELD)
+    const startTime = Date.now()
 
     if (res.html) {
         const help = document.getElementById('help')
@@ -54,10 +72,18 @@ function printResults(res) {
         }
 
         function printMore(i, index, body) {
-            if (field.value !== res.search) return // skip
+            if (field.value !== res.search) {
+                removeLoadingLabel()
+                return // skip
+            }
 
             if (i >= res.length) {
                 cacheRendering()
+                removeLoadingLabel()
+                console.log('loaded ' + i + ' meta-objects')
+                console.log('size: '
+                    + Math.round(body.length/1000) + 'k')
+
             } else {
                 const meta = res[i]
                 //printTag(meta.html.tag)
@@ -68,8 +94,13 @@ function printResults(res) {
                 cache.links[meta.path] = meta
 
                 setTimeout(() => printMore(i+1, index, body), PRINT_DELAY)
+
+                const elapsed = Math.ceil((Date.now() - startTime)/1000)
+                updateLoadingLabel(`Loading ${i} [${elapsed}s]`)
             }
         }
+
+        createLoadingLabel()
         printMore(0, '', '')
 
         //res.forEach(meta => { })

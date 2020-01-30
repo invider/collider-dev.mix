@@ -149,7 +149,7 @@ function parse(md, nowrap) {
         let out = ''
         let state = {}
 
-        let lastSpan
+        let lastSpan = {}
         let span = nextSpan()
         let lineSpan = 0
 

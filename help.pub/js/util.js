@@ -20,3 +20,19 @@ export function parentPath(path) {
     else return path.substring(0, i)
 }
 
+export const isObj = function(o) {
+    return !!(o && typeof o === 'object')
+}
+export function isEmpty(o) {
+    if (!o) return true
+    if (isObj(o)) {
+        for (let prop in o) {
+            if (o.hasOwnProperty(prop)) return false
+        }
+        return true
+
+    } else if (isArray(o)) {
+        return o.length === 0
+    }
+    return false
+}

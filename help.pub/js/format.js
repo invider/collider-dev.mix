@@ -23,7 +23,10 @@ export function metaSummary(meta) {
         else meta.type = 'link'
     }
 
-    const type = meta.kind? meta.kind : meta.type
+    let type = meta.kind? meta.kind : meta.type
+    if (type === 'function' && meta.inherited) {
+        type = 'inherited function'
+    }
 
     let usage = ''
     if (meta.type === 'function') {
@@ -111,6 +114,15 @@ export function metaToHtml(meta) {
         const vals = Object.values(meta.dir)
         if (vals.length > 0) {
             body += '<hr>'
+            vals.forEach(n => {
+                body += '<li>' + metaSummary(n)
+            })
+        }
+    }
+    if (meta.idir) {
+        body += '<h4>Inherited</h4>'
+        const vals = Object.values(meta.idir)
+        if (vals.length > 0) {
             vals.forEach(n => {
                 body += '<li>' + metaSummary(n)
             })
