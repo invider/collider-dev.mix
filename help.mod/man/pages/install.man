@@ -2,5 +2,23 @@ name: Installation
 
 To install collider.jam type:
 
-npm install -g collider.jam
+    npm install -g collider.jam
+
+It will install the latest collider.jam CLI
+in npm repositories globally.
+
+You can also install the latest stable
+release from the github repo:
+
+    npm install -g https://github.com/invider/collider.jam.git
+
+That would include the latest features.
+
+After the installation is complete, check the version:
+
+    jam version
+
+And the list of available commands:
+
+    jam help
 

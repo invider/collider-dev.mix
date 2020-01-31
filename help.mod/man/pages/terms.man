@@ -1,0 +1,26 @@
+name: Terms
+
+*mod* - a composable module, located in it's own folder. Think of it as a minigame with it's own resources, dnas, lib and trap handling.
+
+*fix* - a submodule, locatd in it's own folder. Use it to patch existing mod structure. You can 'fix' a mod with additional resources, traps, dnas etc...
+
+*unit* - a filesystem directory that contains a mod/fix/pub/patch/sample.
+
+*mix* - a set of multiple units (mods, fixes, pubs...). Usually comes as an npm package.
+
+*frame* - a group node on the scene. Supports attach/detach operations for child nodes.
+
+*dna* - a node that contains constructors, factories and prototypes of game entities.
+
+*actor* - a lifeform in */lab* with it's own representation and behavior determined by the draw() and evo(dt) functions
+
+*ghost* - an entity in */lab* with behavior, but no visual apperance - so it has evo(dt), but doesn't have the draw() function defined.
+
+*prop* - a visual entity */lab* with no behavior - so it has draw(), but no evo(dt)
+
+*lab* - a place, where all entities live and evolve. An entity is expected to have at least evo(dt) or draw() function to be present in the game loop.
+
+*trap* - a trap is a function to handle events such as key presses and mouse clicks.
+
+*cue* - a function that triggers on time or periodically.
+

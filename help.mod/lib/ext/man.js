@@ -22,9 +22,18 @@ function man(src, name) {
     lines.filter(l => !l.startsWith('#') && !l.startsWith('--'))
         .forEach(l => {
 
-            if (l.indexOf(':') > 0) {
-                const parts = l.trim().split(':')
-                setProperty(parts[0].trim(), parts[1].trim())
+            const i = l.indexOf(':')
+            if (i > 0) {
+                const name = l.substring(0, i)
+                const rest = l.substring(i + 1)
+
+                if (name.endsWith('\\')) {
+                    append(name.substring(0, name.length-1) + res)
+                } else if (name.includes(' ')) {
+                    append(l)
+                } else {
+                    setProperty(name.trim(), rest.trim())
+                }
 
             } else if (l.startsWith('.')) {
                 // ignore line

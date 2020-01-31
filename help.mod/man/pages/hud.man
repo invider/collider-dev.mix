@@ -8,7 +8,7 @@ Troubles
 
 Custom components are not reacting on mouse click.
 
-It can be the component is not marked as _sizable.
+It can be the component is not marked as {underscore}sizable.
 It happens when it doesn't have x,y or w,h set when attached.
 Set defaults in constructor to fix that.
 

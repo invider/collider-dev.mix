@@ -24,6 +24,7 @@ tags: draw, context, 2d
 head: relative y coordinate, where *n* sets vertical screen
 position between [0..1]
 usage: (n)
+details:
 ry(.5) - returns half of the canvas height.
 -------------------------------------------------------------------
 /alt/save
