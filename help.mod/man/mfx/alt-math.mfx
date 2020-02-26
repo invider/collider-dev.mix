@@ -260,7 +260,7 @@ tags: math
 usage: (x1, y1, x2, y2)
 
 -------------------------------------------------------------------
-/alt/length
+/alt/len
 
 head: returns the length of the vector *[x, y]*
 tags: math

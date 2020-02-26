@@ -3,8 +3,14 @@
 function compileSummary(m) {
     if (m.type === 'function') {
         const name = m.name.trim()
-        const usage = m.data.usage? m.data.usage.trim() : '()'
-        const head = m.data.head? ' - ' + m.data.head.trim() : ''
+
+        let usage = '()'
+        let head = ''
+
+        if (m.data) {
+            if (m.data.usage) usage = m.data.usage.trim()
+            if (m.data.head) head = ' - ' + m.data.head.trim()
+        }
 
         return `*${name}${usage}*${head}\n\n`
     } else {
