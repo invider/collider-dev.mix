@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "collider-hud.mix": "git+https://github.com/invider/collider-hud.mix.git"
+    "collider-lib.mix": "git+https://github.com/invider/collider-lib.mix.git"
   },
   "author": "Igor Khotin & Co.",
   "license": "BSD-3-Clause"
