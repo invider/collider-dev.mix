@@ -1,12 +1,12 @@
 {
   "name": "collider-debug.mix",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "collider.jam debug mods",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "collider-lib.mix": "git+https://github.com/invider/collider-lib.mix.git"
+    "collider.mix": "git+https://github.com/invider/collider.mix.git"
   },
   "author": "Igor Khotin & Co.",
   "license": "BSD-3-Clause"
