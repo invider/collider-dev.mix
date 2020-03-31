@@ -1,5 +1,4 @@
 function keyDown(e) {
-
     if (e.altKey || e.ctrlKey) {
         switch(e.code) {
             case 'ArrowUp':
@@ -8,6 +7,12 @@ function keyDown(e) {
             case 'ArrowDown':
                 lab.hud.inspector.switchLayout(1)
                 break;
+        }
+    } else {
+        switch(e.code) {
+            case 'KeyS': case 'End':
+                lab.hud.inspector.syncTarget()
+                break
         }
     }
 }

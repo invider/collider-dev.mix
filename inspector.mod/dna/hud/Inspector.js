@@ -24,14 +24,23 @@ Inspector.prototype.init = function() {
     const def = augment({}, explorerDefaults)
 
     const inspector = this
+    def.hud = this.__
     def.onStateChange = function() {
         inspector.sync()
     }
 
-    this.panel.push(this.spawn('hud/gadget/NodeInspector', def))
-    this.panel.push(this.spawn('hud/gadget/NodeInspector', def))
-    this.panel.push(this.spawn('hud/gadget/NodeInspector', def))
-    this.panel.push(this.spawn('hud/gadget/NodeInspector', def))
+    this.panel.push(this.spawn('hud/gadget/NodeInspector', augment({
+        name: 'previous'
+    }, def)))
+    this.panel.push(this.spawn('hud/gadget/NodeInspector', augment({
+        name: 'current'
+    }, def)))
+    this.panel.push(this.spawn('hud/gadget/NodeInspector', augment({
+        name: 'selected'
+    }, def)))
+    this.panel.push(this.spawn('hud/gadget/NodeInspector', augment({
+        name: 'target'
+    }, def)))
 
     for (const p of this.panel) {
         p.onMove = function() {
@@ -42,6 +51,20 @@ Inspector.prototype.init = function() {
     this.panel[1].disabled = false
     this.adjust()
     this.sync()
+}
+
+Inspector.prototype.show = function() {
+    this.disabled = false
+    lab.hud.captureFocus(lab.hud.inspector)
+    lab.hud.captureFocus(lab.hud.inspector.panel[1])
+    lab.hud.captureFocus(lab.hud.inspector.panel[1].active)
+}
+
+Inspector.prototype.hide = function() {
+    this.disabled = true
+    lab.hud.releaseFocus(lab.hud.inspector)
+    lab.hud.releaseFocus(lab.hud.inspector.panel[1])
+    lab.hud.releaseFocus(lab.hud.inspector.panel[1].active)
 }
 
 Inspector.prototype.switchLayout = function(mode) {
@@ -90,4 +113,9 @@ Inspector.prototype.adjust = function() {
     }
 
     Container.prototype.adjust.call(this)
+}
+
+Inspector.prototype.syncTarget = function() {
+    const target = this.panel[1].dir
+    this.panel[3].land(target)
 }

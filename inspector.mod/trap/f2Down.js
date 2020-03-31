@@ -4,15 +4,11 @@ module.exports = function(e) {
     if (e.repeat) return
 
     if (_.hidden) {
-        lab.hud.captureFocus(lab.hud.inspector.panel[1].active)
-    } else {
-        lab.hud.releaseFocus(lab.hud.inspector.panel[1].active)
-    }
-
-    if (_.hidden) {
         _.hidden = false
+        lab.hud.inspector.show()
     } else {
         _.hidden = true
+        lab.hud.inspector.hide()
     }
 
     return false
