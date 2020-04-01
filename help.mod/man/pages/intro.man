@@ -2,17 +2,18 @@ name: Intro
 
 tags: jam, intro, start, begin, beginner, preface, home
 
-<a href="#.getting-started">start</a> - <a href="#.jam-card">jamcard</a> - <a href="#.tips">tips</a> - <a href="#.powerups">powerups</a> - <a href="#.mixes">mixes</a>
-<hr><a href="#./">root/$</a> - <a href="#./alt">scope/alt</a> - <a href="#./res">res</a> - <a href="#./lib">lib</a> - <a href="#./dna">dna</a> - <a href="#./env">env</a> - <a href="#./lab">lab</a> - <a href="#./trap">trap</a> - <a href="#./setup">setup</a>
+<div style="font-size: 80%;">
+<a href="#.getting-started">start</a> | <a href="#.jam-card">jamcard</a> | <a href="#.tips">tips</a> | <a href="#.powerups">powerups</a> | <a href="#.mixes">mixes</a>
 <hr>
+<a href="#./">root/$</a> | <a href="#./alt">scope/alt</a> | <a href="#./res">res</a> | <a href="#./lib">lib</a> | <a href="#./dna">dna</a> | <a href="#./env">env</a> | <a href="#./lab">lab</a> | <a href="#./trap">trap</a> | <a href="#./setup">setup</a>
+<hr>
+</div>
 
-<b>Collider.JAM</b> is a JavaScript game framework
-that tries to keep the fun of game jamming and prototyping.
+_Collider.JAM_ is a hand-crafted JavaScript game framework for game jamming, creative coding, prototyping and beyond.
 
 It is a fun way to prototype and create games.
-
-Also it conceals some rough JavaScript edges,
-making it a good candidate for language introduction.
+Also, it conceals rough JavaScript edges,
+turning development into a joyride.
 
 To start, check out <a href="#.getting-started">Getting Started</a>.
 
@@ -23,4 +24,14 @@ Investigate <a href="#./">the root node</a>.
 Also, check out useful <a href="#.tips">tips</a>.
 
 Installation intructions available <a href="#.install">here</a>.
+
+
+<hr>
+
+<div style="font-size: 80%;">
+<a href="https://github.com/invider/collider.jam">Source Code</a> | <a href="http://colliderlabs.com/data/jamming-card.pdf">Jamming Card</a> | <a href="http://colliderlabs.com/jam">Collider.JAM</a> | <a href="http://colliderlabs.com">Collider Labs</a>
+</div>
+
+<hr>
+
 

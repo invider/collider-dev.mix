@@ -2,30 +2,22 @@ name: Mixes
 
 tags: jam, collider.jam, intro, start, game, examples, samples, code, snippets
 
-You can explore source of games from various game jams:
+*Collider.JAM Core Mixes:*
+
+    - <a href="https://github.com/invider/collider.mix">collider.mix</a> - collider.jam core mods
+    - <a href="https://github.com/invider/collider-debug.mix">collider-debug.mix</a> - collider.jam development tools
+    - <a href="https://github.com/invider/collider-boot.mix">collider-boot.mix</a> - samples and patches for bootstrap
+
+You can explore the source of many open-source games
+created during various game jams:
 
     - <a href="https://github.com/invider/bits.mix">Bits Mix</a> - various code snippets
+    - <a href="https://github.com/invider/cosmic-rays-n-dnas.mod">Cosmic Rays'n DNAs</a> - arcade from Global Game Jam 2020.
+    - <a href="https://github.com/invider/infected-island.mod">Infected Island</a> - a survival roguelike, part of 7 Day RogueLike Challenge.
     - <a href="https://github.com/invider/dream-rocket-boy">Dream Rocket Boy</a> - Global Game Jam 2019 Entry
     - <a href="https://github.com/invider/xeno-relay-day">Xeno Relay Day</a> - Global Game Jam 2018 Entry
     - <a href="https://github.com/invider/300-hearts-for-escape">300 Hearts for Escape</a> - Ludum Dare 44 Entry
     - <a href="https://github.com/invider/alarm-1202.mod">Alarm 1202</a> - educational game
     - <a href="https://github.com/invider/ballistic-skylines">Ballistic Skylines</a> - Ludum Dare 41 Entry
-    - <a href="https://github.com/invider/master-of-ritual">Master of Ritual</a>
-    - <a href="https://github.com/invider/metro-gang.mix">Metro Gang</a>
-
-
-*Collider.JAM Core Mixes:*
-
-    - <a href="https://github.com/invider/collider.mix">collider.mix</a> - collider.jam core
-    - <a href="https://github.com/invider/collider-lib.mix">collider-lib.mix</a> - collider.jam libraries
-    - <a href="https://github.com/invider/collider-ext.mix">collider-ext.mix</a> - collider.jam extensions
-    - <a href="https://github.com/invider/collider-hud.mix">collider-hud.mix</a> - collider.jam UI
-    - <a href="https://github.com/invider/collider-debug.mix">collider-debug.mix</a> - collider.jam development tools
-    - <a href="https://github.com/invider/collider-boot.mix">collider-boot.mix</a> - samples and patches for bootstrap
-
-    
-    
-
-    
-    
-
+    - <a href="https://github.com/invider/master-of-ritual">Master of Ritual</a> - dangeon crawler from Ludum Dare 43
+    - <a href="https://github.com/invider/metro-gang.mix">Metro Gang</a> - a strategic beat'em up from Ludum Dare 45
