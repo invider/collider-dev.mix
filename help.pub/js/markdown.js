@@ -8,6 +8,11 @@ function parse(md, nowrap) {
     let bufc
     let buffered = false
 
+    function err(msg) {
+        console.dir(md)
+        throw '@' + line + '.' + linePos + ': ' + msg
+    }
+
     // parsing utils
     function isSpace(c) {
         return c === ' ' || c === '\t'
@@ -72,14 +77,12 @@ function parse(md, nowrap) {
     }
 
     function retc() {
-        if (buffered) throw 'double buffering is not supported!'
+        if (buffered) err('double buffering is not supported!')
         buffered = true
     }
 
     function ahead() {
-        const c = getc()
-        retc()
-        return c
+        return md.charAt(pos)
     }
 
     function matchShift() {
@@ -136,6 +139,17 @@ function parse(md, nowrap) {
         while(c && !isNewLine(c) && !isSpecial(c)) {
             span += c
             c = getc()
+
+            if (c === '*' && ahead() === '*') {
+                span += '*'
+                getc()
+                c = getc()
+            }
+            if (c === '_' && ahead() === '_') {
+                span += '_'
+                getc()
+                c = getc()
+            }
         }
         retc()
 
