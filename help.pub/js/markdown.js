@@ -173,7 +173,7 @@ function parse(md, nowrap) {
         while(span) {
             if (span.t === NL) { 
                 lineSpan = 0
-                if (lastSpan.t === NL) out += '</p><p>'
+                if (!state.code && lastSpan.t === NL) out += '</p><p>'
             } else {
                 lineSpan ++
             }
@@ -203,6 +203,8 @@ function parse(md, nowrap) {
                     state.code = true
                     out += '<pre>\n'
                 }
+                for (let i = 0; i < span.v; i++) out += ' '
+
             } else {
                 //if (span.t !== NL) console.log(`@${line}.${linePos}: ${span.t}:[${span.v}]`)
                 if (state.code && lineSpan === 1) {
@@ -210,7 +212,6 @@ function parse(md, nowrap) {
                     out += '\n</pre>'
                 }
                 out += span.v
-
             }
 
             lastSpan = span
