@@ -1,11 +1,67 @@
 name: Releases
 
-DR1 - First public development release
+<span class="metaSection">0.0.3-DR3 2020-04-01</span>
 
-[+] mod structure
+[+] new wormhole bootloader
 
-[+] context functions
+[+] jam --release flag to ignore debug dependencies
 
-[+] npm packaging
+[+] shuffle() array in lib/math
 
+[+] mod.disabled flag to ignore traps on mod-level
+
+[**] updated manual pages
+
+[**] improved node inspector navigation (F2)
+
+[-] fixed collider.jam module path determination (F1)
+
+[-] fixed Firefox compatibility
+
+[-] fixed Safari compatibility
+
+
+
+<hr><span class="metaSection">0.0.2-DR2 2020-02-29</span>
+
+[+] help mod with metadata auto scan
+
+[+] new node inspector
+
+[+] hot code reload
+
+[+] boxes subsystem
+
+[+] alt node for in-scope values
+
+[+] extended default in-scope functions and objects
+
+[**] new module structure
+
+[-] multiple bug fixes
+
+
+<hr><span class="metaSection">0.0.1-DR1 2019-09-27</span>
+
+[!] _first public release_
+
+[+] core scene structure
+
+[+] game lifecycle
+
+[+] main game loop
+
+[+] entities spawning
+
+[+] resources auto-loading
+
+[+] customized scope code evaluation
+
+[+] basic libraries including math helpers
+
+[+] rudimentary hud subsystem
+
+[+] debug tools - log, status info, console, explorer
+
+[+] web packaging
 

@@ -2,13 +2,71 @@ name: HUD
 
 tags: hud, widgets, gadgets, ui
 
+The _HUD_ is a user interface system included in Collider.JAM.
 
-Troubles
---------
+You have to spawn dna/hud/Hud in your _lab_.
+That is the main UI object, that handles all events. 
 
-Custom components are not reacting on mouse click.
+First drop some lab/background.js:
 
-It can be the component is not marked as {underscore}sizable.
+    const Z = 0
+
+    function draw() {
+        background(.5, .1, .1)
+    }
+<hr>
+
+
+Then, setup the hud in setup.js:
+<hr>
+    let id = 1
+    let sx = 100
+    let sy = 100
+
+    function spawnLabel() {
+        const label = lab.hud.spawn('hud/gadget/Label', {
+            name: 'label' + id++,
+            x: sx,
+            y: sy,
+            text: 'Collider',
+        })
+        sys.augment(label, dna.hud.trait.Draggable)
+        label.setStyle('title')
+
+        sx += 40
+        sy += 40
+    }
+
+    function setup() {
+        log('hidding')
+
+        lab.spawn(dna.hud.Hud, {
+            name: 'hud',
+        })
+
+        lab.hud.spawn(dna.hud.gadget.Button, {
+            name: 'button1',
+            text: 'Click Me!',
+            x: rx(.5) - 100,
+            y: ry(.5) - 20,
+            w: 200,
+            h: 40,
+
+            onClick: function() {
+                spawnLabel()
+            },
+        })
+
+    }
+
+<hr>
+
+
+<span class="metaSection">Troubleshooting</span>
+
+*Custom components are not reacting on mouse click.*
+
+It can be the component is not marked as __sizable.
 It happens when it doesn't have x,y or w,h set when attached.
 Set defaults in constructor to fix that.
 

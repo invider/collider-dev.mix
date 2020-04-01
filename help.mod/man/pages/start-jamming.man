@@ -4,9 +4,8 @@ tags: jam, collider.jam, intro, start
 
 To join a game jam, check out <a href="https://itch.io/jams">jams on Itch.io</a>. There is always something going on there.
 
-The calendar is very handy to see
-what game jams are going to take place
-in the nearest future.
+The timeline there is a perfect tool
+for future jam planning.
 
 <hr><span class="metaSection">
 <a href="http://ldjam.com/">Ludum Dare</a>
@@ -39,13 +38,15 @@ and figure out what might be missing.
 
 Some things you need to check before the jam:
 
-- Update your software tools
-- Install and configure what is missing
-- Pack your stuff when jamming on-site:
-    - a laptop
-    - chargers for the laptop and the mobile phone
-    - headphones
-    - (optional) a gamepad
-    - paper, a pen/pensil, sticky notes for brainstorm
-    - anything else that helps to brainstorm
-
+<li>Update your software tools</li>
+<li>Install and configure what is missing</li>
+<li>Pack your stuff when jamming on-site
+<ul>
+<li>a laptop</li>
+<li>chargers for the laptop and the mobile phone</li>
+<li>headphones</li>
+<li>(optional) a gamepad</li>
+<li>paper, a pen/pensil brainstorm</li>
+<li>sticky notes, markers, tokens and anything else that helps to brainstorm</li>
+</ul>
+</li>

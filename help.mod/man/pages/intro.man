@@ -3,7 +3,7 @@ name: Intro
 tags: jam, intro, start, begin, beginner, preface, home
 
 <div style="font-size: 80%;">
-<a href="#.getting-started">start</a> | <a href="#.jam-card">jamcard</a> | <a href="#.tips">tips</a> | <a href="#.mixes">mixes</a>
+<a href="#.getting-started">start</a> | <a href="#.terms">terms</a> | <a href="#.jam-card">jamcard</a> | <a href="#.tips">tips</a> | <a href="#.mixes">mixes</a>
 <hr>
 <a href="#./">root/$</a> | <a href="#./alt">scope/alt</a> | <a href="#./res">res</a> | <a href="#./lib">lib</a> | <a href="#./dna">dna</a> | <a href="#./env">env</a> | <a href="#./lab">lab</a> | <a href="#./trap">trap</a> | <a href="#./setup">setup</a>
 <hr>

@@ -1,4 +1,21 @@
 name: Tips
 
-Some Collider.JAM tips.
+<span class="metaSection">Use -d and --fast modes.</span>
+
+The *jam -d* flag enabled a lot of useful features
+for development.
+
+When enabled, jam prints a lot of debug info
+in the console and extracts help metadata
+from the browser.
+
+So, online help (F1) works only with -d flag.
+
+You can use --fast flag to speed up the boot.
+
+<span class="metaSection">Use --release flag when packing for production</span>
+
+With *--release* flag all debug feature
+will be ignored and will not be included
+in the final package.
 
