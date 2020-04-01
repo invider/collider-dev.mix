@@ -1,0 +1,51 @@
+name: Start Jamming
+
+tags: jam, collider.jam, intro, start
+
+To join a game jam, check out <a href="https://itch.io/jams">jams on Itch.io</a>. There is always something going on there.
+
+The calendar is very handy to see
+what game jams are going to take place
+in the nearest future.
+
+<hr><span class="metaSection">
+<a href="http://ldjam.com/">Ludum Dare</a>
+</span>
+
+The main online global event, gathering thousands
+of game developers twice a year.
+
+<hr><span class="metaSection">
+<a href="https://globalgamejam.org/">Global Game Jam</a>
+</span>
+
+The biggest on-site jamming event.
+Check out <a href="https://globalgamejam.org/2020/jam-sites">location</a>
+in your city, or organize a new one!
+
+<hr><span class="metaSection">Pre Jamming</span>
+
+Jammers are usually keep warm-up session
+before the major events.
+
+One week before a Ludum Dare or Global Game Jam,
+we usually gather at some cozy place
+and discuss current technical and game design challenges.
+
+A good opportunity to evaluate your tech stack, tools
+and figure out what might be missing.
+
+<hr><span class="metaSection">Checklist</span>
+
+Some things you need to check before the jam:
+
+- Update your software tools
+- Install and configure what is missing
+- Pack your stuff when jamming on-site:
+    - a laptop
+    - chargers for the laptop and the mobile phone
+    - headphones
+    - (optional) a gamepad
+    - paper, a pen/pensil, sticky notes for brainstorm
+    - anything else that helps to brainstorm
+

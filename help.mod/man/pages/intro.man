@@ -3,7 +3,7 @@ name: Intro
 tags: jam, intro, start, begin, beginner, preface, home
 
 <div style="font-size: 80%;">
-<a href="#.getting-started">start</a> | <a href="#.jam-card">jamcard</a> | <a href="#.tips">tips</a> | <a href="#.powerups">powerups</a> | <a href="#.mixes">mixes</a>
+<a href="#.getting-started">start</a> | <a href="#.jam-card">jamcard</a> | <a href="#.tips">tips</a> | <a href="#.mixes">mixes</a>
 <hr>
 <a href="#./">root/$</a> | <a href="#./alt">scope/alt</a> | <a href="#./res">res</a> | <a href="#./lib">lib</a> | <a href="#./dna">dna</a> | <a href="#./env">env</a> | <a href="#./lab">lab</a> | <a href="#./trap">trap</a> | <a href="#./setup">setup</a>
 <hr>
@@ -12,8 +12,11 @@ tags: jam, intro, start, begin, beginner, preface, home
 _Collider.JAM_ is a hand-crafted JavaScript game framework for game jamming, creative coding, prototyping and beyond.
 
 It is a fun way to prototype and create games.
-Also, it conceals rough JavaScript edges,
+
+_Collider.JAM_ conceals rough JavaScript edges,
 turning development into a joyride.
+It is the most pleasant way to learn JavaScript.
+You don't have to worry about DOM, CSS and MVC frameworks here.
 
 To start, check out <a href="#.getting-started">Getting Started</a>.
 
@@ -25,6 +28,7 @@ Also, check out useful <a href="#.tips">tips</a>.
 
 Installation intructions available <a href="#.install">here</a>.
 
+And <a href="#.start-jamming">Start Jamming</a>.
 
 <hr>
 

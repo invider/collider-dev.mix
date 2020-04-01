@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-size: 28px;
+    font-size: 100%;
 
     input[type='text'] {
         font-size: 24px;
@@ -12,7 +12,7 @@ body {
     bottom: 0;
     right: 0;
      
-    font-size: 20px;
+    font-size: 150%;
     color: #808080;
 }
 
@@ -28,7 +28,7 @@ body {
 }
 
 #searchField {
-    font-size: 28px;
+    font-size: 120%;
     color: #404040;
 }
 
@@ -40,6 +40,7 @@ body {
     top:  0;
     left: 0;
     overflow-x: hidden;
+    font-size: 150%;
 
 
     color: #bd8c37;
@@ -72,10 +73,10 @@ body {
     text-decoration: none;
 }
 .tagName {
-    font-size: 32px;
+    font-size: 150%;
 }
 .tagPath {
-    font-size: 20px;
+    font-size: 80%;
 }
 
 .help {
@@ -92,7 +93,7 @@ body {
     margin-bottom: 15px;
     padding: 30px;
 
-    font-size: 20px;
+    font-size: 120%;
     /* background: #dfdfca; */
     background: #faeed4;
 }
@@ -104,7 +105,7 @@ body {
 
 .path {
     color: #505050;
-    font-size: 24px;
+    font-size: 100%;
 }
 
 .pathLink {
@@ -128,7 +129,7 @@ body {
     /* color: #348199; */
     color: #202020;
     font-style: italic;
-    font-size: 30px;
+    font-size: 120%;
     text-indent: 1em;
     padding-top: 12px;
     padding-bottom: 10px;
@@ -136,7 +137,7 @@ body {
 
 .metaSection {
     color: #166470;
-    font-size: 28px;
+    font-size: 100%;
 }
 
 .message {
@@ -145,7 +146,7 @@ body {
     padding: 30px;
     margin-top: 100px;
 
-    font-size: 30px;
+    font-size: 100%;
     background: #f8d8b5;
 }
 .meta a:link { color: #485f69; }
