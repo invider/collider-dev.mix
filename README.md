@@ -1,9 +1,11 @@
-Collider.JAM Debug Mods
-=======================
+Collider.JAM Development Mods
+=============================
 
 Contains following debug mods:
 
-* status.mod - status info binded to F2
-* console.mod - a debug console binded to F4
-* explore.mod - system browser binded to F9
+* help.mod [F1] - generates code metadata and shows help
+* inspector.mod [F2] - explore mix structure
+* console.mod [F4] - a debug console
+* status.mod [F6] - status info
+* explorer.mod - system browser tools binded to F9
 
