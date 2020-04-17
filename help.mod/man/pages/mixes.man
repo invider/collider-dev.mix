@@ -5,7 +5,7 @@ tags: jam, collider.jam, intro, start, game, examples, samples, code, snippets
 <span class="metaSection">Collider.JAM Core Mixes:</span>
 
     - <a href="https://github.com/invider/collider.mix">collider.mix</a> - collider.jam core mods
-    - <a href="https://github.com/invider/collider-debug.mix">collider-debug.mix</a> - collider.jam development tools
+    - <a href="https://github.com/invider/collider-dev">collider-dev</a> - collider.jam development tools
     - <a href="https://github.com/invider/collider-boot.mix">collider-boot.mix</a> - samples and patches for bootstrap
 
 <span class="metaSection">Explore</span>
