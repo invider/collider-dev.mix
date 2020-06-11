@@ -156,3 +156,30 @@ head: kill a node
 usage: (node)
 details: The *node* supposed to have a parent link, i.e. *node.__*.
 
+-------------------------------------------------------------------
+/alt/print
+head: output a line on the text console
+usage: (line)
+details: The line is followed by a line feed.
+Redefine /sys/print to change output target or behavior.
+
+-------------------------------------------------------------------
+/alt/input
+head: input a value form the text console
+usage: (message)
+details: Returns a promise, so better used in *async*
+functions along the *await* keyword.
+Redefine /sys/input to change behavior.
+
+-------------------------------------------------------------------
+/alt/alert
+head: show a message in the most convenient way for the current mode
+usage: (message)
+details: Redefine /sys/alert to change output target or behavior.
+
+-------------------------------------------------------------------
+/alt/ask
+head: ask a value in the most convenient way for the current mode 
+usage: (message)
+details: Redefine /sys/alert to change output target or behavior.
+

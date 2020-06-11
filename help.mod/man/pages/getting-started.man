@@ -7,7 +7,7 @@ Create a new folder named _planet.mod_
 and a folder named _res_ inside.
 
 Place a planet image inside the _res_ folder.
-You can get one from <a href="https://opengameart.org/sites/default/files/mars_type_planet.png">here</a>
+You can get one from <a href="https://opengameart.org/content/mars-type-planet">here</a>
 or find any other planet with transparent background.
 
 Now, create a file _planet.mod/lab.js_:
