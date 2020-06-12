@@ -157,6 +157,12 @@ usage: (node)
 details: The *node* supposed to have a parent link, i.e. *node.__*.
 
 -------------------------------------------------------------------
+/alt/sleep
+head: sleep for *ms* milliseconds
+usage: (ms)
+details: Convenient to use with *await* in an *async* function.
+
+-------------------------------------------------------------------
 /alt/print
 head: output a line on the text console
 usage: (line)
@@ -182,4 +188,9 @@ details: Redefine /sys/alert to change output target or behavior.
 head: ask a value in the most convenient way for the current mode 
 usage: (message)
 details: Redefine /sys/alert to change output target or behavior.
+
+-------------------------------------------------------------------
+/alt/cls
+head: clear the text console
+usage: ()
 
