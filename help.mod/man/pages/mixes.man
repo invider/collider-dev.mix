@@ -11,15 +11,19 @@ tags: jam, collider.jam, intro, start, game, examples, samples, code, snippets
 <span class="metaSection">Explore</span>
 
 You can explore variety of open-source games
-created during various game jams:
+and samples created with Collider.JAM:
 
     - <a href="https://github.com/invider/bits.mix">Bits Mix</a> - various code snippets
+    - <a href="https://github.com/invider/hello-collider-impact.mod">Planet Impact</a> - Collider.JAM Hello World source
+    - <a href="https://github.com/invider/game-of-life.mod">Game of Life</a> - Conway's Game of Life implementation. 
+    <hr>
+    - <a href="https://github.com/invider/station-keeping.mod">Station Keeping</a> - a local multipayer co-op space station trading and survival from Ludum Dare 46.
     - <a href="https://github.com/invider/cosmic-rays-n-dnas.mod">Cosmic Rays'n DNAs</a> - arcade from Global Game Jam 2020.
-    - <a href="https://github.com/invider/infected-island.mod">Infected Island</a> - a survival game from 7 Day RogueLike Challenge.
-    - <a href="https://github.com/invider/dream-rocket-boy">Dream Rocket Boy</a> - Global Game Jam 2019 Entry
-    - <a href="https://github.com/invider/xeno-relay-day">Xeno Relay Day</a> - Global Game Jam 2018 Entry
     - <a href="https://github.com/invider/300-hearts-for-escape">300 Hearts for Escape</a> - Ludum Dare 44 Entry
-    - <a href="https://github.com/invider/alarm-1202.mod">Alarm 1202</a> - educational game
+    - <a href="https://github.com/invider/alarm-1202.mod">Alarm 1202</a> - an educational game to learn basic arithmetics.
+    - <a href="https://github.com/invider/infected-island.mod">Infected Island</a> - a survival game from 7 Day RogueLike Challenge.
+    - <a href="https://github.com/invider/xeno-relay-day">Xeno Relay Day</a> - Global Game Jam 2018 Entry
+    - <a href="https://github.com/invider/dream-rocket-boy">Dream Rocket Boy</a> - Global Game Jam 2019 Entry
     - <a href="https://github.com/invider/ballistic-skylines">Ballistic Skylines</a> - Ludum Dare 41 Entry
-    - <a href="https://github.com/invider/master-of-ritual">Master of Ritual</a> - dangeon crawler from Ludum Dare 43
     - <a href="https://github.com/invider/metro-gang.mix">Metro Gang</a> - a strategic beat'em up from Ludum Dare 45
+    - <a href="https://github.com/invider/master-of-ritual">Master of Ritual</a> - dangeon crawler from Ludum Dare 43
