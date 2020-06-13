@@ -60,6 +60,7 @@ module.exports = function setup() {
         if (fn) {
             const res = fn(words, cmd, con)
             if (res) con.print(res)
+
         } else {
             // check default handler
             fn = getGlobal('_default')
