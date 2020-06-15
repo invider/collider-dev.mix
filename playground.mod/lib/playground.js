@@ -1,20 +1,64 @@
+const RW = .35
+
+let monacoEditor
+let playLoaded = false
+let playScript
+
+function syncIn() {
+    if (!monacoEditor) return
+
+    const patchLog = _._$._patchLog
+    if (!patchLog) return
+
+    // locate play script def
+    patchLog.forEach(p => {
+        if (p.path === 'lab/play') {
+            playScript = p
+            playLoaded = true
+        }
+    })
+
+    if (!playScript) {
+        // create a placeholder
+        playScript = {
+            base: _._$,
+            ext: "js",
+            name: "play",
+            path: "lab/play",
+            src: '',
+        }
+    }
+
+    const playSrc = playScript.src
+    monacoEditor.setValue(playSrc)
+}
+
+function syncOut() {
+    const gsys = _._$.sys
+    const src = monacoEditor.getValue()
+
+    playScript.src = src
+    gsys.evalLoadedContent(playScript, _._$)
+}
+
 function setupGridLayout() {
     const gsys = _._$.sys
 
     gsys.expandCanvas = function(name) {
         const w = window.innerWidth
         const h = window.innerHeight
-        gsys.placeCanvas(name, w*.5, 0, w*.5, h)
+        gsys.placeCanvas(name, w*RW, 0, w*(1-RW), h)
 
         const editor = document.getElementById('editor')
         editor.style.display = 'block'
         editor.style.left = '0px'
         editor.style.top = '0px'
-        editor.style.width = .5*w + 'px'
-        editor.style.height = .5*h + 'px'
+        editor.style.width = RW*w + 'px'
+        editor.style.height = h + 'px'
 
         if (editor.layout) editor.layout()
     }
+    syncIn()
     gsys.expandCanvas()
 }
 
@@ -29,6 +73,7 @@ function setupMonoLayout() {
         const editor = document.getElementById('editor')
         editor.style.display = 'none'
     }
+    syncOut()
     gsys.expandCanvas()
 }
 
@@ -46,7 +91,6 @@ function createMonaco() {
 
     editor.style.backgroundColor = '#808080'
     document.body.appendChild(editor)
-    setupGridLayout()
 
     const ed = monaco.editor.create(document.getElementById('editor'), {
         value: [
@@ -60,9 +104,12 @@ function createMonaco() {
         automaticLayout: true,
         theme: 'vs-dark',
     })
+    monacoEditor = ed
 
     monaco.editor.defineTheme('monokai', lib.themes['Monokai'])
     monaco.editor.setTheme('monokai');
+
+    setupGridLayout()
 }
 
 function setupPlayground() {
