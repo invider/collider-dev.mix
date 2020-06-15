@@ -1,0 +1,4 @@
+#!/bin/sh
+cp -r ./node_modules/monaco-editor/min/vs ./help.pub/js/vs/
+cp -r ./node_modules/monaco-themes/themes/ ./playground.mod/lib/
+
