@@ -167,7 +167,7 @@ details: Convenient to use with *await* in an *async* function.
 head: output a line on the text console
 usage: (line)
 details: The line is followed by a line feed.
-Redefine /sys/print to change output target or behavior.
+Redefine /sys/print to change the output target or behavior.
 
 -------------------------------------------------------------------
 /alt/input
@@ -178,10 +178,10 @@ functions along the *await* keyword.
 Redefine /sys/input to change behavior.
 
 -------------------------------------------------------------------
-/alt/alert
+/alt/say
 head: show a message in the most convenient way for the current mode
 usage: (message)
-details: Redefine /sys/alert to change output target or behavior.
+details: Redefine /sys/say to change the output target or behavior.
 
 -------------------------------------------------------------------
 /alt/ask
