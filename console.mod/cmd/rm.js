@@ -21,6 +21,3 @@ function rm(args, line, con) {
 
 rm.info = 'remove node from scene'
 rm.args = '<path>'
-
-module.exports = rm
-

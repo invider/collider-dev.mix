@@ -34,6 +34,3 @@ function help(args, line, con) {
 }
 
 help.info = 'show this message'
-
-module.exports = help
-

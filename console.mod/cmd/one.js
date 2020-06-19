@@ -13,5 +13,3 @@ function one(args, line, con) {
 
 one.info = 'select and dump a single node form provided path'
 one.args = '<path>'
-
-module.exports = one

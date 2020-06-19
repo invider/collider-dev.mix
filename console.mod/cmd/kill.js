@@ -19,5 +19,3 @@ function killNode(args, line, con) {
 
 killNode.info = 'kill the node'
 killNode.args = '<path>'
-
-module.exports = killNode

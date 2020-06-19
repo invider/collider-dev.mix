@@ -1,5 +1,5 @@
 function postSetup() {
-    if ($.env.config.debug) {
-        _.job.helper.report()
-    }
+    _.job.helper.report()
+
+    _$.mod.console.cmd.attach(_.cmd.sync)
 }

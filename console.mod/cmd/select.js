@@ -16,4 +16,3 @@ function select(args, line, con) {
 select.info = 'select and dump nodes by path'
 select.args = '<path>'
 
-module.exports = select

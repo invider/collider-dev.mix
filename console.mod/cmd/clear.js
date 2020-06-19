@@ -6,4 +6,3 @@ function clear(args, line, con) {
 
 clear.info = 'clear the console'
 
-module.exports = clear
