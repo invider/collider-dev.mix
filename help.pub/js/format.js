@@ -72,6 +72,7 @@ export function metaToHtml(meta) {
 
     let body = `<div id=".${meta.path}" class="meta">`
 
+    // format parent path
     const upPath = parentPath(meta.path)
     if (upPath) {
        body +=  `<div class="path">`
@@ -81,6 +82,7 @@ export function metaToHtml(meta) {
         //body += `<div class="path">${meta.path}</div>`
     }
 
+    // format the title
     let usage = ''
     if (meta.type === 'function') {
         usage = (meta.data && meta.data.usage)? `${meta.data.usage}` : '()'
@@ -99,6 +101,25 @@ export function metaToHtml(meta) {
 
     let headClass = meta.data? 'metaTitle' : 'missingTitle'
     body += `<div class="${headClass}">${title}</div>`
+
+    if (meta.data && meta.data.at) {
+        // format tags
+        meta.data.at.forEach(at => {
+            let nextTag
+            if (at.id === '@param') {
+                nextTag = at.name
+                if (at.type) nextTag += ': ' + at.type
+                if (at.line) nextTag += ' - ' + at.line
+            } else if (at.id === '@returns') {
+                nextTag = 'returns'
+                if (at.type) nextTag += ' ' + at.type
+                if (at.line) nextTag += ' - ' + at.line
+            }
+            if (nextTag) {
+                body += `<div class="metaAt">${nextTag}</div>`
+            }
+        })
+    }
 
     const subtitle = (meta.data && meta.data.head)?
                             md2html(meta.data.head) : ''
