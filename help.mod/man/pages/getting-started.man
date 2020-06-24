@@ -1,7 +1,8 @@
 name: Getting Started
 
-After <a href="#.installation">installation</a>,
-it is time to create your first mod.
+Thanks you for <a href="#.install">downloading</a> _Collider.JAM_!
+
+Now, it is time to create your first mod.
 
 Create a new folder named _planet.mod_
 and a folder named _res_ inside.
@@ -13,8 +14,8 @@ or find any other planet with transparent background.
 Now, create a file _planet.mod/lab.js_:
 
     // position at the center of the screen
-            let x = rx(.5)
-            let y = ry(.5)
+    let x = rx(.5)
+    let y = ry(.5)
     let r = 50
 
     let dx = 100 // x-axis speed component
@@ -49,4 +50,20 @@ to be evaluated in the main game loop,
 since they are part of the _lab_ node.
 
 Everything in the _lab_ is alive.
+
+
+The source for this example is available
+at <a href="https://github.com/invider/bits.mix/blob/master/planet.mod/lab.js">bits.mix/planet.mod/lab.js</a>.
+
+You can run it by cloning the _bits.mix_ repository:
+
+    git clone https://github.com/invider/bits.mix.git
+
+Then, run _Collider.JAM_ inside planet.mod folder:
+
+    cd bits.mix/planet.mod
+
+    jam
+
+And open the browser at <a href="http://localhost:9999">http://localhost:9999</a>
 

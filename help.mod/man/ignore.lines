@@ -3,6 +3,7 @@
 */mod/man/*
 /mod/explorer/*
 /mod/inspector/*
+/mod/playground/*
 /mod/help/*
 /mod/console/*
 /mod/status/*
