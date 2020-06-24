@@ -106,11 +106,11 @@ export function metaToHtml(meta) {
         // format tags
         meta.data.at.forEach(at => {
             let nextTag
-            if (at.id === '@param') {
+            if (at.id === 'param') {
                 nextTag = at.name
                 if (at.type) nextTag += ': ' + at.type
                 if (at.line) nextTag += ' - ' + at.line
-            } else if (at.id === '@returns') {
+            } else if (at.id === 'returns') {
                 nextTag = 'returns'
                 if (at.type) nextTag += ' ' + at.type
                 if (at.line) nextTag += ' - ' + at.line
