@@ -1,3 +1,54 @@
+function nextWord(line) {
+    if (!line) return ''
+    const at = line.indexOf(' ')
+    if (at < 0) return line
+    return line.substring(0, at)
+}
+
+function cutPrefix(line, prefix) {
+    if (!line) return ''
+    return line.substring(prefix.length, line.length)
+}
+
+function processTypes(details) {
+    let types
+
+    const lines = details.split('\n')
+    for (let i = 0, ln = lines.length; i < ln; i++) {
+        let line = lines[i].trim()
+        if (line.startsWith('@')) {
+            const tag = {}
+            tag.id = nextWord(line)
+            line = cutPrefix(line, tag.id).trim()
+            tag.id = tag.id.substring(1, tag.id.length)
+
+            if (line.startsWith('{')) {
+                // type declaration
+                tag.type = nextWord(line)
+                line = cutPrefix(line, tag.type).trim()
+                tag.type = tag.type.substring(1, tag.type.length-1)
+            }
+            // expecting the name here
+            tag.name = nextWord(line)
+            line = cutPrefix(line, tag.name).trim()
+
+            if (line.startsWith('-')) {
+                line = line.substring(1, line.length).trim()
+            }
+            if (line.length > 0) {
+                tag.line = line
+            }
+
+            if (!types) types = []
+            types.push(tag)
+
+        } else {
+            // ignore the line
+        }
+    }
+    return types
+}
+
 function processMFX(mfx) {
     // TODO get rid of that dirty rule for the root
     //      it looks like select/selectOne for / doesn't work properly
@@ -9,7 +60,16 @@ function processMFX(mfx) {
 
             Object.keys(mfx).forEach(k => {
                 if (k === 'path') return
-                target._meta[k] = mfx[k]
+
+                let metaVal = mfx[k]
+                switch(k) {
+                    case 'types':
+                        metaVal = processTypes(metaVal)
+                        target._meta['at'] = metaVal
+                        break
+                    default:
+                        target._meta[k] = metaVal
+                }
             })
 
         } else {

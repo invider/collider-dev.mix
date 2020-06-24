@@ -8,6 +8,7 @@ function mfx(src) {
     let section
     let lineNumber= 0
 
+    // mark location in the mix
     function at(path) {
         curFix = {
            path: path,
