@@ -18,17 +18,8 @@ Just name the entity directly, e.g.:
     kill(this)
 .
 notes:
-You can define your own in-scope values.
-But this is theoretical for now - I've never ever really checked :)
-
-
--------------------------------------------------------------------
-/alt/line
-
-head: draw a line 
-usage: line(x1, y1, x2, y2)
-details:
-Usually preceided by stroke(color) and lineWidth(number) to set the style.
+You can define your own in-scope values
+by placing object and function definitions in mod/alt folder.
 
 
 -------------------------------------------------------------------
@@ -36,10 +27,10 @@ Usually preceided by stroke(color) and lineWidth(number) to set the style.
 head: the map of keys pressed at the moment 
 usage: [code]
 details:
-The flags by [keyCode] or [key] will be *true*
+The flags by [keyCode] or [keyChar] will be *true*
 when a corresponding key is down.
 
-*[key]* - represent a unicode character behind the key (layout senseitive).
+*[keyChar]* - represent a unicode character behind the key (layout senseitive).
 
 *[keyCode]* - represents a layout independant key code with first letter lower-cased (so traditional JS 'KeyA' becomes 'keyA'.
 
@@ -48,38 +39,62 @@ note: Use <a href='#./trap'>traps<a> when you need to track actual keypress even
 -------------------------------------------------------------------
 /alt/mouse
 head: contains mouse state - current and previous coordinates, buttons mask, plus mouse *out* flag
+types:
+@param {number} x - mouse pointer x coordinate
+@param {number} y - mouse pointer y coordinate
+@param {number} lx - mouse pointer previous x coordinate (dx = lx - x)
+@param {number} ly - mouse pointer previous y coordinate (dy = ly - y)
+@param {bitmask} buttons - a bitmask of the pressed buttons
+@param {boolean} out - flag to mark the mouse out of the canvas
+
+-- usage after types to redefine generated usage
 usage: { x, y, lx, ly, buttons, out }
 
 -------------------------------------------------------------------
 /alt/pad
 head: returns the gamepad status object
 usage: (gamepadId)
+types:
+    @param {number} gamepadId - id of the gamepad
+    @returns {Gamepad} - an object representing the gamepad #[id] and it's state
 details:
 When *gamepadId* is provided, returns particular gamepad state if connected. Overwise, returns array of all connected gamepad objects.
-
 
 -------------------------------------------------------------------
 /alt/mix
 head: shallow copy all properties of passed objects into a new object
-usage: (obj1, obj2, ...)
+types:
+    @param {object} obj1 - first object to mix
+    @param {object} obj2 - second object to mix
+    @param ... - additional optional objects to mix
+
 
 -------------------------------------------------------------------
 /alt/augment
 head: augment object by deeply copying properties from all supplied objects
-usage: (target, obj1, ...)
+types:
+    @param {object} target - a target object to be augmented
+    @param {object} obj1 - a first object to copy values from into the target
+    @param ... - additional optional object for target augmentation
 details:
 Properties with names *_*, *__*, *___*, *_$* are ignored,
 since can cause a cycle.
 
 No other properties that can cause a cycle should be
-present in passed objects.
+present in the passed objects.
 
 -------------------------------------------------------------------
 /alt/supplement
 head: supplement object by deeply copying missing properties from all supplied object
-usage: ()
+types:
+    @param {object} target - a target object to be supplemented
+    @param {object} obj1 - a first object to copy values from into the target
+    @param ... - additional optional objects to supplement the target
 details:
 Already set properties will be ignored.
+This is it's main difference with
+<a href="./alt/augment">augment(target, obj1, ...)</a>,
+which replaces already existing values.
 
 Properties with names *_*, *__*, *___*, *_$* are ignored,
 since can cause a cycle.
@@ -91,106 +106,198 @@ present in passed objects.
 /alt/before
 head: chain the supplied *patchFunction* before *obj.functionName*
 usage: (obj, functionName, patchFunction)
+types:
+    @param {object} obj - a target object containing the function to chain
+    @param {string} functionName - name of the method, e.g. object's property containing the function
+    @param {function} patchFunction - a function to execute before the target function
 details:
-The original method, if present, is going to be replaced by a chain container.
+The original method, if present, is going to be replaced by
+a chain container function that is responsible for the call
+to patchFunction and than the original function.
+
+Note, that the object context (this) is preserved among
+all chained functions.
+
 
 
 -------------------------------------------------------------------
 /alt/after
 head: chain the supplied *patchFunction* after *obj.functionName*
-usage: (obj, functionName, patchFunction)
+types:
+    @param {object} obj - a target object containing the function to chain
+    @param {string} functionName - name of the method, e.g. object's property containing the function
+    @param {function} patchFunction - a function to execute after the target function
 details:
-The original method, if present, is going to be replaced by a chain container function.
+The original method, if present, is going to be replaced by
+a chain container function that is responsible for the call
+to the original function and then to patchFunction.
+
+Note, that the object context (this) is preserved among
+all chained functions.
 
 -------------------------------------------------------------------
 /alt/chain
 head: returns a chain container function that applies both functions
-usage: (fn1, fn2)
+types:
+    @param {function} fn1 - the first function in the call chain
+    @param {function} fn2 - the second function in the call chain
+    @returns {function} - the chain function that runs fn1, then fn2
+details:
+If just one function from the pair fn1/fn2 is present,
+it will be returned instead of a chain function.
+
+In case of both parameters missing,
+an empty function will be returned.
+
+The chain function preserves the context,
+so when run on an object, both fn1 and fn2
+will get that object as this.
+
 
 -------------------------------------------------------------------
 /alt/isFun
 head: determines if *target* is a function
-usage: (target)
+types:
+    @param {any} target - any value to check
+    @returns {boolen} - true if the passed value is a function
+
 
 -------------------------------------------------------------------
 /alt/isObj
 head: determines if *target* is an object
-usage: (target)
+types:
+    @param {any} target - any value to check
+    @returns {boolen} - true if the passed value is an object
+
 
 -------------------------------------------------------------------
 /alt/isString
 head: determines if *target* is a String
-usage: (target)
+types:
+    @param {any} target - any value to check
+    @returns {boolen} - true if the passed value is a string
+
 
 -------------------------------------------------------------------
 /alt/isNumber
 head: determines if *target* is a Number
-usage: (target)
+types:
+    @param {any} target - any value to check
+    @returns {boolen} - true if the passed value is a number
+
 
 -------------------------------------------------------------------
 /alt/isFrame
 head: determines if *target* is a Frame
-usage: (target)
+types:
+    @param {any} target - any value to check
+    @returns {boolen} - true if the passed value is a Frame
+
 
 -------------------------------------------------------------------
 /alt/isArray
 head: determines if *target* is an Array
-usage: (target)
+types:
+    @param {any} target - any value to check
+    @returns {boolen} - true if the passed value is an array
+
 
 -------------------------------------------------------------------
 /alt/isEmpty
 head: checks if the *target* object/array is empty 
-usage: (target)
+types:
+    @param {any | object | array} target - an object or an array to check
+    @returns {boolean} - true if object or array has any own values
 details:
 Returns true for undefined, null, '', 0, false.
 Returns false for any non-object and non-array values.
 
+For objects, only own properties are counted in.
+
 -------------------------------------------------------------------
 /alt/sfx
 head: play a sound effect
-usage: (sound, volume, panorama)
+types:
+    @param {AudioClip} sound - an audio clip to play
+    @param {number[0..1]} volume - sound volume
+    @param {number[-1..1]} panorama - the placement of sound from left to right
 
 -------------------------------------------------------------------
 /alt/kill
 head: kill a node
 usage: (node)
-details: The *node* supposed to have a parent link, i.e. *node.__*.
+types:
+    @param {Node} node - a mix node to kill
+
+details:
+Before the kill, _node.onKill()_ handler
+will be called if present.
+
+If the *node* has a _kill()_ function it will be called
+to do some custom clean up actions.
+It is usually defined for objects in the pool,
+when we don't want to detach a killed object
+and want to reuse it instead later.
+In that case, node.kill() can just raise the node.dead flag
+and move on - the object pool have to take care and reuse the object
+or it's slot.
+
+In case there is no node.kill() method,
+a regular parent.detach(node) will be called.
+In that case, the *node* is supposed to have a parent link, i.e. *node.__*.
+
 
 -------------------------------------------------------------------
 /alt/sleep
-head: sleep for *ms* milliseconds
-usage: (ms)
-details: Convenient to use with *await* in an *async* function.
+head: sleep for *t* seconds
+types:
+    @param {number} t - time to wait in seconds
+    @returns {Promise} - a promise that will be resolved in *s* seconds
+
+details:
+Convenient to use with *await* in an *async* function.
 
 -------------------------------------------------------------------
 /alt/print
 head: output a line on the text console
-usage: (line)
-details: The line is followed by a line feed.
+types:
+    @param {string} line - a lite to print
+
+details:
+The line is followed by a line feed.
+
 Redefine /sys/print to change the output target or behavior.
 
 -------------------------------------------------------------------
 /alt/input
 head: input a value form the text console
-usage: (message)
-details: Returns a promise, so better used in *async*
+types:
+    @param {string} message - an input message to print out
+    @returns {Promise -> string} - a promise to return an input string
+
+details:
+Returns a promise, so better used in *async*
 functions along the *await* keyword.
+
 Redefine /sys/input to change behavior.
 
 -------------------------------------------------------------------
 /alt/say
 head: show a message in the most convenient way for the current mode
-usage: (message)
+types:
+    @param {string} message - an input message to say
+
 details: Redefine /sys/say to change the output target or behavior.
 
 -------------------------------------------------------------------
 /alt/ask
 head: ask a value in the most convenient way for the current mode 
-usage: (message)
-details: Redefine /sys/alert to change output target or behavior.
+types:
+    @param {string} question - a question
+    @returns {Promise -> string} - a promise to return an input string
+details: Redefine /sys/ask to change output target or behavior.
 
 -------------------------------------------------------------------
 /alt/cls
 head: clear the text console
-usage: ()
 

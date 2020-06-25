@@ -106,10 +106,21 @@ head: fills background with provided color
 usage: (color)
 details: Colors can be provided as a hex string, RGB and HSL values.
 -------------------------------------------------------------------
-/alt/lineline
+/alt/line
 tags: draw, context, 2d
 head: draw a line between 2 provided points
 usage: (x1, y1, x2, y2)
+types:
+@param {number} x1 - first point x coordinate
+@param {number} y1 - first point y coordinate
+@param {number} y2 - second point x coordinate 
+@param {number} y2 - second point y coordinate 
+details:
+Usually preceided by
+<a href="#./alt/stroke">stroke(color)</a>
+and <a href="#./alt/lineWidth">lineWidth(width)</a>
+to set the style.
+
 -------------------------------------------------------------------
 /alt/plot
 tags: draw, context, 2d

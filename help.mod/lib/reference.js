@@ -1,8 +1,7 @@
-
-
 function compileSummary(m) {
     if (m.type === 'function') {
-        const name = m.name.trim()
+        let name = m.name.trim()
+        name = `<a href="#./alt/${name}">${name}`
 
         let usage = '()'
         let head = ''
@@ -12,9 +11,8 @@ function compileSummary(m) {
             if (m.data.head) head = ' - ' + m.data.head.trim()
         }
 
-        return `*${name}${usage}*${head}\n\n`
+        return `*${name}${usage}</a>*${head}\n\n`
     } else {
-
     }
     return ''
 }
