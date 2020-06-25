@@ -112,7 +112,7 @@ export function metaToHtml(meta) {
                 if (at.line) nextTag += ' - ' + at.line
             } else if (at.id === 'returns') {
                 nextTag = 'returns'
-                if (at.type) nextTag += ' ' + at.type
+                if (at.type) nextTag += ': ' + at.type
                 if (at.line) nextTag += ' - ' + at.line
             }
             if (nextTag) {
