@@ -67,6 +67,7 @@ types:
     @param {object} obj1 - first object to mix
     @param {object} obj2 - second object to mix
     @param ... - additional optional objects to mix
+    @returns {object} - a new object with mixed in properties from all the sources
 
 
 -------------------------------------------------------------------

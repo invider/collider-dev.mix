@@ -28,7 +28,9 @@ tags: math
 
 head: returns the absolute value of *n*
 tags: math
-usage: (n)
+types:
+    @param {number} n
+    @returns {number}
 notes: Just a reference to Math.abs().
 
 -------------------------------------------------------------------
@@ -36,7 +38,10 @@ notes: Just a reference to Math.abs().
 
 head: returns *n* raised to the power of *p*
 tags: math
-usage: (n, p)
+types:
+    @param {number} n
+    @param {number} p
+    @returns {number}
 notes: Just a reference to Math.pow().
 
 -------------------------------------------------------------------
@@ -44,7 +49,9 @@ notes: Just a reference to Math.pow().
 
 head: returns the positive square root of *n*
 tags: math
-usage: (n)
+types:
+    @param {number} n
+    @returns {number}
 notes: Just a reference to Math.sqrt().
 
 
@@ -53,7 +60,11 @@ notes: Just a reference to Math.sqrt().
 
 head: returns the smallest of numbers
 tags: math
-usage: (n1, n2...)
+types:
+    @param {number} n1
+    @param {number} n2
+    @param {number} ... - additional optional numbers
+    @returns {number}
 
 details:
 Running without parameters returns Infinity
@@ -65,7 +76,11 @@ notes: Just a reference to Math.min().
 
 head: returns the largest of numbers
 tags: math
-usage: (n1, n2...)
+types:
+    @param {number} n1
+    @param {number} n2
+    @param {number} ... - additional optional numbers
+    @returns {number}
 
 details:
 Running without parameters returns -Infinity
@@ -77,7 +92,9 @@ notes: Just a reference to Math.max().
 
 head: returns the smallest integer greater than or equal to *n*
 tags: math
-usage: (n)
+types:
+    @param {number} n
+    @returns {number}
 notes: Just a reference to Math.ceil().
 
 -------------------------------------------------------------------
@@ -85,7 +102,9 @@ notes: Just a reference to Math.ceil().
 
 head: returns the largest integer less than or equal to *n*
 tags: math
-usage: (n)
+types:
+    @param {number} n
+    @returns {number}
 notes: Just a reference to Math.floor().
 
 -------------------------------------------------------------------
@@ -93,34 +112,42 @@ notes: Just a reference to Math.floor().
 
 head: returns *n* rounded to the nearest integer
 tags: math
-usage: (n)
+types:
+    @param {number} n
+    @returns {number}
 notes: Just a reference to Math.round().
 
 -------------------------------------------------------------------
 /alt/sin
 
-head: returns the sine of the angle *r*
+head: returns the sine of the angle *a*
 tags: math
-usage: (r)
-details: The angle *r* is in radians.
+types:
+    @param {number/radians} a
+    @returns {number}
+details: The angle *a* is in radians.
 notes: Just a reference to Math.sin().
 
 -------------------------------------------------------------------
 /alt/cos
 
-head: returns the cosine of the angle *r*
+head: returns the cosine of the angle *a*
 tags: math
-usage: (r)
-details: The angle *r* is in radians.
+types:
+    @param {number/radians} a
+    @returns {number}
+details: The angle *a* is in radians.
 notes: Just a reference to Math.cos().
 
 -------------------------------------------------------------------
 /alt/tan
 
-head: returns the tangent of the angle *r*
+head: returns the tangent of the angle *a*
 tags: math
-usage: (r)
-details: The angle *r* is in radians.
+types:
+    @param {number/radians} a
+    @returns {number}
+details: The angle *a* is in radians.
 notes: Just a reference to Math.tan().
 
 -------------------------------------------------------------------
@@ -128,7 +155,9 @@ notes: Just a reference to Math.tan().
 
 head: returns the arcsine of the number *n*
 tags: math
-usage: (n)
+types:
+    @param {number} n
+    @returns {number}
 details: Arcsine is the angle in radians, whose sine is *n*.
 notes: Just a reference to Math.asin().
 
@@ -137,7 +166,9 @@ notes: Just a reference to Math.asin().
 
 head: returns the arccosine of the number *n*
 tags: math
-usage: (n)
+types:
+    @param {number} n
+    @returns {number}
 details: Arccosine is the angle in radians, whose cosine is *n*.
 notes: Just a reference to Math.acos().
 
@@ -147,7 +178,9 @@ notes: Just a reference to Math.acos().
 
 head: returns the arctangent of the number *n*
 tags: math
-usage: (n)
+types:
+    @param {number} n
+    @returns {number/radians}
 details: Arctangent is the angle in radians, whose tangent is *n*.
 notes: Just a reference to Math.atan().
 
@@ -155,9 +188,12 @@ notes: Just a reference to Math.atan().
 -------------------------------------------------------------------
 /alt/atan2
 
-head: returns the arctangent of the number *n*
+head: returns an angle whose tangent is *y/x*
 tags: math
-usage: (y, x)
+types:
+    @param {number} y
+    @param {number} x
+    @returns {number/radians}
 details: Arctangent of two is the angle in radians, whose tangent is *y*/*x*.
 notes:
 Note, that *y* goes first and *x* after. It can be confusing sometimes.
@@ -176,26 +212,36 @@ This function is just a reference to Math.atan2().
 
 head: returns a pseudo-random number between [0..1] or between provided values
 tags: math
-usage: (n1, n2)
+types:
+    @param {number} n1 - (optional) the bottom limit or the top limit when n2 is missing
+    @param {number} n2 - (optional) the top limit
+    @returns {number} - a random number between provided values
 details:
 When both *n1* and *n2* are provided, it returns a value between *n1*..*n2*.
 
-When there is only *n1* present, it returns a value between 0..*n1*.
+When there is only *n1* present, it returns a value between 0..*n1*, excluding n1.
 
-When no parameters are provided, it returns a value between 0..1.
+When no parameters are provided, it returns a value between 0..1, excluding 1.
 
 -------------------------------------------------------------------
 /alt/RND
 
-head: returns a pseudo-random integer between 0..1 or between provided integer values
+head: returns a pseudo-random integer between provided values
 tags: math
-usage: (i1, i2)
+types:
+    @param {number/integer} i1 - the bottom limit or the top limit when i2 is missing
+    @param {number/integer} i2 - (optional) the top limit
+    @returns {number} - a random integer number between provided values
 details:
-When both values are provided, returns a value between *i1*..*i2*.
+When both values are provided, returns a value between *i1*..*i2*, i2 included.
 
-When only one provided, the returned value is in the range of 0..*i1*
+When only one provided, the returned value is in the range of 0..*i1*, i1 included.
 
 When no parameters are provided, it returns 0.
+
+note: Keep in mind the top limit, which included in the resulting range
+of random values. This behavior is different from the one
+of floating point functions liek <a href="./alt/rnd">rnd(n1, n2)</a>.
 
 
 -------------------------------------------------------------------
@@ -203,7 +249,11 @@ When no parameters are provided, it returns 0.
 
 head: returns the *v* value limited by values of *n1* and *n2*
 tags: math
-usage: (v, n1, n2)
+types:
+    @param {number} v - a sample value
+    @param {number} n1 - the bottom limit
+    @param {number} n2 - the top limit
+    @returns {number} - a value limited to [n1..n2] range
 details:
 For *v*<*n1* it would return *n1*.
 Then, if *v*>*n2* it would return *n2*.
@@ -214,7 +264,11 @@ Otherwise, the original *v* will be returned.
 
 head: returns *true* if the value *v* is within the specified range.
 tags: math
-usage: (v, n1, n2)
+types:
+    @param {number} v - a sample value
+    @param {number} n1 - the bottom limit
+    @param {number} n2 - the top limit
+    @returns {boolean} - true, if a value is witin [n1..n2] range
 details:
 Values of *n1* and *n2* are included in the range,
 so within(1, 1, 5) returns *true*.
@@ -225,9 +279,14 @@ so within(1, 1, 5) returns *true*.
 
 head: returns a value warped within the provided range
 tags: math
-usage: (v, n1, n2)
+types:
+    @param {number} v - a sample value
+    @param {number} n1 - the bottom limit
+    @param {number} n2 - the top limit
+    @returns {number} - a value warped into [n1..n2] range
 details:
-To normalize an angle, just run with 0..PI2 range, e.g.
+You can use this function to normalize an angle.
+Just run with 0..PI2 range, e.g.:
     warp(15, 0, PI2)
 will bring the angle 15 within normalized range of 0..PI2
 
@@ -235,19 +294,32 @@ will bring the angle 15 within normalized range of 0..PI2
 -------------------------------------------------------------------
 /alt/lerp
 
-head: returns a value between 0..1 mapped to the range between *start*..*stop*
+head: returns a value between 0..1 extrapolated to the range between *start*..*stop*
 tags: math
-usage: (start, stop, val, limitRange)
+types:
+    @param {number} start - a start value
+    @param {number} stop - a stop value
+    @param {number} val - a value to amp
+    @param {boolean} limitRange - the result value will be limited to [start..stop] if true
+    @returns {number} - an extrapolated value
 details:
 Use limitRange flag, when you want to limit the values
-between *start* and *stop* even for *v* outside the 0..1 range.
+between *start* and *stop* even for *v* outside the [0..1] range.
 
 -------------------------------------------------------------------
 /alt/map
 
 head: map the *val* from *start*..*stop* range to *targetStart*..*targetStop* range with potential limit
 tags: math
-usage: (start, stop, targetStart, targetStop, val, limitRange)
+types:
+    @param {number} start - a start value of the original range
+    @param {number} stop - a stop value of the original range
+    @param {number} targetStart - a start value of the target range
+    @param {number} targetStop - a stop value of the target range
+    @param {number} val - a value to map
+    @param {boolean} limitRange - the result value will be limited to [targetStart..targetStop] if true
+    @returns {number} - a value mapped to [targetStart..targetStop] range
+
 details:
 Use limitRange flag, when you want to limit the resulting values
 between *targetStart* and *targetStop*.
@@ -257,22 +329,33 @@ between *targetStart* and *targetStop*.
 
 head: returns the distance between two points
 tags: math
-usage: (x1, y1, x2, y2)
+types:
+    @param {number} x1 - first point x coordinate
+    @param {number} y1 - first point y coordinate
+    @param {number} x2 - second point x coordinate
+    @param {number} y2 - second point y coordinate
+    @returns {number} - a distance between two provided points
 
 -------------------------------------------------------------------
 /alt/len
 
 head: returns the length of the vector *[x, y]*
 tags: math
-usage: (x, y)
+types:
+    @param {number} x - vector x coordinate
+    @param {number} y - vector y coordinate
+    @returns {number} - a distance 
 
 
 -------------------------------------------------------------------
-/alt/angle
+/alt/angleTo
 
 head: returns the angle in radians between the vector *[x, y]* and OX
 tags: math
-usage: (x, y)
+types:
+    @param {number} x - vector x coordinate
+    @param {number} y - vector y coordinate
+    @returns {number/radians} - an angle between the provided vector and OX
 notes:
 It is actually atan2(y, x) with swapped coordinates.
 Do we really need 2 functions doing the same thing?
@@ -283,11 +366,18 @@ Do we really need 2 functions doing the same thing?
 head: returns the angle of direction vector from *[x1, y1]* to *[x2, y2]* in relation to OX axis
 tags: math
 usage: (x1, y1, x2, y2)
+types:
+    @param {number} x1 - first vector x coordinate
+    @param {number} y1 - first vector y coordinate
+    @param {number} x2 - second vector x coordinate
+    @param {number} y2 - second vector y coordinate
+    @returns {number/radians} - an angle of direction vector from [x1:y1] to [x2:y2]
+
 notes:
 Want to shoot a laser toward an enemy spaceship?
 
 This function is what you need!
 
-Get the direction angle by providing the coordinates
-of your ship and the enemy coordinates. Ready? Fire!
+Get the aim angle by providing the coordinates
+of your laser gun and the enemy ship. Ready? Fire!
 
