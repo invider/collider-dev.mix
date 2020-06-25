@@ -49,6 +49,31 @@ function processTypes(details) {
     return types
 }
 
+function typesToUsage(types) {
+    if (!types || types.length === 0) return '()'
+
+    let usage = '('
+    let suffix = ''
+
+    for (let i = 0, ln = types.length; i < ln; i++) {
+        const at = types[i]
+
+        if (at.id === 'param') {
+            if (i > 0) usage += ', '
+            if (at.type) {
+                usage += at.name + ': ' + at.type
+            } else {
+                usage += at.name
+            }
+        } else if (at.id === 'returns') {
+            if (at.type) {
+                suffix = ': ' + at.type
+            }
+        }
+    }
+    return usage + ')' + suffix
+}
+
 function processMFX(mfx) {
     // TODO get rid of that dirty rule for the root
     //      it looks like select/selectOne for / doesn't work properly
@@ -65,7 +90,10 @@ function processMFX(mfx) {
                 switch(k) {
                     case 'types':
                         metaVal = processTypes(metaVal)
-                        target._meta['at'] = metaVal
+                        if (metaVal) {
+                            target._meta['at'] = metaVal
+                            target._meta['usage'] = typesToUsage(metaVal)
+                        }
                         break
                     default:
                         target._meta[k] = metaVal
