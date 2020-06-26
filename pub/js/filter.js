@@ -8,6 +8,7 @@ function flatResult(r) {
 }
 
 function match(meta, criteria, res) {
+    const data = meta.data
 
     if (meta.kind === 'page' && meta.path && criteria.match(meta.path)) {
         // dirty rule - intro page should always be first
@@ -19,16 +20,25 @@ function match(meta, criteria, res) {
 
     } else if (meta.name && criteria.match(meta.name)) {
         res.exact.push(meta)
-    } else if (meta.tags && criteria.match(meta.tags)) {
+
+    } else if (data && criteria.match(data.tags)) {
         res.path.push(meta)
+
+    } else if (data && criteria.matchTags(data.tags)) {
+        res.exact.push(meta)
+
     } else if (meta.path && criteria.match(meta.path)) {
         res.path.push(meta)
-    } else if (meta.details && criteria.match(meta.details)) {
+
+    } else if (data && criteria.match(meta.details)) {
         res.misc.push(meta)
-    } else if (meta.notes && criteria.match(meta.notes)) {
+
+    } else if (data && criteria.match(data.notes)) {
         res.misc.push(meta)
+
     } else if (meta.type && criteria.match(meta.type)) {
         res.misc.push(meta)
+
     } else if (meta.kind && criteria.match(meta.kind)) {
         res.misc.push(meta)
     }
