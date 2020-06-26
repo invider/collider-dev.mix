@@ -275,7 +275,7 @@ types:
     @param {number} x
     @param {number} y
 -------------------------------------------------------------------
-/alt/close
+/alt/closePath
 tags: draw, context, 2d
 head: close current path
 -------------------------------------------------------------------
