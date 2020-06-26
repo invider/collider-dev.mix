@@ -287,7 +287,7 @@ head: stroke or fill current shape according to assigned mode
 tags: draw, context, 2d
 head: set current font
 types:
-    @param {string/font | number/fontSize} - font descriptor
+    @param {string/font | number/fontSize} font - font descriptor
 details:
 Accepts a regular font formal like '24px mono'.
 Also, you can provide partials to set just the font name or size:
@@ -323,8 +323,8 @@ tags: draw, context, 2d
 head: draw text
 types:
     @param {string} text
-    @param {x}
-    @param {y}
+    @param {number} x
+    @param {number} y
 -------------------------------------------------------------------
 /alt/textWidth
 tags: draw, context, 2d
@@ -342,40 +342,89 @@ types:
 /alt/image
 tags: draw, context, 2d
 head: draw an image
-usage: (img, x, y, [w, h, [dx, dy, dw, dh]])
+usage: (img: Image, x:number, y:number, [w, h, [dx, dy, dw, dh]])
+types:
+    @param {Image} image - any image-compatible object
+    @param {number} x
+    @param {number} y
+    @param {number} w
+    @param {number} h
+    @param {number} dx
+    @param {number} dy
+    @param {number} dw
+    @param {number} dh
+
+details:
+
+There are multiple ways you can apply parameters
+
+    // draw at coordinates with natural width/height
+    image(img, 0, 0) 
+
+    // draw at coordinates and stretch
+    // to specified width/height
+    image(img, 0, 0, 100, 50) 
+
+    // draw a specified rectangular segment
+    // of the source image (at 20x20, size 40x40)
+    // to the specified rectangular area
+    // on the canvas (at 0x0, size 150x150)
+    image(img, 20, 20, 40, 40, 0, 0, 150, 150)
+
 -------------------------------------------------------------------
 /alt/rgb
 tags: draw, context, 2d
 head: get the hex string color representation of provided rgb floats 
-usage: (r, g, b)
+types:
+    @param {number[0..1]} red
+    @param {number[0..1]} green
+    @param {number[0..1]} blue
 details: Values are expected to be floats in the [0..1] range.
 -------------------------------------------------------------------
 /alt/rgba
 tags: draw, context, 2d
 head: get the hex string color representation of provided rgba floats 
-usage: (r, g, b, a)
+types:
+    @param {number[0..1]} red
+    @param {number[0..1]} green
+    @param {number[0..1]} blue
+    @param {number[0..1]} alpha
 details: Values are expected to be floats in the [0..1] range.
 -------------------------------------------------------------------
 /alt/RGB
 tags: draw, context, 2d
 head: get the hex string color representation of provided RGB integers
-usage: (R, G, B)
+types:
+    @param {number[0..255]} red
+    @param {number[0..255]} green
+    @param {number[0..255]} blue
 details: Values are expected to be integers in the [0..255] range.
 -------------------------------------------------------------------
 /alt/RGBA
 tags: draw, context, 2d
 head: get the hex string color representation of provided RGBA integers
-usage: (R, G, B, A)
+types:
+    @param {number[0..255]} red
+    @param {number[0..255]} green
+    @param {number[0..255]} blue
+    @param {number[0..255]} alpha
 details: Values are expected to be integers in the [0..255] range.
 -------------------------------------------------------------------
 /alt/hsl
 tags: draw, context, 2d
 head: get the hex string color representation of provided hsl floats 
-usage: (h, s, l)
+types:
+    @param {number[0..1]} hue
+    @param {number[0..1]} saturation
+    @param {number[0..1]} lightness
 details: Values are expected to be floats in the [0..1] range.
 -------------------------------------------------------------------
 /alt/hsla
 tags: draw, context, 2d
 head: get the hex string color representation of provided hsla floats 
-usage: (h, s, l, a)
+types:
+    @param {number[0..1]} hue
+    @param {number[0..1]} saturation
+    @param {number[0..1]} lightness
+    @param {number[0..1]} alpha
 details: Values are expected to be floats in the [0..1] range.
