@@ -5,6 +5,13 @@ function nextWord(line) {
     return line.substring(0, at)
 }
 
+function nextSpan(line, stopSymbol) {
+    if (!line) return ''
+    const at = line.indexOf(stopSymbol)
+    if (at < 0) return line
+    return line.substring(0, at)
+}
+
 function cutPrefix(line, prefix) {
     if (!line) return ''
     return line.substring(prefix.length, line.length)
@@ -24,9 +31,11 @@ function processTypes(details) {
 
             if (line.startsWith('{')) {
                 // type declaration
-                tag.type = nextWord(line)
+                line = line.substring(1)
+                tag.type = nextSpan(line, '}')
                 line = cutPrefix(line, tag.type).trim()
-                tag.type = tag.type.substring(1, tag.type.length-1)
+                line = line.substring(1).trim()
+                //tag.type = tag.type.substring(1, tag.type.length-1)
             }
             // expecting the name here
             tag.name = nextWord(line)
