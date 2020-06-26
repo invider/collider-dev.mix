@@ -28,7 +28,6 @@ when any node with _dir object and _ls array is considered to be a frame.
 -------------------------------------------------------------------
 /sys/Frame/prototype/path
 head: returns the path of the node
-usage: ()
 note:
 The parent must be present to determine the path,
 so it obviously doesn't work for detached nodes.
@@ -36,7 +35,6 @@ so it obviously doesn't work for detached nodes.
 -------------------------------------------------------------------
 /sys/Frame/prototype/touch
 head: makes sure that specified container exists in the path, create new onces if needed
-usage: (path)
 types:
 @param {string} path - a path to a frame
 details:

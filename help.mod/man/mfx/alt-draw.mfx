@@ -3,19 +3,13 @@
 -------------------------------------------------------------------
 
 -------------------------------------------------------------------
-/alt/width
-tags: draw, context, 2d
-head: returns context width
--------------------------------------------------------------------
-/alt/height
-tags: draw, context, 2d
-head: returns context height
--------------------------------------------------------------------
 /alt/rx
 tags: draw, context, 2d
 head: relative x coordinate, where *n* sets horizontal screen
 position between [0..1]
-usage: (n)
+types:
+    @param {number} n - relative canvas width value between [0..1]
+    @returns {number} - absolute canvas width in pixels
 details:
 rx(.5) - returns half of the canvas width.
 -------------------------------------------------------------------
@@ -23,7 +17,9 @@ rx(.5) - returns half of the canvas width.
 tags: draw, context, 2d
 head: relative y coordinate, where *n* sets vertical screen
 position between [0..1]
-usage: (n)
+types:
+    @param {number} n - relative canvas height value between [0..1]
+    @returns {number} - absolute canvas height in pixels
 details:
 ry(.5) - returns half of the canvas height.
 -------------------------------------------------------------------
@@ -38,22 +34,32 @@ head: restore previously saved drawing context state
 /alt/scale
 tags: draw, context, 2d
 head: scale the drawing context by *horizontal* and *vertical* factors
-usage: (horizontal, vertical)
+types:
+    @param {number} horizontal - scaling factor in the horizontal direction
+    @param {number} vertical - scaling factor in the vertical direction
 -------------------------------------------------------------------
 /alt/rotate
 tags: draw, context, 2d
 head: rotate the drawing context on the angle *a* (in radians)
-usage: (a)
+types:
+    @param {number} a - rotate angle
 -------------------------------------------------------------------
 /alt/translate
 tags: draw, context, 2d
 head: translate drawing context to provided coordinates *x* and *y*
-usage: (x, y)
+types:
+    @param {number} x - shift value to the right
+    @param {number} y - shift value downwards 
 -------------------------------------------------------------------
 /alt/clip
 tags: draw, context, 2d
 head: clip the drawing context to provided rectangular area
 usage: (x, y, w, h)
+types:
+    @param {number} x - clip area top-left x coordinate
+    @param {number} y - clip area top-left y coordinate
+    @param {number} w - clip area width
+    @param {number} h - clip area height
 details: Everything outside the clipping area will not be drawn.
 -------------------------------------------------------------------
 /alt/smooth
@@ -67,15 +73,22 @@ head: draw images without anti-aliasing (pixel-art mode!)
 /alt/alpha
 tags: draw, context, 2d
 head: set global alpha for drawing operations
-usage: (n)
+types:
+    @param {number} alpha
 -------------------------------------------------------------------
 /alt/stroke
 tags: draw, context, 2d
 head: set stroke mode and asign a line color
-usage: (color)
+types:
+    @param {string/hex | number/integer | number/float } v - hex string color or Red integer value or float hue value
+    @param {number/integer | number/float } w - (optional) Green integer value or saturation float value
+    @param {number/integer | number/float } u - (optional) Blue integer value or lightness float value
+    @param {number/integer | number/float } a - (optional) Alpha integer value or alpha float value
+
 details:
 Color can be accepted as
-    '#ffffffaa'  - as a string of hex color values
+    '#00FF80'
+    '#FFFFFF80'  - as a string of hex color values
     (r, g, b)    - RGB integers in [0..255] range
     (r, g, b, a) - RGBA integers
     (.1, .5, .3) - HSL floats, at least one value
@@ -84,32 +97,34 @@ Color can be accepted as
 /alt/lineWidth
 tags: draw, context, 2d
 head: set line width
-usage: (width)
+types:
+    @param {number} width
 -------------------------------------------------------------------
 /alt/fill
 tags: draw, context, 2d
 head: set fill mode and asign a fill color
-usage: (color, [color])
+usage: (fillColor: hex/RGB(A)/hue(a), [strokeColor: hex/RGB(A)/hue(a)])
 details:
 Color can be accepted as
-    '#ffffffaa'  - as a string of hex color values
-    (r, g, b)    - RGB integers in [0..255] range
-    (r, g, b, a) - RGBA integers
+    '#808080'
+    '#FFFFFFAA'  - as a string of hex color values
+    (R, G, B)    - RGB integers in [0..255] range
+    (R, G, B, A) - RGBA integers
     (.1, .5, .3) - HSL floats, at least one value
                    should be a floating number
+    (.6, .4, .4, .5)
 If a second color is provided, turns the mix mode with both
 fill and stroke over the filled form.
 -------------------------------------------------------------------
 /alt/background
 tags: draw, context, 2d
 head: fills background with provided color
-usage: (color)
+usage: (color: hex/RGB(A)/hsl(a))
 details: Colors can be provided as a hex string, RGB and HSL values.
 -------------------------------------------------------------------
 /alt/line
 tags: draw, context, 2d
 head: draw a line between 2 provided points
-usage: (x1, y1, x2, y2)
 types:
 @param {number} x1 - first point x coordinate
 @param {number} y1 - first point y coordinate
@@ -125,80 +140,140 @@ to set the style.
 /alt/plot
 tags: draw, context, 2d
 head: draw a point with lineWidth as it's canvas size
-usage: (x, y, w, h)
-details: Set the color with fill()
+types:
+@param {number} x
+@param {number} y
+details:
+Set the color with <a href="./alt/fill">fill()</a> and the point size with <a href="./alt/lineWidth">lineWidth()</a>
 -------------------------------------------------------------------
 /alt/triangle
 tags: draw, context, 2d
 head: draw a triangle
-usage: (x1, y1, x2, y2, x3, y3)
+types:
+    @param {number} x1
+    @param {number} y1
+    @param {number} x2
+    @param {number} y2
+    @param {number} x3
+    @param {number} y3
 details: Use stroke() or fill() to set the mode and color.
 -------------------------------------------------------------------
 /alt/quad
 tags: draw, context, 2d
 head: draw a quad
-usage: (x1, y1, x2, y2, x3, y3, x4, y4)
+types:
+    @param {number} x1
+    @param {number} y1
+    @param {number} x2
+    @param {number} y2
+    @param {number} x3
+    @param {number} y3
+    @param {number} x4
+    @param {number} y4
 details: Use stroke() or fill() to set the mode and color.
 -------------------------------------------------------------------
 /alt/rect
 tags: draw, context, 2d
 head: draw a rectangle
-usage: (x, y, w, h)
+types:
+    @param {number} x - top-left x coordinate
+    @param {number} y - top-left y coordinate
+    @param {number} w - width
+    @param {number} h - height
 details: Use stroke() or fill() to set the mode and color.
 -------------------------------------------------------------------
 /alt/circle
 tags: draw, context, 2d
 head: draw a cirlce
-usage: (x, y, radius)
+types:
+    @param {number} x - center x coordinate
+    @param {number} y - center y coordinate
+    @param {number} r - radius
 details: Use stroke() or fill() to set the mode and color.
 -------------------------------------------------------------------
 /alt/ellipse
 tags: draw, context, 2d
 head: draw an ellipse
-usage: (x, y, verticalRadius, horizontalRadius, [rotation])
+types:
+    @param {number} x - center x coordinate
+    @param {number} y - center y coordinate
+    @param {number} verticalRadius
+    @param {number} horizontalRadius 
+    @param {number} angle - (optional) rotation
 details: Rotation is in radians and optional.
 -------------------------------------------------------------------
 /alt/arc
 tags: draw, context, 2d
 head: draw an arc centered at *x*/*y* with given *radius* and angles
-usage: (x, y, radius, startAngle, endAngle)
+types:
+    @param {number} x - center x coordinate
+    @param {number} y - center y coordinate
+    @param {number} radius
+    @param {number} startAngle 
+    @param {number} endAngle 
 -------------------------------------------------------------------
 /alt/earc
 tags: draw, context, 2d
 head: draw an elliptical arc centered at *x*/*y*
-usage: (x, y, radiusX, radiusY, rotation, startAngle, endAngle)
+types:
+    @param {number} x - center x coordinate
+    @param {number} y - center y coordinate
+    @param {number} radiusX
+    @param {number} radiusY
+    @param {number} rotation
+    @param {number} startAngle 
+    @param {number} endAngle 
 -------------------------------------------------------------------
 /alt/polygon
 tags: draw, context, 2d
 head: draw a polygon from array of points
-usage: (points)
+usage: (x1: number, y1: number, x2: number, y2: number, ...)
 details: Use stroke() or fill() to set the mode and color.
 -------------------------------------------------------------------
 /alt/moveTo
 tags: draw, context, 2d
 head: move to the next point of the shape
-usage: (x, y)
+types:
+    @param {number} x
+    @param {number} y
 details: Begins new path if none has been started yet.
 -------------------------------------------------------------------
 /alt/lineTo
 tags: draw, context, 2d
 head: adds a line to current path
-usage: (x, y)
+types:
+    @param {number} x
+    @param {number} y
 -------------------------------------------------------------------
 /alt/arcTo
 tags: draw, context, 2d
 head: adds an arc to the current path using 2 provided control points and radius
-usage: (x1, y1, x2, y2, radius)
+types:
+    @param {number} x1
+    @param {number} y1
+    @param {number} x2
+    @param {number} y2
+    @param {number} radius
 -------------------------------------------------------------------
 /alt/quadraticTo
 tags: draw, context, 2d
 head: adds a quadratic Bezier curve to current path
-usage: (cpx, cpy, x, y)
+types:
+    @param {number} controlPointX
+    @param {number} controlPointY
+    @param {number} x
+    @param {number} y
 -------------------------------------------------------------------
 /alt/bezierTo
 tags: draw, context, 2d
 head: adds a cubic Bezier curve to current path
-usage: (cpx1, cpx2, cpx2, cpy2, x, y)
+types:
+    @param {number} controlPointX1
+    @param {number} controlPointY1
+    @param {number} controlPointX2
+    @param {number} controlPointY2
+    @param {number} x
+    @param {number} y
 -------------------------------------------------------------------
 /alt/close
 tags: draw, context, 2d
@@ -211,7 +286,13 @@ head: stroke or fill current shape according to assigned mode
 /alt/font
 tags: draw, context, 2d
 head: set current font
-usage: (font)
+types:
+    @param {string/font | number/fontSize} - font descriptor
+details:
+Accepts a regular font formal like '24px mono'.
+Also, you can provide partials to set just the font name or size:
+    font('moon')
+    font(18)
 -------------------------------------------------------------------
 /alt/alignLeft
 tags: draw, context, 2d
@@ -240,16 +321,23 @@ head: base text at the bottom
 /alt/text
 tags: draw, context, 2d
 head: draw text
-usage: (text, x, y)
+types:
+    @param {string} text
+    @param {x}
+    @param {y}
 -------------------------------------------------------------------
 /alt/textWidth
 tags: draw, context, 2d
 head: determine the width of provided text for current font settings
-usage: (text)
+types:
+    @param {string} text - a text sample to measure
+    @returns {number} - text width for current font
 -------------------------------------------------------------------
 /alt/textHeight
 tags: draw, context, 2d
 head: determine the height of text for current font settings
+types:
+    @returns {number} - text height for current font
 -------------------------------------------------------------------
 /alt/image
 tags: draw, context, 2d

@@ -53,7 +53,6 @@ usage: { x, y, lx, ly, buttons, out }
 -------------------------------------------------------------------
 /alt/pad
 head: returns the gamepad status object
-usage: (gamepadId)
 types:
     @param {number} gamepadId - id of the gamepad
     @returns {Gamepad} - an object representing the gamepad #[id] and it's state
