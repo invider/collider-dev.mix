@@ -1,6 +1,62 @@
 name: Releases
 
-<span class="metaSection">0.0.5-DR5 2020-06-01</span>
+<span class="metaSection">0.0.6-DR6 2020-07-04</span>
+
+[+] jsDoc-style type metadata extraction
+
+[+] autocomplete end-points with help meta data on jam server
+
+[+] kinetix animation subsystem
+
+[+] mono-file playground.mod editor on F7
+
+[+] Frame find(), filter(), reduce(), reduceRight(), applyAll() methods
+
+[+] basic-style print(), input(), say(), ask() and cls() in scope
+
+[+] sleep() for convenient async in scope
+
+[+] sys.extend() function for shallow augmentation
+
+[**] automatic fast boot in debug mode
+
+[+] postBoot trap
+
+[+] Z-ordering for mods
+
+[+] keepFollowing and pinOnTarget flags on SlideCamera
+
+[+] dynamic function patching of spawned objects on file update
+
+[+] select, one, clear, kill and sync console commands
+
+[-] fixed unit path resolution on Windows
+
+[-] fixed touch capturing and end traps
+
+[-] fixed hidden and disabled components handling on the HUD
+
+[**] automatic skip of .hidden files on unit scans
+
+[+] manual unit include to map an arbitrary folder as a unit
+
+[+] ignored paths in mapping
+
+[+] new unit mapping scheme with map.json/remap.json
+
+[+] included default fav icons
+
+[+] sys.enableBox() helper function
+
+[**] renamed angle() to angleTo()
+
+[**] renamed targetAngle() to bearing()
+
+[**] renamed close() to closePath()
+
+
+
+<hr><span class="metaSection">0.0.5-DR5 2020-06-01</span>
 
 [+] gif files autoload support
 
@@ -22,7 +78,7 @@ name: Releases
 
 
 
-<span class="metaSection">0.0.4-DR4 2020-04-28</span>
+<hr><span class="metaSection">0.0.4-DR4 2020-04-28</span>
 
 [+] **.spawn.js entities autospawn
 
@@ -62,7 +118,7 @@ name: Releases
 
 
 
-<span class="metaSection">0.0.3-DR3 2020-04-01</span>
+<hr><span class="metaSection">0.0.3-DR3 2020-04-01</span>
 
 [+] new wormhole bootloader
 
@@ -101,6 +157,7 @@ name: Releases
 [**] new module structure
 
 [-] multiple bug fixes
+
 
 
 <hr><span class="metaSection">0.0.1-DR1 2019-09-27</span>
