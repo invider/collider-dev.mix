@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "collider.mix": "git+https://github.com/invider/collider.mix.git",
+    "collider.mix": "git+https://github.com/invider/collider.mix.git#v0.0.6",
     "monaco-editor": "^0.20.0",
     "monaco-themes": "^0.3.3"
   },
