@@ -112,16 +112,21 @@ body {
     text-decoration: none;
 }
 
-.metaTitle {
-    /* color: #346a73; */
-    /* color: #348199; */
+.pageTitle {
     color: #166470;
     font-size: 36px;
 }
 
+.metaTitle {
+    /* color: #346a73; */
+    /* color: #348199; */
+    color: #166470;
+    font-size: 24px;
+}
+
 .missingTitle {
     color: #bd5f51;
-    font-size: 36px;
+    font-size: 24px;
 }
 
 .metaAt {

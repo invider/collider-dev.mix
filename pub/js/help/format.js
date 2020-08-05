@@ -54,7 +54,7 @@ export function pageToHtml(page) {
     let body = `<div id=".${page.path}" class="meta">`
     
     const head = `${page.name}`
-    body += `<div class="metaTitle">${head}</div>` 
+    body += `<div class="pageTitle">${head}</div>` 
     body += '<hr>'
 
     const content = md2html(page.body)
