@@ -154,6 +154,24 @@ body {
     font-size: 120%;
 }
 
+h1 {
+    color: #166470;
+    font-size: 200%;
+    font-weight: normal;
+}
+
+h2 {
+    color: #166470;
+    font-size: 150%;
+    font-weight: normal;
+}
+
+h3 {
+    color: #166470;
+    font-size: 130%;
+    font-weight: normal;
+}
+
 .message {
     width: 80%;
     margin: auto;
