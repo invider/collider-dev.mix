@@ -1,0 +1,186 @@
+name: Design
+
+*Collider.JAM* is a highly opinionated framework.
+
+<h3>Feature Creep</h3>
+
+Most of the game frameworks and engines out there
+are fixated on features.
+Usually, you can find a long list of features
+showing off on their landing page.
+
+But Collider.JAM is not about features.
+
+You don't actually need a lot of features to create a game.
+All you need is the ability to load resources,
+draw simple shapes, images and text, play some sounds,
+and accept user input.
+
+
+<h3>Unique</h3>
+In the crowded game tooling world,
+it is really hard to find a unique tool.
+All mainstream frameworks and engines
+borrow features from one another
+and any given feature can be found
+in multiple products.
+
+So it seems strange to claim that something
+is unique in such saturated market.
+
+But only in the feature-driven world.
+
+When we are talking about indie game development,
+there are not so many features you actually need.
+So it shouldn't be about the features,
+but rather how those features are
+organized and accessed.
+
+The differences in tooling and development pipeline
+can have a huge impact on the development flow
+and productivity.
+Neatly selected and organized features
+can provide the clarity necessary
+for creative process.
+You can't be creative while strugling
+with complex feature-rich technology.
+
+_There is nothing new in Collider.JAM._
+
+However, a set of carefully selected
+and orthogonal features and the way
+those features are organized
+is what makes Collider.JAM so unique.
+
+Most of today's game development frameworks and tools
+look like clones of the powerhouses
+of the industry.
+Both Unity and Unreal are highly successful
+engines offering a proven development
+model. It is based on IDE-like editor
+with higly sophisticated tabs and menues, 
+and a rich ecosystem of classes and plugins.
+No woner other tools try to capitalize
+on Unity/Unreal success by emulating their approach.
+
+_Collider.JAM is nothing like that._
+It's development approach is different.
+More lightweight and less intrusive.
+
+It's not better or worse...
+It's just an alternative to existing mainstream.
+
+It provides a different feel when you develop,
+build, debug and playtest your game.
+It might seem unusual at first,
+but you will experience a true Zen,
+once you'll get the power of jamming.
+
+And in the world where all tools
+are merging and starting to look
+like each other,
+a fresh look might be a good thing.
+
+
+
+<h3>Inspiration</h3>
+Nothing is really new in this industry,
+and we always build our software
+on the foundation and experience
+of brave pioneers who have already
+explored and developed inovative ideas.
+
+Some of these ideas have blowed the software
+industry by storm (like Java or Docker).
+Some took decades to build up
+(like JavaScript or Functional Programming).
+Some never got into the mainstream... Yet.
+But these ideas are never really gone.
+Sometimes they require the right time and place to blossom.
+And they can stay dormant for decades until
+somebody take them, rethink then,
+and build a totally new revolutionary product.
+
+The Convention over Configuration approach
+has been used for years in many web frameworks.
+Ruby on Rails is an inspiration and example of simplicity
+you can reacy by applying these principles.
+
+<a href="https://processing.org">Processing</a>
+and a cool JavaScript library called
+<a href="https://p5js.org/">p5js</a>
+were true inspiration in the way
+_Collider.JAM_ scope is organized.
+
+Lua-based <a href="https://love2d.org/">LÖVE</a>
+is a perfect example of minimalistic
+approach in game framework design.
+
+In general, UNIX philosophy played a significant role
+in _Collider.JAM_ architectural style.
+Minimalistic but conceptually-rich
+Plan 9 and Inferno operating systems (Bell Labs/Lucent)
+were guiding stars in consistent and lightweight
+systems design. Definitely, not a source of features
+for a game framework per se,
+still an infinite source of inspiration
+and iconic example of superb engineering.
+
+<h3>Choose simplicity over efficiency</h3>
+
+
+<h3>Coming from Game Jams</h3>
+
+
+<h3>Collider.JAM Ring</h3>
+
+The core of the framework is the Ring.
+
+It is responsible for the framework
+boot and scene construction.
+
+Once everything is loaded and binded
+into a single scene, it starts the game loop
+to evolve the scene.
+
+The Ring is contained within a file called
+collider.js and it is actually the only
+file needed to be included in HTML.
+(Not that you have to bother with
+such stuff - collider is providing
+or generating a proper index.html
+file for you.)
+
+Only the most essential definitions
+and neccessary boilerplace are included.
+Everything else is loaded and mixed in
+as part of provided or optional mixes.
+
+<h3>Jam console tool</h3>
+
+<h3>Node is just an object</h3>
+
+<h3>Everything is in it's right place</h3>
+
+<h3>A node in /lab lives and evolves</h3>
+
+<h3>A node has to follow conventions to be visible and evolve</h3>
+
+<h3>A node in /dna can be spawn in /lab</h3>
+
+<h3>File system folders are reflected in the mix</h3>
+
+<h3>The most used stuff is already in scope</h3>
+
+<h3>Events are trapped in /trap</h3>
+
+<h3>Resources are already there</h3>
+
+<h3>Each mod is a mini-game</h3>
+
+<h3>These Strange Cryptic Names</h3>
+
+_Know your scope_
+
+_Know your structure_
+
