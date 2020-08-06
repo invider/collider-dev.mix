@@ -3,7 +3,7 @@
 
 -------------------------------------------------------------------
 /
-head: root mod representing the scene
+head: root mod representing the scene mix
 .
 details:
 Any entity within the game (a function,

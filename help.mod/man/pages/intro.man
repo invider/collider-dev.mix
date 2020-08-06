@@ -2,25 +2,42 @@ name: Intro
 
 tags: jam, intro, start, begin, beginner, preface, home
 
-<div style="font-size: 80%;">
-<a href="#.getting-started">start</a> | <a href="#.terms">terms</a> | <a href="#.jam-card">jamcard</a> | <a href="#.tips">tips</a> | <a href="#.mixes">mixes</a>
+<div style="font-size: 110%;">
+<a href="#.getting-started">start</a> | <a href="#.design">design</a> | <a href="#.terms">terms</a> | <a href="#.jam-card">jamcard</a> | <a href="#.tips">tips</a> | <a href="#.mixes">mixes</a>
 <hr>
 <a href="#./">root/$</a> | <a href="#./alt">scope/alt</a> | <a href="#./res">res</a> | <a href="#./lib">lib</a> | <a href="#./dna">dna</a> | <a href="#./env">env</a> | <a href="#./lab">lab</a> | <a href="#./trap">trap</a> | <a href="#./setup">setup</a>
 <hr>
 </div>
 
-Welcome to _Collider.JAM_!
+<h3>Welcome to _Collider.JAM_!</h3>
 
 _Collider.JAM_ is a hand-crafted JavaScript game framework for game jamming, creative coding, prototyping and beyond.
+
+The development pipeline is based around Web browser and JavaScript,
+but the code is portable and can target multiple
+platforms - from major desktops (macOS, Linux and Windows)
+to mobile (Android and iOS).
 
 It is a fun way to prototype and create games.
 
 _Collider.JAM_ conceals rough JavaScript edges,
 turning development into a joyride.
-It is the most pleasant way to learn JavaScript.
-You don't have to worry about DOM, CSS and MVC frameworks here.
+Actually, it is a perfect way to learn JavaScript,
+since you don't have to deal with
+HTML, DOM, CSS and MVC frameworks.
 
-To start, check out <a href="#.getting-started">Getting Started</a>.
+It is a perfect tool to unlock your creativity
+and deliver the next great game.
+
+Installation intructions are available
+<a href="#.install">here</a>, the fastest way to install is:
+
+    npm install -g collider.jam
+To start, check out
+<a href="#.getting-started">Getting Started</a>.
+
+The design of the framework is explored in
+<a href="#.design">Design sction</a>.
 
 Collider.JAM keeps everything in the right place,
 so it is crucial to know the structure.
@@ -28,13 +45,11 @@ Investigate <a href="#./">the root node</a>.
 
 Also, check out useful <a href="#.tips">tips</a>.
 
-Installation intructions available <a href="#.install">here</a>.
-
 And <a href="#.start-jamming">Start Jamming</a>.
 
 <hr>
 
-<div style="font-size: 80%;">
+<div style="font-size: 110%;">
 <a href="https://github.com/invider/collider.jam">Source Code</a> | <a href="http://colliderlabs.com/data/jamming-card.pdf">Jamming Card</a> | <a href="http://colliderlabs.com/jam">Collider.JAM</a> | <a href="http://colliderlabs.com">Collider Labs</a>
 </div>
 

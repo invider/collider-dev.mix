@@ -1,11 +1,21 @@
 name: Installation
 
-To install collider.jam type:
+The *Collider.JAM* distribution is available
+through <a href="https://npmjs.com">npm</a>
+It can be installed from npm repository,
+or directly from github.
+
+It should work on any mainstream operating system
+with NodeJS support - macOS, Windows
+and all major distributions of Linux.
+
+To install collider.jam,
+open a terminal and type:
 
     npm install -g collider.jam
 
-It will install the latest collider.jam CLI
-in npm repositories globally.
+This command installs globally the latest collider.jam CLI
+from npm repositories. 
 
 You can also install the latest stable
 release from the github repo:
@@ -22,10 +32,9 @@ And the list of available commands:
 
     jam help
 
-== Uninstall
+<h2>Uninstall</h2>
 
 To uninstall _Collider.JAM_ run:
 
     npm uninstall -g collider.jam
-
 
