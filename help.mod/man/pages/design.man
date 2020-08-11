@@ -11,8 +11,8 @@ showing off on their landing page.
 
 But Collider.JAM is not about features.
 
-You don't actually need a lot of features to create a game.
-All you need is the ability to load resources,
+You don't actually need a lot of features to create a simple game.
+Usually, all you need is the ability to load resources,
 draw simple shapes, images and text, play some sounds,
 and accept user input.
 
@@ -78,8 +78,265 @@ once you'll get the power of jamming.
 
 And in the world where all tools
 are merging and starting to look
-like each other,
-a fresh look might be a good thing.
+like each other.
+A fresh look might be a good thing.
+
+
+
+<h3>Coming from Game Jams</h3>
+Collider.JAM has been conceived after
+our participation in multiple game jams.
+
+So creativity, hyper-focus and prototyping speed
+are the most appreciated qualities.
+Game jamming inspires innovation and suggests
+a particular approach in development.
+That approach has enourmous influence
+on Collider.JAM design.
+
+
+
+<h3>Choose simplicity over efficiency</h3>
+There are number of opinionated choices in Collider.JAM design.
+
+Among them are:
+
+* Everything is placed in a single tree hierarchy
+* Everything can be accessed by moving up and down that hierarchy
+* A project folder structure and names are reflected in Collider.JAM hierarchy
+* Resources are loaded, placed and named automatically
+* You manipulate with plain JavaScript objects following some conventions
+* The scope is augmented with core structures and functions to simplify the access
+* An object place in the tree determines behavior
+* Core names are short and cryptic to reduce the noise
+* Skip the boilerplate
+* Use convention over configuration
+* Autolink everything - there is no need for implicit import/export in Collider.JAM
+* Keep iteration cycles as short as possible
+
+Application of those principles throughout the whole system
+is what makes Collider.JAM approach so unique
+and very suitable for rapid game prototyping, game jamming and hackathons.
+
+
+
+<h3>Collider.JAM Ring</h3>
+
+The core of the framework is the Ring.
+
+It is responsible for the framework
+boot and scene construction.
+
+Once everything is loaded and binded
+into a single scene, it starts the game loop
+to evolve the scene.
+
+The Ring is contained within a file called
+collider.js and it is actually the only
+file needed to be included in HTML.
+(Not that you have to bother with
+such stuff - collider is providing
+or generating a proper index.html
+file for you.)
+
+Only the most essential definitions
+and neccessary boilerplace are included.
+Everything else is loaded and mixed in
+as part of provided or optional mixes.
+
+
+
+<h3>Everything is in the Mix</h3>
+A *mix* is a virtual file system that represents
+a scene graph and all accessible resources.
+
+Compared to a traditional scene graph
+where only game entities are placed and structured,
+a *mix* contains every bit of a game.
+All resources like images and sound,
+standard libraries and prototypes,
+game entities and configurations -
+all that is placed in the mix somewhere.
+
+<h3>Everything is in it's right place...</h3>
+Mix is a virtual file system because
+every game object is placed in a tree-like
+structure. And that placement can determine
+the properties and behavior of that object.
+
+Placing an object in _/lab_ makes it alive,
+providing that the object has functions
+_evo(dt)_ and draw() to manifest it's
+behavior and visual appearance.
+
+Objects placed in _/dna_ are considered to be
+constructors and factories. We place objects
+in _/dna_ to be able to spawn them later.
+
+Objects in _/trap_ can react on system-wide events
+like start of the game, key press or mouse move.
+Declare a function spaceDown() and place it in trap:
+
+     /trap/spaceDown.js
+It will be called every time the _Spacebar_ is pressed.
+
+<h3>Node is just an Object</h3>
+When objects are loaded and placed as nodes in the mix,
+there is nothing speciall going on.
+These are still plain simple JavaScript objects.
+You don't have to extend a Node prototype or do anything like that.
+
+Only group nodes in the tree are considered special
+and should follow conventions defined in a Frame prototype.
+Any JavaScript object can be added as a leaf with Frame.attach() method.
+The only effect on the object itself is some special properties
+that will be specified. Like a link to the parent node.
+But there could be other flags, all starting with underscore.
+
+<h3>Resources are already there</h3>
+In _Collider.JAM_ you spend minimal time managing resources.
+Just place the files in _/res_ folder of your _mod_
+and you have them available in the game.
+The convention is that resources are named after their
+file names without extention.
+
+So place an image into res:
+    _game.mod/res/hero.png_
+And it can be accessed as _res.hero_ and is going to be
+just a standard JS HTMLImageElement.
+
+<h3>A node in /lab lives and evolves</h3>
+This is a crucial element of Collider.JAM design.
+
+To create a game entity, you don't have to extend from any prototype,
+use factory or do any other special form of construction.
+
+You can place an object directly in /lab, implement
+several convention methods, and it will be alive.
+
+Just place in _/lab/circle.js_:
+
+    let x = rx(.2)
+    let y = ry(.5)
+
+    function evo(dt) {
+        x += 50 * dt
+        y += 15 * dt
+    }
+
+    function draw() {
+        stroke(.6, .5, .5)
+        cirlce(x, y, 50)
+    }
+
+Run that mod with Collider.JAM and you will see a flying circle.
+
+Note, that we don't have to do any form of import or export anywhere.
+Collider.JAM does all the magic of loading, setting up and linking
+all game components and resources in a single tree.
+
+<h3>File system folders are reflected in the mix</h3>
+All files in a game project folder are loaded
+and placed in the tree according to their position
+and names on the file system. 
+
+So, a file in
+
+    game.mod/dna/mob/ScaryMonster.js
+Will be available anywhere in that mod as:
+
+    dna.mob.ScaryMonster
+The mod file structure is reflected on the mix.
+
+Multiple mods and fixes are loaded at the root to create
+a running mix. Since any mix needs all kind
+of standard features.
+
+Usually, a mix loads a bunch of fixes
+like _fix_, _lib.fix_ and _hud.fix_ to include
+some standard Collider.JAM features.
+
+Also, a bunch of development mods are included
+for convenience - such as console.mod,
+inspector.mod and help.mod. But these
+are not loaded at the root of a mix,
+but go into a /mod node.
+
+<h3>Each mod is a mini-game</h3>
+Each mod repeats the root structure.
+E.g. it has /res, /dna, /env, /lab, /trap...
+
+So any mod can have it's own event handling,
+resources and entities.
+It is a little world that can run isolated
+from other parts of the app.
+
+
+
+<h3>These Strange Cryptic Names</h3>
+The core names in Collider.JAM are short and cryptic.
+This is by design.
+
+Since these names are in the center of any mix,
+they will be used countless times.
+There is a common misconception that long descriptive
+names are reducing cognitive load a programmer has to
+deal with to understand the code. And while it might
+be true to a rarelly used parts, it is not so
+when we are considering the core of the system.
+
+The core is used so often, that short and cryptic names
+are actually reducing the cognitive load.
+You'll learn the meaning of all terms and shortcuts eventually.
+But the result is clean and simple code with minimum noise.
+
+Here we are exploiting decades of UNIX tradition.
+All these /bin, /etc, /home and /var are not that
+descriptive, but very easy to work with, considering
+you typing them hundred times a day.
+
+The oppositve view can be found in Windows with
+an ugly and uncomprehensible "Program Files" folder
+(you can't even type that in console without
+touching Shift and escaping the space!).
+
+We prefer the former approach. It is less to type.
+It is simpler. It is much cleaner.
+
+
+
+<h3>The most used stuff is already in scope</h3>
+All core functions and nodes of Collide.JAM
+are available directly in scope.
+
+So instead of heavy object-oriented constructions like:
+
+    const a = Math.sin(fi)
+    
+    console.log('draw a line')
+    ctx.moveTo(100, 100)
+    ctx.LineTo(200, 100)
+
+    console.log('draw an image')
+    const img = loader.load('hero.png')
+    ctx.drawImage(img, 0, 0, 64, 64)
+    
+
+In Collider.JAM you can say:
+
+    const a = sin(fi)
+    log('draw a line')
+    line(100, 100, 200, 100)
+
+    log('draw an image')
+    image(res.hero, 0, 0, 64, 64)
+
+Many simple operations are just straighforward calls
+to functions or direct access to mod nodes in scope,
+like res, dna, lab, trap,  _ (current mod), _$ (root mod) etc.
+
+That voodoo magic is possible because of the clever
+tricks Collider.JAM performs while loading the mix.
 
 
 
@@ -125,62 +382,3 @@ systems design. Definitely, not a source of features
 for a game framework per se,
 still an infinite source of inspiration
 and iconic example of superb engineering.
-
-<h3>Choose simplicity over efficiency</h3>
-
-
-<h3>Coming from Game Jams</h3>
-
-
-<h3>Collider.JAM Ring</h3>
-
-The core of the framework is the Ring.
-
-It is responsible for the framework
-boot and scene construction.
-
-Once everything is loaded and binded
-into a single scene, it starts the game loop
-to evolve the scene.
-
-The Ring is contained within a file called
-collider.js and it is actually the only
-file needed to be included in HTML.
-(Not that you have to bother with
-such stuff - collider is providing
-or generating a proper index.html
-file for you.)
-
-Only the most essential definitions
-and neccessary boilerplace are included.
-Everything else is loaded and mixed in
-as part of provided or optional mixes.
-
-<h3>Jam console tool</h3>
-
-<h3>Node is just an object</h3>
-
-<h3>Everything is in it's right place</h3>
-
-<h3>A node in /lab lives and evolves</h3>
-
-<h3>A node has to follow conventions to be visible and evolve</h3>
-
-<h3>A node in /dna can be spawn in /lab</h3>
-
-<h3>File system folders are reflected in the mix</h3>
-
-<h3>The most used stuff is already in scope</h3>
-
-<h3>Events are trapped in /trap</h3>
-
-<h3>Resources are already there</h3>
-
-<h3>Each mod is a mini-game</h3>
-
-<h3>These Strange Cryptic Names</h3>
-
-_Know your scope_
-
-_Know your structure_
-
