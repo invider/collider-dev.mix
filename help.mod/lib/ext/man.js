@@ -19,11 +19,12 @@ function man(src, name) {
     //const lines = src.match(/[^\r\n]+/g)
     const lines = src.split(/[\r\n]/)
 
-    lines.filter(l => !l.startsWith('#') && !l.startsWith('--'))
+    let section = 0
+    lines.filter(l => !l.startsWith('#'))
         .forEach(l => {
 
             const i = l.indexOf(':')
-            if (i > 0) {
+            if (section === 0 && i > 0) {
                 const name = l.substring(0, i)
                 const rest = l.substring(i + 1)
 
@@ -35,8 +36,9 @@ function man(src, name) {
                     setProperty(name.trim(), rest.trim())
                 }
 
-            } else if (l.startsWith('.')) {
-                // ignore line
+            } else if (section === 0 && l.startsWith('--------')) {
+                section = 1
+
             } else {
                 append(l)
             }
