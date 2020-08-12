@@ -102,6 +102,17 @@ function parse(md, nowrap, debug) {
         return sh
     }
 
+    function matchLine() {
+        let sh = 0
+        let c = getc()
+        while(c && c === '-') {
+            sh ++
+            c = getc()
+        }
+        if (c) retc()
+        return sh
+    }
+
     function matchLink(type) {
         let tag = ''
         let link = ''
@@ -140,6 +151,7 @@ function parse(md, nowrap, debug) {
     const ITEM = 6
     const NUMBERED = 7
     const QUOTE = 8
+    const LINE = 9
     const LINK = 11
     const IMAGE = 12
     function tokenName(type) {
@@ -152,6 +164,7 @@ function parse(md, nowrap, debug) {
             case ITEM: return '* list item';
             case NUMBERED: return '- numbered item';
             case QUOTE: return '> quote';
+            case LINE: return '---- line';
             case LINK: return 'link';
             case IMAGE: return 'image';
         }
@@ -169,11 +182,20 @@ function parse(md, nowrap, debug) {
             v: '\n'
         }
 
-        if (linePos === 1 && isSpace(c)) {
-            const sh = matchShift()
-            if (sh > 0) return {
-                t: SHIFT,
-                v: sh
+        if (linePos === 1) {
+            if (isSpace(c)) {
+                const sh = matchShift()
+                if (sh > 0) return {
+                    t: SHIFT,
+                    v: sh
+                }
+            } else if (c === '-') {
+                const sh = matchLine() + 1
+                if (sh >= 4) return {
+                    t: LINE,
+                    v: '----',
+                }
+                // otherwise it is just a comment
             }
         }
 
@@ -368,6 +390,9 @@ function parse(md, nowrap, debug) {
                 }
                 for (let i = 0; i < span.v; i++) out += ' '
 
+            } else if (span.t === LINE) {
+                out += '<hr>'
+
             } else if (span.t === LINK) {
                 out += '<a href="' + span.v + '">' + span.g + '</a>'
 
@@ -404,8 +429,6 @@ function parse(md, nowrap, debug) {
 
 export function md2html(md, nowrap) {
     if (md.includes('Quapla')) {
-        console.log('-------')
-        console.log(md)
         return parse(md, nowrap, true)
     }
     return parse(md, nowrap)
