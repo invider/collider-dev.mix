@@ -45,6 +45,10 @@ function parse(md, nowrap, debug) {
 
     function isSpecial(c) {
         switch(c) {
+            case '!':
+                if (ahead() === '[') return true
+                else return false
+
             case '[':
             case '*': case '_':
                 return true
@@ -98,7 +102,7 @@ function parse(md, nowrap, debug) {
         return sh
     }
 
-    function matchLink() {
+    function matchLink(type) {
         let tag = ''
         let link = ''
         let c = getc()
@@ -121,7 +125,7 @@ function parse(md, nowrap, debug) {
         }
 
         return {
-            t: LINK,
+            t: type,
             v: link,
             g: tag,
         }
@@ -137,6 +141,7 @@ function parse(md, nowrap, debug) {
     const NUMBERED = 7
     const QUOTE = 8
     const LINK = 11
+    const IMAGE = 12
     function tokenName(type) {
         switch(type) {
             case NL: return 'newline';
@@ -148,6 +153,7 @@ function parse(md, nowrap, debug) {
             case NUMBERED: return '- numbered item';
             case QUOTE: return '> quote';
             case LINK: return 'link';
+            case IMAGE: return 'image';
         }
     }
 
@@ -172,9 +178,27 @@ function parse(md, nowrap, debug) {
         }
 
         // match markup
+        if (debug) console.log('>>> ' + c)
         switch (c) {
+
+            case '!':
+                if (ahead() === '[') {
+                    getc()
+                    return matchLink(IMAGE)
+                }
+                break
+
             case '[':
-                return matchLink()
+                return matchLink(LINK)
+                break
+            /*
+            case '!':
+                getc()
+                console.log('special !')
+                break
+
+            case '!':
+                */
 
             case '*':
                 if (ahead() === '*') {
@@ -347,6 +371,9 @@ function parse(md, nowrap, debug) {
             } else if (span.t === LINK) {
                 out += '<a href="' + span.v + '">' + span.g + '</a>'
 
+            } else if (span.t === IMAGE) {
+                out += `<img src="${span.v}" alt="${span.g}"/>`
+
             } else {
                 //if (span.t !== NL) console.log(`@${line}.${linePos}: ${span.t}:[${span.v}]`)
                 if (state.code && lineSpan === 1) {
@@ -376,7 +403,11 @@ function parse(md, nowrap, debug) {
 }
 
 export function md2html(md, nowrap) {
-    if (md.includes('Quapla')) return parse(md, nowrap, true)
+    if (md.includes('Quapla')) {
+        console.log('-------')
+        console.log(md)
+        return parse(md, nowrap, true)
+    }
     return parse(md, nowrap)
 }
 
