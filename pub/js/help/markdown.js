@@ -1,7 +1,7 @@
 
 const TAB = 4
 
-function parse(md, nowrap, debug) {
+function parse(md, nowrap) {
     let pos = 0
     let line = 0
     let linePos = 0
@@ -49,7 +49,7 @@ function parse(md, nowrap, debug) {
                 if (ahead() === '[') return true
                 else return false
 
-            case '[':
+            case '[': case '~':
             case '*': case '_':
                 return true
 
@@ -151,10 +151,11 @@ function parse(md, nowrap, debug) {
     const ITEM = 6
     const NUMBERED = 7
     const QUOTE = 8
-    const LINE = 9
-    const HEADER = 10
-    const LINK = 11
-    const IMAGE = 12
+    const MARK = 9
+    const LINE = 10
+    const HEADER = 11
+    const LINK = 21
+    const IMAGE = 22
     function tokenName(type) {
         switch(type) {
             case NL: return 'newline';
@@ -165,6 +166,7 @@ function parse(md, nowrap, debug) {
             case ITEM: return '* list item';
             case NUMBERED: return '- numbered item';
             case QUOTE: return '> quote';
+            case MARK: return 'mark';
             case LINE: return '---- line';
             case HEADER: return 'header';
             case LINK: return 'link';
@@ -209,7 +211,6 @@ function parse(md, nowrap, debug) {
         }
 
         // match markup
-        if (debug) console.log('>>> ' + c)
         switch (c) {
 
             case '!':
@@ -241,11 +242,9 @@ function parse(md, nowrap, debug) {
                         t: ITEM,
                         v: '*'
                     }
-                } else {
-                    return {
-                        t: STAR,
-                        v: '*'
-                    }
+                } else return {
+                    t: STAR,
+                    v: '*'
                 }
                 break
 
@@ -254,13 +253,20 @@ function parse(md, nowrap, debug) {
                     getc() // eat the double to make a literal
                     escaped = true
 
-                } else {
-                    return {
-                        t: UNDERSCORE,
-                        v: '_'
-                    }
+                } else return {
+                    t: UNDERSCORE,
+                    v: '_'
                 }
                 break
+
+            case '~':
+                if (ahead() === '~') {
+                    getc() // eat the double to make a literal
+                    escaped = true
+                } else return {
+                    t: MARK,
+                    v: '~'
+                }
 
             case '-':
                 if (linePos === 1 && isSpace(ahead())) {
@@ -327,10 +333,6 @@ function parse(md, nowrap, debug) {
         else if (!nowrap) out += '<p>'
 
         while(span) {
-            if (debug) {
-                console.log('#' + tokenName(span.t) + ': ' + span.v)
-            }
-
             if (span.t === NL) { 
                 lineSpan = 0
                 if (state.list) {
@@ -394,6 +396,15 @@ function parse(md, nowrap, debug) {
                     state.italic = true
                 }
 
+            } else if (span.t === MARK) {
+                if (state.mark) {
+                    out += '</mark>'
+                    state.mark = false
+                } else {
+                    out += '<mark>'
+                    state.mark = true
+                }
+
             } else if (span.t === QUOTE) {
                 if (!state.quote) {
                     out += '<blockquote>'
@@ -445,9 +456,6 @@ function parse(md, nowrap, debug) {
 }
 
 export function md2html(md, nowrap) {
-    if (md.includes('Quapla')) {
-        return parse(md, nowrap, true)
-    }
     return parse(md, nowrap)
 }
 
