@@ -104,6 +104,7 @@ function parse(md, nowrap, debug) {
     const STAR = 4
     const UNDERSCORE = 5
     const ITEM = 6
+    const NUMBERED = 7
     function tokenName(type) {
         switch(type) {
             case NL: return 'newline';
@@ -111,7 +112,8 @@ function parse(md, nowrap, debug) {
             case SHIFT: return 'shift';
             case STAR: return 'star';
             case UNDERSCORE: return 'underscore';
-            case ITEM: return 'list item';
+            case ITEM: return '* list item';
+            case NUMBERED: return '- numbered item';
         }
     }
 
@@ -135,6 +137,7 @@ function parse(md, nowrap, debug) {
             }
         }
 
+        // match special sections
         switch (c) {
             case '*':
                 if (ahead() === '*') {
@@ -166,6 +169,15 @@ function parse(md, nowrap, debug) {
                     }
                 }
                 break
+
+            case '-':
+                if (linePos === 1 && isSpace(ahead())) {
+                    // numbered list item
+                    return {
+                        t: NUMBERED,
+                        v: '-'
+                    }
+                }
         }
 
         let span = ''
@@ -216,12 +228,30 @@ function parse(md, nowrap, debug) {
                     out += '</li>'
                     state.list = false
                 }
-                if (!state.code && lastSpan.t === NL) out += '</p><p>'
+
+                if (lastSpan.t === NL) {
+                    // next paragraph - double line feed detected
+                    if (state.numberedList) {
+                        out += '</ol>'
+                        state.numberedList = false
+
+                    } else if (!state.code) {
+                        out += '</p><p>'
+                    }
+                }
             } else {
                 lineSpan ++
             }
 
             if (span.t === ITEM) {
+                out += '<li>'
+                state.list = true
+
+            } else if (span.t === NUMBERED) {
+                if (!state.numberedList) {
+                    out += '<ol>'
+                    state.numberedList = 1
+                }
                 out += '<li>'
                 state.list = true
 
