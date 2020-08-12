@@ -102,10 +102,10 @@ function parse(md, nowrap, debug) {
         return sh
     }
 
-    function matchLine() {
+    function matchLine(type) {
         let sh = 0
         let c = getc()
-        while(c && c === '-') {
+        while(c && c === type) {
             sh ++
             c = getc()
         }
@@ -152,6 +152,7 @@ function parse(md, nowrap, debug) {
     const NUMBERED = 7
     const QUOTE = 8
     const LINE = 9
+    const HEADER = 10
     const LINK = 11
     const IMAGE = 12
     function tokenName(type) {
@@ -165,6 +166,7 @@ function parse(md, nowrap, debug) {
             case NUMBERED: return '- numbered item';
             case QUOTE: return '> quote';
             case LINE: return '---- line';
+            case HEADER: return 'header';
             case LINK: return 'link';
             case IMAGE: return 'image';
         }
@@ -190,12 +192,19 @@ function parse(md, nowrap, debug) {
                     v: sh
                 }
             } else if (c === '-') {
-                const sh = matchLine() + 1
+                const sh = matchLine('-') + 1
                 if (sh >= 4) return {
                     t: LINE,
                     v: '----',
                 }
                 // otherwise it is just a comment
+            } else if (c === '=') {
+                const sh = matchLine('=') + 1
+                if (sh > 6) sh = 6
+                return {
+                    t: HEADER,
+                    v: sh
+                }
             }
         }
 
@@ -335,6 +344,10 @@ function parse(md, nowrap, debug) {
                         out += '</ol>'
                         state.numberedList = false
 
+                    } else if (state.header) {
+                        out += `</h${state.header}>`
+                        state.header = 0
+
                     } else if (state.quote) {
                         out += '</blockquote>'
                         state.quote = false
@@ -358,6 +371,10 @@ function parse(md, nowrap, debug) {
                 }
                 out += '<li>'
                 state.list = true
+
+            } else if (span.t === HEADER) {
+                out += `<h${span.v}>`
+                state.header = span.v
 
             } else  if (span.t === STAR) {
                 if (state.bold) {
