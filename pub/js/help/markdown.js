@@ -116,6 +116,7 @@ function parse(md, nowrap, debug) {
     }
 
     function nextSpan() {
+        let escaped = false
 
         let c = getc()
         if (!c) return
@@ -136,7 +137,11 @@ function parse(md, nowrap, debug) {
 
         switch (c) {
             case '*':
-                if (linePos === 1 && isSpace(ahead())) {
+                if (ahead() === '*') {
+                    getc() // eat the double to make a literal
+                    escaped = true
+
+                } else if (linePos === 1 && isSpace(ahead())) {
                     return {
                         t: ITEM,
                         v: '*'
@@ -147,15 +152,27 @@ function parse(md, nowrap, debug) {
                         v: '*'
                     }
                 }
-            case '_': return {
-                t: UNDERSCORE,
-                v: '_'
-            }
+                break
+
+            case '_':
+                if (ahead() === '_') {
+                    getc() // eat the double to make a literal
+                    escaped = true
+
+                } else {
+                    return {
+                        t: UNDERSCORE,
+                        v: '_'
+                    }
+                }
+                break
         }
 
         let span = ''
-        while(c && !isNewLine(c) && !isSpecial(c)) {
+        while(c && !isNewLine(c) && (!isSpecial(c) || escaped)) {
             span += c
+            if (c === '\\') escaped = true
+            else escaped = false
             c = getc()
 
             if (c === '*' && ahead() === '*') {
