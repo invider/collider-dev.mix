@@ -105,6 +105,7 @@ function parse(md, nowrap, debug) {
     const UNDERSCORE = 5
     const ITEM = 6
     const NUMBERED = 7
+    const QUOTE = 8
     function tokenName(type) {
         switch(type) {
             case NL: return 'newline';
@@ -114,6 +115,7 @@ function parse(md, nowrap, debug) {
             case UNDERSCORE: return 'underscore';
             case ITEM: return '* list item';
             case NUMBERED: return '- numbered item';
+            case QUOTE: return '> quote';
         }
     }
 
@@ -137,7 +139,7 @@ function parse(md, nowrap, debug) {
             }
         }
 
-        // match special sections
+        // match markup
         switch (c) {
             case '*':
                 if (ahead() === '*') {
@@ -178,6 +180,16 @@ function parse(md, nowrap, debug) {
                         v: '-'
                     }
                 }
+                break
+
+            case '>':
+                if (linePos === 1 && isSpace(ahead())) {
+                    return {
+                        t: QUOTE,
+                        v: '>',
+                    }
+                }
+                break
         }
 
         let span = ''
@@ -214,6 +226,12 @@ function parse(md, nowrap, debug) {
         let span = nextSpan()
         let lineSpan = 0
 
+        function backspaceIf(c) {
+            if (out.endsWith(c)) {
+                out = out.substring(0, out.length - 1)
+            }
+        }
+
         if (!span) return out
         else if (!nowrap) out += '<p>'
 
@@ -234,6 +252,10 @@ function parse(md, nowrap, debug) {
                     if (state.numberedList) {
                         out += '</ol>'
                         state.numberedList = false
+
+                    } else if (state.quote) {
+                        out += '</blockquote>'
+                        state.quote = false
 
                     } else if (!state.code) {
                         out += '</p><p>'
@@ -273,6 +295,12 @@ function parse(md, nowrap, debug) {
                     state.italic = true
                 }
 
+            } else if (span.t === QUOTE) {
+                if (!state.quote) {
+                    out += '<blockquote>'
+                    state.quote = true
+                }
+
             } else if (span.t === SHIFT) {
                 if (!state.code) {
                     state.code = true
@@ -284,7 +312,9 @@ function parse(md, nowrap, debug) {
                 //if (span.t !== NL) console.log(`@${line}.${linePos}: ${span.t}:[${span.v}]`)
                 if (state.code && lineSpan === 1) {
                     state.code = false
-                    out += '\n</pre>'
+                    backspaceIf('\n')
+                    backspaceIf('\r')
+                    out += '</pre>'
                 }
                 out += span.v
             }
