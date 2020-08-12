@@ -45,6 +45,7 @@ function parse(md, nowrap, debug) {
 
     function isSpecial(c) {
         switch(c) {
+            case '[':
             case '*': case '_':
                 return true
 
@@ -88,13 +89,42 @@ function parse(md, nowrap, debug) {
     function matchShift() {
         let sh = 0
         let c = getc()
-        while (c && (c === ' ' || c === '\t')) {
+        while (c && isSpace(c)) {
             if (c === ' ') sh ++
             else if (c === '\t') sh += TAB
             c = getc()
         }
         if (c) retc()
         return sh
+    }
+
+    function matchLink() {
+        let tag = ''
+        let link = ''
+        let c = getc()
+        while (c && c !== ']') {
+            link += c
+            c = getc()
+        }
+        if (ahead() === '(') {
+            // consume the second part of the link
+            tag = link
+            link = ''
+            getc()
+            c = getc()
+            while (c && c !== ')') {
+                link += c
+                c = getc()
+            }
+        } else {
+            tag = link
+        }
+
+        return {
+            t: LINK,
+            v: link,
+            g: tag,
+        }
     }
 
     // tokenizer
@@ -106,6 +136,7 @@ function parse(md, nowrap, debug) {
     const ITEM = 6
     const NUMBERED = 7
     const QUOTE = 8
+    const LINK = 11
     function tokenName(type) {
         switch(type) {
             case NL: return 'newline';
@@ -116,6 +147,7 @@ function parse(md, nowrap, debug) {
             case ITEM: return '* list item';
             case NUMBERED: return '- numbered item';
             case QUOTE: return '> quote';
+            case LINK: return 'link';
         }
     }
 
@@ -141,6 +173,9 @@ function parse(md, nowrap, debug) {
 
         // match markup
         switch (c) {
+            case '[':
+                return matchLink()
+
             case '*':
                 if (ahead() === '*') {
                     getc() // eat the double to make a literal
@@ -190,6 +225,7 @@ function parse(md, nowrap, debug) {
                     }
                 }
                 break
+
         }
 
         let span = ''
@@ -307,6 +343,9 @@ function parse(md, nowrap, debug) {
                     out += '<pre>\n'
                 }
                 for (let i = 0; i < span.v; i++) out += ' '
+
+            } else if (span.t === LINK) {
+                out += '<a href="' + span.v + '">' + span.g + '</a>'
 
             } else {
                 //if (span.t !== NL) console.log(`@${line}.${linePos}: ${span.t}:[${span.v}]`)
