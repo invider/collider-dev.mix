@@ -103,6 +103,7 @@ function parse(md, nowrap, debug) {
     const SHIFT = 3
     const STAR = 4
     const UNDERSCORE = 5
+    const ITEM = 6
     function tokenName(type) {
         switch(type) {
             case NL: return 'newline';
@@ -110,6 +111,7 @@ function parse(md, nowrap, debug) {
             case SHIFT: return 'shift';
             case STAR: return 'star';
             case UNDERSCORE: return 'underscore';
+            case ITEM: return 'list item';
         }
     }
 
@@ -124,7 +126,7 @@ function parse(md, nowrap, debug) {
             v: '\n'
         }
 
-        if (linePos === 1 && (c === '\n' || c === '\t')) {
+        if (linePos === 1 && isSpace(c)) {
             const sh = matchShift()
             if (sh > 0) return {
                 t: SHIFT,
@@ -134,14 +136,20 @@ function parse(md, nowrap, debug) {
 
         switch (c) {
             case '*':
-            return {
-                t: STAR,
-                v: '',
-                p: linePos,
-            }
+                if (linePos === 1 && isSpace(ahead())) {
+                    return {
+                        t: ITEM,
+                        v: '*'
+                    }
+                } else {
+                    return {
+                        t: STAR,
+                        v: '*'
+                    }
+                }
             case '_': return {
                 t: UNDERSCORE,
-                v: ''
+                v: '_'
             }
         }
 
@@ -182,7 +190,7 @@ function parse(md, nowrap, debug) {
 
         while(span) {
             if (debug) {
-                // console.log('#' + tokenName(span.t) + ': ' + span.v)
+                console.log('#' + tokenName(span.t) + ': ' + span.v)
             }
 
             if (span.t === NL) { 
@@ -196,23 +204,20 @@ function parse(md, nowrap, debug) {
                 lineSpan ++
             }
 
-            if (span.t === STAR) {
-                if (span.p === 1) {
-                    out += '<li>'
-                    state.list = true
+            if (span.t === ITEM) {
+                out += '<li>'
+                state.list = true
 
+            } else  if (span.t === STAR) {
+                if (state.bold) {
+                    out += '</b>'
+                    state.bold = false
                 } else {
-                    if (state.bold) {
-                        out += '</b>'
-                        state.bold = false
-                    } else {
-                        out += '<b>'
-                        state.bold = true
-                    }
+                    out += '<b>'
+                    state.bold = true
                 }
-            }
 
-            if (span.t === UNDERSCORE) {
+            } else if (span.t === UNDERSCORE) {
                 if (state.italic) {
                     out += '</i>'
                     state.italic = false
@@ -220,9 +225,8 @@ function parse(md, nowrap, debug) {
                     out += '<i>'
                     state.italic = true
                 }
-            }
 
-            if (span.t === SHIFT) {
+            } else if (span.t === SHIFT) {
                 if (!state.code) {
                     state.code = true
                     out += '<pre>\n'
@@ -242,15 +246,21 @@ function parse(md, nowrap, debug) {
             span = nextSpan()
         }
 
+        // close open tags
+        if (state.bold) out += '</b>'
+        if (state.italic) out += '</i>'
+        if (state.code) out += '</pre>'
+
         if (!nowrap) out += '</p>'
         return out
     }
+
     const out = process()
     return out
 }
 
 export function md2html(md, nowrap) {
-    //if (md.includes('now something else')) return parse(md, nowrap, true)
+    if (md.includes('Quapla')) return parse(md, nowrap, true)
     return parse(md, nowrap)
 }
 
