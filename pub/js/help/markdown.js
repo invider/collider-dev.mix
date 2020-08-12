@@ -1,7 +1,7 @@
 
 const TAB = 4
 
-function parse(md, nowrap) {
+function parse(md, nowrap, debug) {
     let pos = 0
     let line = 0
     let linePos = 0
@@ -103,6 +103,15 @@ function parse(md, nowrap) {
     const SHIFT = 3
     const STAR = 4
     const UNDERSCORE = 5
+    function tokenName(type) {
+        switch(type) {
+            case NL: return 'newline';
+            case SPAN: return 'text span';
+            case SHIFT: return 'shift';
+            case STAR: return 'star';
+            case UNDERSCORE: return 'underscore';
+        }
+    }
 
     function nextSpan() {
 
@@ -115,7 +124,7 @@ function parse(md, nowrap) {
             v: '\n'
         }
 
-        if (linePos === 1) {
+        if (linePos === 1 && (c === '\n' || c === '\t')) {
             const sh = matchShift()
             if (sh > 0) return {
                 t: SHIFT,
@@ -127,7 +136,8 @@ function parse(md, nowrap) {
             case '*':
             return {
                 t: STAR,
-                v: ''
+                v: '',
+                p: linePos,
             }
             case '_': return {
                 t: UNDERSCORE,
@@ -171,20 +181,34 @@ function parse(md, nowrap) {
         else if (!nowrap) out += '<p>'
 
         while(span) {
+            if (debug) {
+                // console.log('#' + tokenName(span.t) + ': ' + span.v)
+            }
+
             if (span.t === NL) { 
                 lineSpan = 0
+                if (state.list) {
+                    out += '</li>'
+                    state.list = false
+                }
                 if (!state.code && lastSpan.t === NL) out += '</p><p>'
             } else {
                 lineSpan ++
             }
 
             if (span.t === STAR) {
-                if (state.bold) {
-                    out += '</b>'
-                    state.bold = false
+                if (span.p === 1) {
+                    out += '<li>'
+                    state.list = true
+
                 } else {
-                    out += '<b>'
-                    state.bold = true
+                    if (state.bold) {
+                        out += '</b>'
+                        state.bold = false
+                    } else {
+                        out += '<b>'
+                        state.bold = true
+                    }
                 }
             }
 
@@ -226,7 +250,7 @@ function parse(md, nowrap) {
 }
 
 export function md2html(md, nowrap) {
-    //if (md.includes('JavaScript edges')) return parse(md)
+    //if (md.includes('now something else')) return parse(md, nowrap, true)
     return parse(md, nowrap)
 }
 
