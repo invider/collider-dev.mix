@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'mono-code';
+  src: URL('font/JetBrainsMono-Regular.ttf');
+}
+
 body {
     margin: 0;
     font-size: 100%;
@@ -154,6 +159,7 @@ body {
     font-size: 120%;
 }
 
+
 h1 {
     color: #166470;
     font-size: 200%;
@@ -170,6 +176,18 @@ h3 {
     color: #166470;
     font-size: 130%;
     font-weight: normal;
+}
+
+pre {
+    background: #dfcfa9;
+    font-family: mono-code;
+    font-size: 90%;
+}
+
+blockquote {
+    background: #9fcfd9;
+    font-family: mono-code;
+    font-size: 90%;
 }
 
 .message {
