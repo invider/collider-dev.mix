@@ -5,6 +5,7 @@ function parse(md, nowrap) {
     let pos = 0
     let line = 0
     let linePos = 0
+    let mode = 0
     let bufc
     let buffered = false
 
@@ -44,6 +45,7 @@ function parse(md, nowrap) {
     }
 
     function isSpecial(c) {
+        if (mode === 1) return false
         switch(c) {
             case '!':
                 if (ahead() === '[') return true
@@ -413,6 +415,7 @@ function parse(md, nowrap) {
 
             } else if (span.t === SHIFT) {
                 if (!state.code) {
+                    mode = 1
                     state.code = true
                     out += '<pre>\n'
                 }
@@ -430,6 +433,7 @@ function parse(md, nowrap) {
             } else {
                 //if (span.t !== NL) console.log(`@${line}.${linePos}: ${span.t}:[${span.v}]`)
                 if (state.code && lineSpan === 1) {
+                    mode = 0
                     state.code = false
                     backspaceIf('\n')
                     backspaceIf('\r')
