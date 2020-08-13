@@ -1,5 +1,5 @@
 
-export function dump(index, content) {
+export function render(index, content) {
     const panel = document.getElementById('tags')
     const body = document.getElementById('help')
     panel.innerHTML = index
@@ -7,7 +7,7 @@ export function dump(index, content) {
 }
 
 export function clear() {
-    dump('', '')
+    render('', '')
 }
 
 export function parentPath(path) {

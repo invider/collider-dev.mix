@@ -3,7 +3,7 @@
 import { toHtml, preformat } from './format.js'
 import { cache } from './cache.js'
 import { find } from './filter.js'
-import { clear, dump } from './util.js'
+import { clear, render } from './util.js'
 
 const HELP_DATA_URL = '../help/data'
 
@@ -32,6 +32,7 @@ function printTag(content) {
     tags.innerHTML += content
 }
 
+/*
 function createLoadingLabel() {
     const loading = document.createElement('div')
     loading.id = 'loading'
@@ -48,6 +49,7 @@ function removeLoadingLabel() {
     const loading = document.getElementById('loading')
     loading.remove()
 }
+*/
 
 function printResults(res) {
     const field = document.getElementById(FIELD)
@@ -71,6 +73,7 @@ function printResults(res) {
             res.links = cache.links
         }
 
+        /*
         function printMore(i, index, body) {
             if (field.value !== res.search) {
                 removeLoadingLabel()
@@ -90,7 +93,7 @@ function printResults(res) {
                 //print(meta.html.body)
                 index += meta.html.tag
                 body += meta.html.body
-                dump(index, body)
+                render(index, body)
                 cache.links[meta.path] = meta
 
                 setTimeout(() => printMore(i+1, index, body), PRINT_DELAY)
@@ -102,6 +105,19 @@ function printResults(res) {
 
         createLoadingLabel()
         printMore(0, '', '')
+        */
+
+        // compile result array (for index and body)
+        const tags = []
+        const bodies = []
+        const N = res.length
+        for (let i = 0; i < N; i++) {
+            const meta = res[i]
+            tags.push(meta.html.tag)
+            bodies.push(meta.html.body)
+        }
+        render(tags.join(''), bodies.join(''))
+        cacheRendering()
 
         //res.forEach(meta => { })
 
