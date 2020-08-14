@@ -2,7 +2,7 @@ name: Design
 
 *Collider.JAM* is a highly opinionated framework.
 
-<h3>Feature Creep</h3>
+=== Feature Creep
 
 Most of the game frameworks and engines out there
 are fixated on features.
@@ -17,7 +17,9 @@ draw simple shapes, images and text, play some sounds,
 and accept user input.
 
 
-<h3>Unique</h3>
+
+=== Unique
+
 In the crowded game tooling world,
 it is really hard to find a unique tool.
 All mainstream frameworks and engines
@@ -83,7 +85,7 @@ A fresh look might be a good thing.
 
 
 
-<h3>Coming from Game Jams</h3>
+=== Coming from Game Jams
 Collider.JAM has been conceived after
 our participation in multiple game jams.
 
@@ -96,7 +98,7 @@ on Collider.JAM design.
 
 
 
-<h3>Choose simplicity over efficiency</h3>
+=== Choose simplicity over efficiency
 There are number of opinionated choices in Collider.JAM design.
 
 Among them are:
@@ -121,7 +123,7 @@ and very suitable for rapid game prototyping, game jamming and hackathons.
 
 
 
-<h3>Collider.JAM Ring</h3>
+=== Collider.JAM Ring
 
 The core of the framework is the Ring.
 
@@ -147,7 +149,7 @@ as part of provided or optional mixes.
 
 
 
-<h3>Everything is in the Mix</h3>
+=== Everything is in the Mix
 A *mix* is a virtual file system that represents
 a scene graph and all accessible resources.
 
@@ -274,7 +276,7 @@ from other parts of the app.
 
 
 
-<h3>These Strange Cryptic Names</h3>
+=== These Strange Cryptic Names
 The core names in Collider.JAM are short and cryptic.
 This is by design.
 
@@ -306,7 +308,7 @@ It is simpler. It is much cleaner.
 
 
 
-<h3>The most used stuff is already in scope</h3>
+=== The most used stuff is already in scope
 All core functions and nodes of Collide.JAM
 are available directly in scope.
 
@@ -341,7 +343,7 @@ tricks Collider.JAM performs while loading the mix.
 
 
 
-<h3>Inspiration</h3>
+=== Inspiration
 Nothing is really new in this industry,
 and we always build our software
 on the foundation and experience
