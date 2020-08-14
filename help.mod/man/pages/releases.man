@@ -1,7 +1,8 @@
 name: Releases
 
-<span class="metaSection">0.0.6-DR6 2020-07-04</span>
+=== 0.0.6-DR6 2020-07-04
 
+>>>
 [+] jsDoc-style type metadata extraction
 
 [+] autocomplete end-points with help meta data on jam server
@@ -53,11 +54,14 @@ name: Releases
 [**] renamed targetAngle() to bearing()
 
 [**] renamed close() to closePath()
+>>>
 
 
 
-<hr><span class="metaSection">0.0.5-DR5 2020-06-01</span>
+----
+=== 0.0.5-DR5 2020-06-01
 
+>>>
 [+] gif files autoload support
 
 [**] upper-case extensions
@@ -75,11 +79,13 @@ name: Releases
 [**] sketch packaging updated
 
 [-] width() and height() functions removed to avoid global namespace pollution
+>>>
 
 
+----
+=== 0.0.4-DR4 2020-04-28
 
-<hr><span class="metaSection">0.0.4-DR4 2020-04-28</span>
-
+>>>
 [+] **.spawn.js entities autospawn
 
 [+] custom post-processors for **.js and **.json files
@@ -115,11 +121,14 @@ name: Releases
 [+] -y/--types option to generate types metadata
 
 [**] migrated mods from collider-debug.mix to collider-dev.mix
+>>>
 
 
 
-<hr><span class="metaSection">0.0.3-DR3 2020-04-01</span>
+----
+=== 0.0.3-DR3 2020-04-01
 
+>>>
 [+] new wormhole bootloader
 
 [+] jam --release flag to ignore debug dependencies
@@ -137,11 +146,13 @@ name: Releases
 [-] fixed Firefox compatibility
 
 [-] fixed Safari compatibility
+>>>
 
 
+----
+=== 0.0.2-DR2 2020-02-29
 
-<hr><span class="metaSection">0.0.2-DR2 2020-02-29</span>
-
+>>>
 [+] help mod with metadata auto scan
 
 [+] new node inspector
@@ -157,11 +168,14 @@ name: Releases
 [**] new module structure
 
 [-] multiple bug fixes
+>>>
 
 
 
-<hr><span class="metaSection">0.0.1-DR1 2019-09-27</span>
+----
+=== 0.0.1-DR1 2019-09-27
 
+>>>
 [!] _first public release_
 
 [+] core scene structure
@@ -183,4 +197,4 @@ name: Releases
 [+] debug tools - log, status info, console, explorer
 
 [+] web packaging
-
+>>>

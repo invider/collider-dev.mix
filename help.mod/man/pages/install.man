@@ -37,4 +37,3 @@ And the list of available commands:
 To uninstall _Collider.JAM_ run:
 
     npm uninstall -g collider.jam
-

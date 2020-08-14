@@ -101,6 +101,7 @@ There are number of opinionated choices in Collider.JAM design.
 
 Among them are:
 
+* Zero dependencies to keep it lean and consistent
 * Everything is placed in a single tree hierarchy
 * Everything can be accessed by moving up and down that hierarchy
 * A project folder structure and names are reflected in Collider.JAM hierarchy
