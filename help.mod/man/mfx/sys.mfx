@@ -28,33 +28,63 @@ when any node with _dir object and _ls array is considered to be a frame.
 -------------------------------------------------------------------
 /sys/Frame/prototype/path
 head: returns the path of the node
+types:
+@returns {string/path} - absolute path in the mix
 note:
 The parent must be present to determine the path,
-so it obviously doesn't work for detached nodes.
+so it obviously doesn't work for orphaned nodes.
+
+-------------------------------------------------------------------
+/sys/Frame/prototype/getMod
+head: get parent mod object
+types:
+@returns {object/Mod} - parent mod
+note:
+The parent must be present to determine the mod,
+so it obviously doesn't work for orphaned nodes.
 
 -------------------------------------------------------------------
 /sys/Frame/prototype/touch
-head: makes sure that specified container exists in the path, create new onces if needed
+head: makes sure specified container exists in the path, creates a new one if needed
 types:
 @param {string} path - a path to a frame
 details:
-Code:
-    lab.touch('bot/mob')
+  lab.touch('bot/mob')
 will create a Frame named 'bot' inside 'lab'
 and then will create a Frame named 'mob' inside 'bot'.
 
+Now you can spawn bots in _/lab/mob/bot_
+  lab.mob.bot.spawn(MyBot, {...})
+
 -------------------------------------------------------------------
 /sys/Frame/prototype/attach
-head: 
-usage: ()
+head: adds a node to a frame
+types:
+@param {value} node
+@param {string} [name] - optional name
+details:
+When _name_ is not specified, tries to take it from the object itself.
 -------------------------------------------------------------------
 /sys/Frame/prototype/onAttached
-head: 
-usage: ()
+head: a service method to propagate attach notifications
+types:
+@param {value} [node] - optional attached node (empty for the attached node itself)
+details:
+Has default behavior, so shouldn't be redefined for now.
+
+
+> TODO make it reassianable and move features to 2 additional service methods
+one for attached node, another - for frames up the tree
+
 -------------------------------------------------------------------
 /sys/Frame/prototype/link
-head: 
-usage: ()
+head: links a node to the frame without attaching it
+types:
+@param {value} node
+@param {string} [name] - optional name
+notes:
+Use when you don't want to change child node's parent,
+but still want that child node to look like it is in the frame.
 -------------------------------------------------------------------
 /sys/Frame/prototype/detach
 head: 
