@@ -213,7 +213,7 @@ function parse(md, nowrap) {
         }
 
         // match markup
-        switch (c) {
+        switch (mode === 0 && c) {
 
             case '!':
                 if (ahead() === '[') {
@@ -293,9 +293,12 @@ function parse(md, nowrap) {
 
         let span = ''
         while(c && !isNewLine(c) && (!isSpecial(c) || escaped)) {
-            span += c
-            if (c === '\\') escaped = true
-            else escaped = false
+            if (mode === 0 && c === '\\') {
+                escaped = true
+            } else {
+                span += c
+                escaped = false
+            }
             c = getc()
 
             if (c === '*' && ahead() === '*') {
