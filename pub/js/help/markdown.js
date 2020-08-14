@@ -45,7 +45,7 @@ function parse(md, nowrap) {
     }
 
     function isSpecial(c) {
-        if (mode === 1) return false
+        if (mode > 0) return false
         switch(c) {
             case '!':
                 if (ahead() === '[') return true
@@ -90,6 +90,10 @@ function parse(md, nowrap) {
 
     function ahead() {
         return md.charAt(pos)
+    }
+
+    function forward(n) {
+        return md.charAt(pos + n - 1)
     }
 
     function matchShift() {
@@ -156,6 +160,7 @@ function parse(md, nowrap) {
     const MARK = 9
     const LINE = 10
     const HEADER = 11
+    const IGNORE = 13
     const LINK = 21
     const IMAGE = 22
     function tokenName(type) {
@@ -169,6 +174,7 @@ function parse(md, nowrap) {
             case NUMBERED: return '- numbered item';
             case QUOTE: return '> quote';
             case MARK: return 'mark';
+            case IGNORE: return '>>> ignore';
             case LINE: return '---- line';
             case HEADER: return 'header';
             case LINK: return 'link';
@@ -208,6 +214,15 @@ function parse(md, nowrap) {
                 return {
                     t: HEADER,
                     v: sh
+                }
+            } else if (c === '>') {
+                if (ahead() === '>' && forward(2) === '>') {
+                    getc()
+                    getc()
+                    return {
+                        t: IGNORE,
+                        v: '>>>',
+                    }
                 }
             }
         }
@@ -382,6 +397,10 @@ function parse(md, nowrap) {
             } else if (span.t === HEADER) {
                 out += `<h${span.v}>`
                 state.header = span.v
+
+            } else if (span.t === IGNORE) {
+                if (mode === 0) mode = 2
+                else mode = 0
 
             } else  if (span.t === STAR) {
                 if (state.bold) {
