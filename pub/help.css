@@ -182,6 +182,7 @@ pre {
     background: #dfcfa9;
     font-family: mono-code;
     font-size: 90%;
+    white-space: pre-wrap;
 }
 
 blockquote {
