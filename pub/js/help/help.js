@@ -115,6 +115,7 @@ function printResults(res) {
             const meta = res[i]
             tags.push(meta.html.tag)
             bodies.push(meta.html.body)
+            cache.links[meta.path] = meta
         }
         render(tags.join(''), bodies.join(''))
         cacheRendering()
