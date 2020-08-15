@@ -64,6 +64,7 @@ types:
 @param {string} [name] - optional name
 details:
 When _name_ is not specified, tries to take it from the object itself.
+
 -------------------------------------------------------------------
 /sys/Frame/prototype/onAttached
 head: a service method to propagate attach notifications
@@ -75,8 +76,8 @@ Has default behavior, so shouldn't be redefined for now.
 
 > TODO make it reassianable and move features to 2 additional service methods
 one for attached node, another - for frames up the tree
-
 -------------------------------------------------------------------
+
 /sys/Frame/prototype/link
 head: links a node to the frame without attaching it
 types:
@@ -86,38 +87,117 @@ notes:
 Use when you don't want to change child node's parent,
 but still want that child node to look like it is in the frame.
 -------------------------------------------------------------------
+
 /sys/Frame/prototype/detach
-head: 
-usage: ()
+head: detach a node
+types:
+@param {object} node
+notes:
+With undefined node the whole frame got removed.
+We are not satisfied with accidental complexity in that call.
+~TODO split into 2 different methods by intent~
 -------------------------------------------------------------------
+
 /sys/Frame/prototype/detachAll
-head: 
-usage: ()
+head: detach all nodes
 -------------------------------------------------------------------
+
 /sys/Frame/prototype/detachByName
-head: 
-usage: ()
+head: detach a node by name
+types:
+@param {string} name - node's name
 -------------------------------------------------------------------
+
 /sys/Frame/prototype/apply
-head: 
-usage: ()
+head: apply a function to all child nodes, possibly filtered by a predicate
+types:
+@param {function} fn - a function to apply
+@param {function/string} predicate - a predicate to filter out the nodes
+details:
+A predicate function accepts a child node and returns
+_true_ if the function needs to be applied to that node
+and _false_ if doesn't.
+A predicate also can be a select string.
 -------------------------------------------------------------------
+
+/sys/Frame/prototype/applyAll
+head: apply a function to all nodes and subnodes down the tree, possibly filtered by a predicate
+types:
+@param {function} fn - a function to apply
+@param {function/string} predicate - a predicate to filter out the nodes
+details:
+Works recursivelly on all child subframes.
+A predicate function accepts a child node and returns
+_true_ if the function needs to be applied to that node
+and _false_ if doesn't.
+A predicate also can be a select string.
+-------------------------------------------------------------------
+
 /sys/Frame/prototype/collide
-head: 
-usage: ()
+head: collides the child nodes, e.g. apply function to all pair combinations
+@param {function} fn - a function to apply
+@param {function/string} predicate - a predicate to filter out the nodes
+details:
+Can be used in collision-detection scenarios,
+when you need to compare each node with any other node.
+
+A predicate function accepts a child node and returns
+_true_ if the function needs to be applied to that node
+and _false_ if doesn't.
+A predicate also can be a select string.
 -------------------------------------------------------------------
+
 /sys/Frame/prototype/select
 head: select instances matching the string or function predicate
-usage: (predicate)
+types:
+@param {string} path
 details:
 String predicates are in path format and can include *
 to match all nodes, e.g.:
     /res/sfx/*
     /dna/hud/Window
 -------------------------------------------------------------------
+
+/sys/Frame/prototype/map
+head: applies a function to all child nodes and returns an array of results
+types:
+@param {function} fn - a map function
+-------------------------------------------------------------------
+
+/sys/Frame/prototype/flatMap
+head: not implemented yet
+-------------------------------------------------------------------
+
+/sys/Frame/prototype/find
+head: recursive search for nodes
+types:
+@param {function} predicate - a predicate function
+-------------------------------------------------------------------
+
+/sys/Frame/prototype/reduce
+head: reduce child nodes
+types:
+@param {function(accumulator, node, i, frame)} fn - a reduce function
+@param {value} initVal - a start value, first node by default
+-------------------------------------------------------------------
+
+/sys/Frame/prototype/reduceRight
+head: reduce right child nodes - the same as _reduce_, by starts from the end
+types:
+@param {function(accumulator, node, i, frame)} fn - a reduce function
+@param {value} initVal - a start value, first node by default
+-------------------------------------------------------------------
+
+/sys/Frame/prototype/selectInstanceOf
+head: returns the list of included nodes of provided type
+types:
+@param {prototype} of - a value to match instanceof
+-------------------------------------------------------------------
+
 /sys/Frame/prototype/selectOne
 head: select a single node matching the string or function predicate
-usage: (predicate)
+types:
+@param {string} predicate
 details:
 String predicates are in path format and can include *
 to match all nodes, e.g.:
@@ -125,26 +205,8 @@ to match all nodes, e.g.:
     /dna/hud/Window
 The same, as select(), but returns the top result.
 -------------------------------------------------------------------
-/sys/Frame/prototype/selectInstance
-head: returns the list of included objects of provided type
-usage: (of)
--------------------------------------------------------------------
-/sys/Frame/prototype/selectOneNumber
-head: returns the list of included objects of provided type
-usage: (predicate)
--------------------------------------------------------------------
+
 /sys/Frame/prototype/kill
-head:
-usage: (predicate)
+head: kill the node and all the childs
 -------------------------------------------------------------------
-/sys/Frame/prototype/map
-head: not implemented
-usage: ()
--------------------------------------------------------------------
-/sys/Frame/prototype/flatMap
-head: not implemented
-usage: ()
--------------------------------------------------------------------
-/sys/Frame/prototype/reduce
-head: not implemented
-usage: ()
+
