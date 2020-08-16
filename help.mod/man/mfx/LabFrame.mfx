@@ -1,0 +1,240 @@
+-------------------------------------------------------------------
+/sys/LabFrame
+tags: core
+head: a lab group node with evo(dt) and draw() support
+details:
+_LabFrame_ is a specific kind of frame intended to be
+place in _/lab_. It supports _/lab_ convention,
+like _evo(dt)_ to evolve entities
+and _draw()_ to draw them.
+
+A _LabFrame_ is created automatically,
+when you touch _/lab_, e.g.\:
+
+    lab.touch('mob') // create a LabFrame at /lab/mob
+    lab.touch('overlay/fx') // create lab frames overlay and fx
+
+You can spawn entities in mob, overlay and fx now,
+and _/lab_ calls to _evo(dt)_ and _draw()_ will be propagated
+to these entities automatically.
+
+/sys/LabFrame/prototype/touch
+head: makes sure specified lab container exists in the path, creates a new LabFrame if needed
+types:
+@param {string} path - a path to a frame
+details:
+  lab.touch('bot/mob')
+will create a Frame named 'bot' inside 'lab'
+and then will create a Frame named 'mob' inside 'bot'.
+
+Now you can spawn bots in _/lab/mob/bot_
+  lab.mob.bot.spawn(MyBot, {...})
+.
+/sys/LabFrame/prototype/spawn
+head: spawn an entity from existing _/dna_
+types:
+@param {string | object/dna } sourceDNA
+@param {object} [st] - entity configuration
+
+/sys/LabFrame/prototype/orderZ
+head: a service method to order nodes according to their Z-index
+details:
+Usually, you don't have to call this function.
+It is called automatically when a new node with defined Z added,
+or when lab frame detects onordered Z during the draw cycle.
+
+You can change Z value on a node, and LabFrame will detect,
+that nodes are not ordered by their Z-index
+and call the ordering automatically during the draw cycle.
+
+/sys/LabFrame/prototype/promoteNode
+head: a service method to analyze attached node and raise all necessary flags
+types:
+    @param {object} node
+details:
+Called automatically when a node is attached.
+In normal circumstances you don't have to call it manually.
+
+Following flags can be set\:
+    evo = false  // when no evo function is specified
+    draw = false // when no draw function is specified
+    _positional = true  // if the node has _x_ and _y_
+    _sizable = true     // if the node has _w_ and _h_
+    _circular = true    // when _r_ is specified
+    _centered = true    // indicates that x,y are in the center and not at top-left
+
+It also calls this.orderZ() if node.Z is specified.
+
+/sys/LabFrame/prototype/lx
+head: translate global x to local coordinates
+types:
+    @param {number} x
+    @returns {number} - local x
+
+/sys/LabFrame/prototype/ly
+head: translate global y to local coordinates
+types:
+    @param {number} y
+    @returns {number} - local y
+
+/sys/LabFrame/prototype/lxy
+head: translate global x and y to local coordinates
+types: 
+    @param {number} x
+    @param {number} y
+    @returns {object/2d-vector} - object with local x and y
+
+/sys/LabFrame/prototype/gx
+head: translate local x to global coordinates
+types:
+    @param {number} x
+    @returns {number} - global x
+
+/sys/LabFrame/prototype/gy
+head: translate local y to global coordinates
+types:
+    @param {number} y
+    @returns {number} - global y
+
+/sys/LabFrame/prototype/gxy
+head: translate local x and y to global coordinates
+types:
+    @param {number} x
+    @param {number} y
+    @returns {object/2d-vector} - object with global x and y
+
+/sys/LabFrame/prototype/evo
+head: evolve child nodes for _dt_ seconds
+types:
+    @param {number/seconds} dt - delta time in seconds
+details:
+Iterates over all included nodes and executes evo(dt)
+if presnet.
+
+/sys/LabFrame/prototype/draw
+head: draw child nodes
+details:
+Iterates over all included nodes and executes draw()
+if present.
+notes:
+During the draw keeps the track of Z-order.
+If broken, this.orderZ() will be called
+after the draw cycle to fix it.
+
+/sys/LabFrame/prototype/attach
+head: adds an entity to a lab frame
+types:
+@param {object} node
+@param {string} [name] - optional name
+details:
+When _name_ is not specified, tries to take it from the object itself.
+
+/sys/LabFrame/prototype/onAttached
+head: a service method to propagate attach notifications
+types:
+@param {value} [node] - optional attached node (empty for the attached node itself)
+details:
+Has default behavior, so shouldn't be redefined for now.
+
+/sys/LabFrame/prototype/link
+head: links a node to the lab frame without attaching it
+types:
+@param {value} node
+@param {string} [name] - optional name
+notes:
+Use when you don't want to change child node's parent,
+but still want that child node to look like it is in the frame.
+
+/sys/LabFrame/prototype/pause
+head: pause this node evolution, evo() execution will be skipped
+note:
+By convention, enforcing _paused_ flag is a parent lab node
+responsibility. That way an entity doesn't have
+to include any additional logic.
+Just set
+    entityNode.paused = true
+and the node evolution will be suspended.
+
+This operation doesn't hide the node.
+
+/sys/LabFrame/prototype/pauseAll
+head: pause evolution of all child nodes
+
+/sys/LabFrame/prototype/resume
+head: resume this node evolution
+
+/sys/LabFrame/prototype/resumeAll
+head: resume evolution of all child nodes
+
+/sys/LabFrame/prototype/hide
+head: hide the node, execution of draw() will be skipped 
+note:
+By convention, enforcing _hidden_ flag is a parent lab node
+responsibility. That way an entity doesn't have
+to include any additional logic.
+Just set
+    entityNode.hidden = true
+and the node will be hidden.
+
+This operation just hide, but doesn't pause the node.
+It still is going to be evolved in the dark.
+
+/sys/LabFrame/prototype/hideAll
+head: hide all child nodes
+
+/sys/LabFrame/prototype/show
+head: show the node
+
+/sys/LabFrame/prototype/showAll
+head: show all child nodes
+
+/sys/LabFrame/prototype/labxy
+head: translate local coordinates to _/lab_ coordinates
+types:
+    @param {number} x
+    @param {number} y
+    @returns {object/2d-vector} - {x,y} in _/lab_ coordinate system
+details:
+The same as _LabFrame.labVector(vec)_, but accepts x and y coordinates.
+
+/sys/LabFrame/prototype/labVector
+head: translate local 2d vector to _/lab_ coordinates
+types:
+    @param {object/2d-vector} v
+    @returns {object/2d-vector} - {x,y} in _/lab_ coordinate system
+details:
+The same as _LabFrame.labxy(x, y)_, but accepts 2d vector.
+
+/sys/LabFrame/prototype/poke
+head: poke nodes at local coordinates
+types:
+    @param {number} x - local x
+    @param {number} y - local y
+    @param {object|function} [opt] - an option object or a predicate function
+details:
+A node must implement a poke method in order to be poked.
+
+A node is responsible for figuring out if {x,y} are
+within the node area or outside.
+
+If _opt_ is a predicate function, the _node.poke()_
+will be called only when fn(node) returns true.
+
+Otherwise, _opt_ is considered to be a configuration
+object passed to poke function. It that case,
+it is a responsibility of poke() to make sense
+of that data.
+
+
+/sys/LabFrame/prototype/pick
+head: pick nodes at local coordinates
+types:
+    @param {number} x - local x
+    @param {number} y - local y
+    @param {array} ls - an array to collect picked nodes
+    @param {object|function} [opt] - an option object or a predicate function
+details:
+Methods determines the pick by coordinates and size convention.
+
+But a node can implement it's own peek method
+
