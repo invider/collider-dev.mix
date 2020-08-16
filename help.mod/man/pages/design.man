@@ -86,6 +86,7 @@ A fresh look might be a good thing.
 
 
 === Coming from Game Jams
+
 Collider.JAM has been conceived after
 our participation in multiple game jams.
 
@@ -99,6 +100,7 @@ on Collider.JAM design.
 
 
 === Choose simplicity over efficiency
+
 There are number of opinionated choices in Collider.JAM design.
 
 Among them are:
@@ -150,6 +152,7 @@ as part of provided or optional mixes.
 
 
 === Everything is in the Mix
+
 A *mix* is a virtual file system that represents
 a scene graph and all accessible resources.
 
@@ -161,7 +164,10 @@ standard libraries and prototypes,
 game entities and configurations -
 all that is placed in the mix somewhere.
 
-<h3>Everything is in it's right place...</h3>
+
+
+=== Everything is in it's right place...
+
 Mix is a virtual file system because
 every game object is placed in a tree-like
 structure. And that placement can determine
@@ -183,7 +189,10 @@ Declare a function spaceDown() and place it in trap:
      /trap/spaceDown.js
 It will be called every time the _Spacebar_ is pressed.
 
-<h3>Node is just an Object</h3>
+
+
+=== Node is just an Object
+
 When objects are loaded and placed as nodes in the mix,
 there is nothing speciall going on.
 These are still plain simple JavaScript objects.
@@ -196,7 +205,10 @@ The only effect on the object itself is some special properties
 that will be specified. Like a link to the parent node.
 But there could be other flags, all starting with underscore.
 
-<h3>Resources are already there</h3>
+
+
+=== Resources are already there
+
 In _Collider.JAM_ you spend minimal time managing resources.
 Just place the files in _/res_ folder of your _mod_
 and you have them available in the game.
@@ -208,7 +220,10 @@ So place an image into res:
 And it can be accessed as _res.hero_ and is going to be
 just a standard JS HTMLImageElement.
 
-<h3>A node in /lab lives and evolves</h3>
+
+
+=== A node in /lab lives and evolves
+
 This is a crucial element of Collider.JAM design.
 
 To create a game entity, you don't have to extend from any prototype,
@@ -238,7 +253,10 @@ Note, that we don't have to do any form of import or export anywhere.
 Collider.JAM does all the magic of loading, setting up and linking
 all game components and resources in a single tree.
 
-<h3>File system folders are reflected in the mix</h3>
+
+
+=== File system folders are reflected in the mix
+
 All files in a game project folder are loaded
 and placed in the tree according to their position
 and names on the file system. 
@@ -265,7 +283,10 @@ inspector.mod and help.mod. But these
 are not loaded at the root of a mix,
 but go into a /mod node.
 
-<h3>Each mod is a mini-game</h3>
+
+
+=== Each mod is a mini-game
+
 Each mod repeats the root structure.
 E.g. it has /res, /dna, /env, /lab, /trap...
 
@@ -277,6 +298,7 @@ from other parts of the app.
 
 
 === These Strange Cryptic Names
+
 The core names in Collider.JAM are short and cryptic.
 This is by design.
 
@@ -309,6 +331,7 @@ It is simpler. It is much cleaner.
 
 
 === The most used stuff is already in scope
+
 All core functions and nodes of Collide.JAM
 are available directly in scope.
 
@@ -344,6 +367,7 @@ tricks Collider.JAM performs while loading the mix.
 
 
 === Inspiration
+
 Nothing is really new in this industry,
 and we always build our software
 on the foundation and experience
