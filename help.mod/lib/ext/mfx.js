@@ -45,22 +45,32 @@ function mfx(src) {
     const lines = src.split(/[\r\n]/)
 
     lines.forEach(l => {
-            lineNumber ++
+        lineNumber ++
 
-            if (l.startsWith('#') || l.startsWith('--')) {
-                // skip comment
-            } else if (l.startsWith('/')) {
-                at(l.trim())
-            } else if (l.indexOf(':') > 0) {
-                const parts = l.trim().split(':')
-                nextSection(parts[0].trim())
-                if (parts[1].length > 0) append(parts[1].trim())
-            } else if (l.startsWith('.')) {
-                section = false
-            } else {
+        const iColon = l.indexOf(':')
+        const iSpace = l.indexOf(' ')
+
+        if (l.startsWith('#') || l.startsWith('--')) {
+            // skip comment
+        } else if (l.startsWith('/')) {
+            at(l.trim())
+        } else if (iColon > 0 && l[iColon-1] !== '\\') {
+            const parts = l.split(':')
+            const sectionName = parts[0].trim()
+            if (sectionName.includes(' ')) {
+                // doesn't look like a section definition
+                // just include the whole line
                 append(l)
+            } else {
+                nextSection(sectionName)
+                if (parts[1].length > 0) append(parts[1])
             }
-        })
+        } else if (l.startsWith('.')) {
+            section = false
+        } else {
+            append(l)
+        }
+    })
 
     if (fix.ls.length === 0) return
     return fix 
