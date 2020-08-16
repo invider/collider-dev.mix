@@ -11,7 +11,7 @@ function compileSummary(m) {
             if (m.data.head) head = ' - ' + m.data.head.trim()
         }
 
-        return `*${name}${usage}</a>*${head}\n\n`
+        return `*${name}*</a>${usage}${head}\n\n`
     } else {
     }
     return ''
