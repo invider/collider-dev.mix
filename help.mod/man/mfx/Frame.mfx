@@ -55,8 +55,8 @@ and then will create a Frame named 'mob' inside 'bot'.
 
 Now you can spawn bots in _/lab/mob/bot_
   lab.mob.bot.spawn(MyBot, {...})
-
 -------------------------------------------------------------------
+
 /sys/Frame/prototype/attach
 head: adds a node to a frame
 types:
@@ -64,8 +64,8 @@ types:
 @param {string} [name] - optional name
 details:
 When _name_ is not specified, tries to take it from the object itself.
-
 -------------------------------------------------------------------
+
 /sys/Frame/prototype/onAttached
 head: a service method to propagate attach notifications
 types:
