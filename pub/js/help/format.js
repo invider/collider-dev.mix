@@ -16,6 +16,7 @@ function metaTag(meta) {
     return res
 }
 
+// format a sinlge-line definition of a function or property
 export function metaSummary(meta) {
     if (meta.link) {
         const linkMeta = cache.identify(meta.link)
@@ -37,7 +38,7 @@ export function metaSummary(meta) {
                 ' - ' + md2html(meta.data.head, true) : ''
 
     let res = `<a href="#.${meta.path}">`
-        + type + ' <b>' + meta.name + usage + '</b></a>'
+        + type + ' <b>' + meta.name + '</b></a>' + usage
         + head
     return res
 }
