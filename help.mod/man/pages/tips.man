@@ -1,6 +1,6 @@
 name: Tips
 
-<span class="metaSection">Use -d and --fast modes.</span>
+<span class="metaSection">Use -d modes.</span>
 
 The *jam -d* flag enabled a lot of useful features
 for development.
@@ -10,8 +10,6 @@ in the console and extracts help metadata
 from the browser.
 
 So, online help (F1) works only with -d flag.
-
-You can use --fast flag to speed up the boot.
 
 <span class="metaSection">Use --release flag when packing for production</span>
 
