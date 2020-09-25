@@ -2,30 +2,33 @@
 <head>
     <title>Collider.JAM Help</title>
     <script src="js/help/help.js" type="module"></script>
+    <script src="js/split.js/split.min.js"></script>
     <link rel="Stylesheet" href="help.css">
 </head>
 <body>
 
-    <div id="tagsPanel">
+    <div id="screen">
 
-        <div id="searchBar">
-            <input id="searchField"
-                type="text"
-                name="search"
-                style="display:block;width:100%;"
-                placeholder="Search"
-                autofocus >
-            </input>
+        <div id="tagsPanel">
+            <div id="searchBar">
+                <input id="searchField"
+                    type="text"
+                    name="search"
+                    style="display:block;width:100%;"
+                    placeholder="Search"
+                    autofocus >
+                </input>
+            </div>
+            <div id="tags" class="tags">
+            </div>
         </div>
 
-        <div id="tags" class="tags">
+        <div id="rightPanel">
+            <div id="help" class="help">
+                <div class="message"><p align="center">Loading...</p></div>
+            </div>
         </div>
+
     </div>
-
-
-    <div id="help" class="help">
-        <div class="message"><p align="center">Loading...</p></div>
-    </div>
-
 </body>
 </html>

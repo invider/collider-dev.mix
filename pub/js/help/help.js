@@ -219,6 +219,13 @@ function setup() {
     }
 
     loadMeta()
+
+    Split(['#tagsPanel', '#rightPanel'], {
+        sizes: [27, 73],
+        minSize: [150, 300],
+        direction: 'horizontal',
+        gutterAlign: 'center',
+    })
 }
 
 

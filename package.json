@@ -8,7 +8,8 @@
   "dependencies": {
     "collider.mix": "git+https://github.com/invider/collider.mix.git",
     "monaco-editor": "^0.20.0",
-    "monaco-themes": "^0.3.3"
+    "monaco-themes": "^0.3.3",
+    "split.js": "^1.6.2"
   },
   "author": "Igor Khotin & Co.",
   "license": "Zlib"
