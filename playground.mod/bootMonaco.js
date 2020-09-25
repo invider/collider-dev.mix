@@ -1,4 +1,17 @@
 if (!window.monacoLoadedFlag) {
+
+    // include split.js
+    const split = document.createElement('script')
+    // TODO why local sources dont work?
+    split.src = "collider-dev.mix/js/split.js/split.min.js"
+    document.head.appendChild(split)
+
+    const link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.type = 'text/css'
+    link.href = 'collider-dev.mix/css/playground.css'
+    document.head.appendChild(link)
+
     // include monaco scripts
     window.require = { paths: { 'vs': 'collider-dev.mix/js/vs' } }
 
@@ -22,4 +35,3 @@ if (!window.monacoLoadedFlag) {
     window.monacoLoadedFlag = true
     module.exports = {}
 }
-

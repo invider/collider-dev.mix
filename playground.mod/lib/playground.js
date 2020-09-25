@@ -90,14 +90,22 @@ function createMonaco() {
     editor.style.height = '100px'
 
     editor.style.backgroundColor = '#808080'
-    document.body.appendChild(editor)
 
-    const ed = monaco.editor.create(document.getElementById('editor'), {
-        value: [
-            'function x() {',
-            '\tconsole.log("Hello world!");',
-            '}'
-        ].join('\n'),
+    //document.body.appendChild(editor)
+    const container = document.getElementById('container')
+    container.appendChild(editor)
+
+    /*
+    // create a splitter
+    Split(['#editor', '#canvas'], {
+        sizes: [27, 73],
+        direction: 'horizontal',
+        gutterAlign: 'center',
+    })
+    */
+
+    const ed = monaco.editor.create(editor, {
+        value: '',
         language: 'javascript',
         fontSize: '20px',
         lineNumbers: 'on',
