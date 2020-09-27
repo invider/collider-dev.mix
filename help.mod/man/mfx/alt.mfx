@@ -246,6 +246,16 @@ In case there is no node.kill() method,
 a regular parent.detach(node) will be called.
 In that case, the *node* is supposed to have a parent link, i.e. *node.__*.
 
+-------------------------------------------------------------------
+/alt/defer
+head: defer a function to run after a scheduled queue
+types:
+    @param {function} fn - a function to defer and run after
+
+details:
+Essentially, a more convenient way to run setTimeout(fn, 0)
+
+
 
 -------------------------------------------------------------------
 /alt/sleep

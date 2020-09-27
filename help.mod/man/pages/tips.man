@@ -1,8 +1,8 @@
 name: Tips
 
-<span class="metaSection">Use -d modes.</span>
+=== Use -d flag for development
 
-The *jam -d* flag enabled a lot of useful features
+The *jam -d* flag enables a lot of useful features
 for development.
 
 When enabled, jam prints a lot of debug info
@@ -11,9 +11,9 @@ from the browser.
 
 So, online help (F1) works only with -d flag.
 
-<span class="metaSection">Use --release flag when packing for production</span>
+=== Use --release flag when packing for production
 
-With *--release* flag all debug feature
+With *--release* flag all development features
 will be ignored and will not be included
 in the final package.
 

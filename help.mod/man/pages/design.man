@@ -11,7 +11,8 @@ showing off on their landing page.
 
 But Collider.JAM is not about features.
 
-You don't actually need a lot of features to create a simple game.
+You don't actually need a lot of features to create most of the games
+(including indie masterpieces).
 All you need is the ability to load resources,
 draw simple shapes, images and text, play some sounds,
 and accept user input. Collider.JAM delivers these features
