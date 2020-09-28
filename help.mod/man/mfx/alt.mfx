@@ -255,7 +255,20 @@ types:
 details:
 Essentially, a more convenient way to run setTimeout(fn, 0)
 
+-------------------------------------------------------------------
+/alt/gtrap
+head: root mod trap
+types:
+    @param {string} trapName - the name of a trap function
+    @param {value} payload - trapping data to use by the trap function
+    @returns {boolean} - true if propagated, false otherwise
 
+details:
+Essentially, a more convenient way to run trap in the global context.
+
+Synonimous of running:
+
+    _$.trap()
 
 -------------------------------------------------------------------
 /alt/sleep
@@ -345,4 +358,24 @@ But you actually don't need the node itself.
 
 Use require() if you need to extract and use a dependent node
 during script evaluation.
+
+/alt/assert
+head: assert a condition, throw exception if failed 
+types:
+    @param {boolean} condition - a logical expression that is expected to evaluate in true to pass
+    @param {string} message - an error message for failed assertion
+    @returns {boolean} - assumed always to be true
+details:
+Has a number of refinement functions for convenience:
+
+    assert.number(...)
+    assert.string(...)
+    assert.object(...)
+    assert.fun(...)
+    assert.empty(...)
+    assert.notEmpty(...)
+The interface is the same as in assert(condition, message).
+
+/alt/$$
+head: Not Implemented Yet, designed to be a global application function, something like jQuery $().
 

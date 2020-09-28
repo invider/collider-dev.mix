@@ -307,7 +307,7 @@ Use limitRange flag, when you want to limit the values
 between *start* and *stop* even for *v* outside the [0..1] range.
 
 -------------------------------------------------------------------
-/alt/map
+/alt/vmap
 
 head: map the *val* from *start*..*stop* range to *targetStart*..*targetStop* range with potential limit
 tags: math
