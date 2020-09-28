@@ -311,3 +311,38 @@ details: Redefine /sys/ask to change output target or behavior.
 /alt/cls
 head: clear the text console
 
+-------------------------------------------------------------------
+/alt/require
+head: get a dependent node 
+types:
+    @param {string} path - a mod-relative path to the dependent node
+
+details:
+Collider.JAM checks the dependencies in require() before
+the script evaluation. If not found, the script evaluation
+is rescheduled into the last batch.
+
+Be aware of cyclic dependencies, since these 
+can cause an endless loop!
+
+_Collider.JAM code rarely needs require()_,
+since most of the objects will be available
+before the setup() and start of the game loop.
+Use ONLY when you need a dependency during
+the script evaluation time (e.g. you are extending
+a particular prototype and need it's instance).
+
+You can also use *@depends* directive as an alternative:
+
+    // @depends(mod/local/path)
+
+This directive depends on the path in mod definition,
+rather that actual lookup in the mod itself.
+
+Use it when you need to make sure before the script evaluation,
+that dependent resources are already evaluated.
+But you actually don't need the node itself.
+
+Use require() if you need to extract and use a dependent node
+during script evaluation.
+
