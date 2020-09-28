@@ -55,15 +55,21 @@ function mfx(src) {
         } else if (l.startsWith('/')) {
             at(l.trim())
         } else if (iColon > 0 && l[iColon-1] !== '\\') {
-            const parts = l.split(':')
-            const sectionName = parts[0].trim()
-            if (sectionName.includes(' ')) {
+            let first
+            let second = l
+            const i = l.indexOf(':')
+            if (i > 0) {
+                first = l.substring(0, i).trim()
+                second = l.substring(i+1)
+            }
+
+            if (!first || first.includes(' ')) {
                 // doesn't look like a section definition
                 // just include the whole line
                 append(l)
             } else {
-                nextSection(sectionName)
-                if (parts[1].length > 0) append(parts[1])
+                nextSection(first)
+                if (second && second.length > 0) append(second)
             }
         } else if (l.startsWith('.')) {
             section = false
