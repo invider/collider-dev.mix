@@ -120,6 +120,7 @@ function parse(md, nowrap) {
     }
 
     function matchLink(type) {
+        const startPos = pos - 1
         let tag = ''
         let link = ''
         let c = getc()
@@ -138,7 +139,14 @@ function parse(md, nowrap) {
                 c = getc()
             }
         } else {
-            tag = link
+            if (type !== IMAGE) {
+                return {
+                    t: SPAN,
+                    v: md.substring(startPos, pos),
+                }
+            } else {
+                tag = link
+            }
         }
 
         return {
@@ -239,7 +247,6 @@ function parse(md, nowrap) {
 
             case '[':
                 return matchLink(LINK)
-                break
             /*
             case '!':
                 getc()
