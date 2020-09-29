@@ -2,14 +2,15 @@ name: Design
 
 *Collider.JAM* is a highly opinionated framework.
 
-=== Feature Creep
+=== Do Not Fixate on Features
 
 Most of the game frameworks and engines out there
 are fixated on features.
 Usually, you can find a long list of features
 showing off on their landing page.
+However, feature creep prevents a good design.
 
-But Collider.JAM is not about features.
+And Collider.JAM is not about features.
 
 You don't actually need a lot of features to create most of the games
 (including indie masterpieces).

@@ -13,10 +13,13 @@ tags: jam, collider.jam, intro, start, game, examples, samples, code, snippets
 You can explore variety of open-source games
 and samples created with Collider.JAM:
 
+    
     - <a href="https://github.com/invider/bits.mix">Bits Mix</a> - various code snippets
     - <a href="https://github.com/invider/hello-collider-impact.mod">Planet Impact</a> - Collider.JAM Hello World source
     - <a href="https://github.com/invider/game-of-life.mod">Game of Life</a> - Conway's Game of Life implementation. 
+    - <a href="https://github.com/invider/pong-pe.mod">Pong</a> - a classic arcade game implementation.
     <hr>
+    - <a href="https://github.com/invider/enceladus-dockyards.mix">Enceladus Dockyards</a> - a space ship building and tactical battle simulator created for GameBoy Jam 8.
     - <a href="https://github.com/invider/station-keeping.mod">Station Keeping</a> - a local multipayer co-op space station trading and survival from Ludum Dare 46.
     - <a href="https://github.com/invider/cosmic-rays-n-dnas.mod">Cosmic Rays'n DNAs</a> - arcade from Global Game Jam 2020.
     - <a href="https://github.com/invider/300-hearts-for-escape">300 Hearts for Escape</a> - Ludum Dare 44 Entry
@@ -27,3 +30,4 @@ and samples created with Collider.JAM:
     - <a href="https://github.com/invider/ballistic-skylines">Ballistic Skylines</a> - Ludum Dare 41 Entry
     - <a href="https://github.com/invider/metro-gang.mix">Metro Gang</a> - a strategic beat'em up from Ludum Dare 45
     - <a href="https://github.com/invider/master-of-ritual">Master of Ritual</a> - dangeon crawler from Ludum Dare 43
+

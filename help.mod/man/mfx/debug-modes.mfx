@@ -62,3 +62,11 @@ update, just set:
 Then press F2 after page update
 and you will get coordinates
 on the screen.
+
+----------------------------------
+/mod/inspector
+head: column-organized node inspector
+
+----------------------------------
+/mod/playground
+head: life editor

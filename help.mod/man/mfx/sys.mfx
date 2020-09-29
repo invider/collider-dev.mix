@@ -1,0 +1,43 @@
+-------------------------------------------------------------------
+/sys/addPath
+head: utility to join path segments, takes care of proper / placing
+
+-------------------------------------------------------------------
+/sys/reconstructScene
+head: soft reset the scene - clear, setup and restart evolution
+
+-------------------------------------------------------------------
+/sys/placeCanvas
+head: adjust canvas position and sizing
+types:
+@param {string} id - canvas id
+@param {number} baseX
+@param {number} baseY
+@param {number} baseWidth
+@param {number} baseHeight
+
+-------------------------------------------------------------------
+/sys/expandCanvas
+head: expand canvas to full screen
+@param {string} id - canvas id
+
+-------------------------------------------------------------------
+/sys/evalLoadedContent
+head: a service call to parse and evaluate loaded resources
+
+-------------------------------------------------------------------
+/sys/doBox
+head: evaluate /box node by name
+types:
+@param {object/Mod} mod - the box's mod
+@param {string} name - box node name
+@param {boolean} start - set *true* to start() the box
+
+-------------------------------------------------------------------
+/sys/enableBox
+head: evaluate /box node
+types:
+@param {object/Mod} mod - the box's mod
+@param {object/Mod} name - box object
+@param {boolean} start - set *true* to start() the box
+
