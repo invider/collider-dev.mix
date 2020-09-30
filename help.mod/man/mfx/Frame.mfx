@@ -152,10 +152,37 @@ head: select instances matching the string or function predicate
 types:
 @param {string} path
 details:
-String predicates are in path format and can include *
-to match all nodes, e.g.:
-    /res/sfx/*
-    /dna/hud/Window
+String predicates are in path format and can include special characters:
+
+    * - match all children
+    ^ - match the tag
+    #<id> - deep select by <id>
+    &<name> - deep select by <name>
+    ~<type> - deep select by <type>
+
+Some usage examples:
+
+    _$.select('/res/sfx/*')          // select all sound effects in sfx
+    dna.select('hud/Window')         // select hud.Window
+    lab.hud.select('~Window')        // select all instances of dna.hud.Window in lab.hud
+    lab.hud.select('panelA/~Window') //  select all instances of dna.hud.Window under panelA
+    lab.select('&hero')              //select from lab all nodes with name === 'hero'
+
+-------------------------------------------------------------------
+/sys/Frame/prototype/selectOne
+head: select a single node matching the string or function predicate
+types:
+@param {string} predicate
+details:
+The same, as select(), but returns the top result.
+
+Look at [select()](#./sys/Frame/select) for predicate syntax details.
+
+-------------------------------------------------------------------
+/sys/Frame/prototype/selectInstanceOf
+head: returns the list of included nodes of provided type
+types:
+@param {prototype} of - a value to match instanceof
 
 -------------------------------------------------------------------
 /sys/Frame/prototype/map
@@ -199,24 +226,6 @@ head: reduce right child nodes - the same as _reduce_, by starts from the end
 types:
 @param {function(accumulator, node, i, frame)} fn - a reduce function
 @param {value} initVal - a start value, first node by default
-
--------------------------------------------------------------------
-/sys/Frame/prototype/selectInstanceOf
-head: returns the list of included nodes of provided type
-types:
-@param {prototype} of - a value to match instanceof
-
--------------------------------------------------------------------
-/sys/Frame/prototype/selectOne
-head: select a single node matching the string or function predicate
-types:
-@param {string} predicate
-details:
-String predicates are in path format and can include *
-to match all nodes, e.g.:
-    /res/sfx/*
-    /dna/hud/Window
-The same, as select(), but returns the top result.
 
 -------------------------------------------------------------------
 /sys/Frame/prototype/kill
