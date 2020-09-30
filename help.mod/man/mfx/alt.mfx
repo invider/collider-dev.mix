@@ -377,5 +377,22 @@ Has a number of refinement functions for convenience:
 The interface is the same as in assert(condition, message).
 
 /alt/$$
-head: Not Implemented Yet, designed to be a global application function, something like jQuery $().
+head: select from root context
+types:
+@param {string} selector - a path or a predicate
+@returns {array} - list of selected objects, an empty list if nothing is found
+
+/alt/select
+head: select from the local /lab
+types:
+@param {string} selector - a path or a predicate
+@returns {array} - list of selected objects, an empty list if nothing is found
+notes: Behaves like Frame.select() when called on alt object (selects from /alt instead of /lab).
+
+/alt/selectOne
+head: select one object from the local /lab
+types:
+@param {string} selector - a path or a predicate
+@returns {object} -the first found object or undefined if nothing is found
+notes: Behaves like Frame.selectOne() when called on alt object (selects from /alt instead of /lab).
 
