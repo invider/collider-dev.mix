@@ -271,6 +271,26 @@ Synonimous of running:
     _$.trap()
 
 -------------------------------------------------------------------
+/alt/on
+head: trigger event handlers in local /lab
+types:
+    @param {string} eventName - event name
+    @param {value} payload - event data
+    @returns {value} - the last handler result
+
+details:
+A handler function name has to match the event name with 'on' prefix.
+
+Consider the following functions on hero and sidekick objects:
+
+    hero.onEnemySpawn(st)
+    sidekick.onEnemySpawn(st)
+
+They will be called when the following event is triggered:
+
+    on('enemySpawn', st)
+
+-------------------------------------------------------------------
 /alt/sleep
 head: sleep for *t* seconds
 types:
