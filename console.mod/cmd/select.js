@@ -1,6 +1,6 @@
 'use strict'
 
-function select(args, line, con) {
+function sel(args, line, con) {
     const path = args[1]
     if(!sys.isString(path)) {
         con.print('expecting <path> argument')
@@ -13,6 +13,8 @@ function select(args, line, con) {
     })
 }
 
-select.info = 'select and dump nodes by path'
-select.args = '<path>'
+sel.info = 'select and dump nodes by path'
+sel.args = '<path>'
+
+module.exports = sel
 
