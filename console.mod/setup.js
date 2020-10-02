@@ -9,9 +9,9 @@ function getLocal(name) {
 }
 
 function getGlobal(name) {
-    if (!isFrame($.cmd)) return
+    if (!isFrame(_$.cmd)) return
 
-    const fn = $.cmd._dir[name]
+    const fn = _$.cmd._dir[name]
     if (!isFun(fn)) return
     return fn
 }
