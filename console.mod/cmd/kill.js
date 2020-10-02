@@ -6,7 +6,8 @@ function killNode(args, line, con) {
         con.print('expecting <path> argument')
         return
     }
-    const nodes = _$.select(path)
+    let nodes = _$.select(path)
+    if (nodes.length === 0) nodes = _$.select('lab/' + path)
 
     let out = ''
     nodes.forEach(n => {
@@ -19,3 +20,6 @@ function killNode(args, line, con) {
 
 killNode.info = 'kill the node'
 killNode.args = '<path>'
+
+module.exports = killNode
+
