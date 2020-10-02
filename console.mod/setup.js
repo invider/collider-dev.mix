@@ -27,6 +27,7 @@ module.exports = function setup() {
         name: 'console',
         x: 0,
         y: 0,
+        cur: _$,
 
         adjust: function() {
             this.w = ctx.width

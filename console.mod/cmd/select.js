@@ -6,7 +6,7 @@ function sel(args, line, con) {
         con.print('expecting <path> argument')
         return
     }
-    const nodes = _$.select(path)
+    const nodes = con.cur.select(path)
 
     nodes.forEach(node => {
         log.dump(node)
