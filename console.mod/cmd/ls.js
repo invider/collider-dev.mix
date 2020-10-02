@@ -3,24 +3,30 @@
 function ls(args, line, con) {
     // TODO make console local cd context
     const path = args[1]
-    if(!sys.isString(path)) {
-        con.print('expecting <path> argument')
-        return
+
+    let nodes
+    if(!isString(path)) {
+        if (!con.cur || !con.cur._ls) con.cur = _$
+        nodes = con.cur._ls
+
+    } else {
+        nodes = _$.select(path)
+        if (nodes.length === 1 && nodes[0]._ls) nodes = nodes[0]._ls
     }
 
-    let nodes = _$.select(path)
-    if (nodes.length === 1 && nodes[0]._ls) nodes = nodes[0]._ls
+    // list node names 
+    if (isArray(nodes)) {
+        const names = nodes
+                .filter(Boolean)
+                .filter(e => e.name)
+                .map(e => e.name)
 
-    const names = nodes
-            .filter(Boolean)
-            .filter(e => e.name)
-            .map(e => e.name)
-
-    names.forEach(name => {
-        log.dump(name)
-    })
+        names.forEach(name => {
+            log.dump(name)
+        })
+    }
 }
 
-ls.info = 'select and print node names'
+ls.info = 'list node names'
 ls.args = '<path>'
 
