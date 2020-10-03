@@ -1,243 +1,142 @@
-
--- core definitions
-
 -------------------------------------------------------------------
-/
-head: root mod representing the scene mix
-.
+/sys/Mod
+tags: core
+head: defines a game or subsystem structure
 details:
-Any entity within the game (a function,
-an image, a sound, a json config...)
-is represented as a node within
-scene hierarchy.
-.
-notes:
-<b><i>Everything is in its right place...</i></b>
-The placement of a node often determines the behavior.
-Explore various places within the mod structure
-to see what goes where.
+Each mod can be considered to be a mini-game
+that defines layout to place components.
 
+/sys/Mod/prototype/evo
+head: evolve mod state
+details: calls lab.evo()
+
+/sys/Mod/prototype/draw
+head: draw the mod
+details: calls lab.draw()
 
 -------------------------------------------------------------------
-/res
+/sys/Mod/prototype/getMod
+head: returns this object
+types:
+@returns {object/Mod} - this
 
-head: container for auto-loaded resources
+-------------------------------------------------------------------
+/sys/Mod/prototype/getRoot
+head: get the root mod
+types:
+@returns {object/Mod}
+
+-------------------------------------------------------------------
+/sys/Mod/prototype/touch
+head: makes sure specified container exists in the path, creates a new one if needed
+types:
+@param {string} path - a path to a frame
 details:
-Resources are located and loaded automatically.
-After upload, they are patched according
-to the original file hierarchy.
+  lab.touch('bot/mob')
+will create a Frame named 'bot' inside 'lab'
+and then will create a Frame named 'mob' inside 'bot'.
 
+/sys/Mod/prototype/populateAlt
+head: a service call to populate mod/alt node called on the mod construction 
 
-notes:
-Technically, resources can be loaded to any node on the scene,
-but by convention we are usually place them under /res.
-Do not brake that convention, unless there is a good reason for it.
+/sys/Mod/prototype/init
+head: a service function to initialize the mod on attachment
 
+/sys/Mod/prototype/_runTests
+head: a service call to run included tests
 
-The /res node is also responsible for load progress tracking -
-it knows how many resources have been scheduled to load
-and how many are already loaded.
+/sys/Mod/prototype/start
+head: a service call to setup the mod and start it's evolution
+notes: Called automatically when Collider.JAM starts the game.
 
+/sys/Mod/prototype/inherit
+head: a service call to inherit parent mod nodes on startup
+notes: Called automatically when Collider.JAM creates the mod.
 
--------------------------------------------------------------------
-/env
-head: environment values
+/sys/Mod/prototype/onAttached
+head: handle an attached subnode.
 
-details:
-Here go all values not directly related to the current
-live game objects, but still defining the overall
-system state.
+/sys/Mod/prototype/patch
+head: patch the node at particular path
+types:
+@param {object} target - the base node for attachment
+@param {string} path - a path relative to the target node
+@param {object} node - the node to attach
 
-Timers, score counters, fine tuning of game parameters
-and various configs are stored here.
+/sys/Mod/prototype/pause
+head: pause this mode evolution
 
+/sys/Mod/prototype/pauseLab
+head: pauses this mod /lab and /cue frames
 
+/sys/Mod/prototype/pauseAll
+head: pauses this mode and all included mods
 
--------------------------------------------------------------------
-/lib
-head: library functions
-details:
-Place any utilitary standalone functions here.
-A function belongs to the particular mod
-it was defined for and can be accessed through
-that mod only unless manually shared.
+/sys/Mod/prototype/resume
+head: resume this mode evolution
 
+/sys/Mod/prototype/resumeLab
+head: resume this mod /lab and /cue frames
 
--------------------------------------------------------------------
-/sys
-head: system functions
-details:
-All system functions are going here.
-The main difference between this and <a href="#./lib">lib</a>
-is that sys is common among all mods.
+/sys/Mod/prototype/resumeAll
+head: resume this mod and all included
 
+/sys/Mod/prototype/hide
+head: hide this mod
 
--------------------------------------------------------------------
-/dna
-head: game entities constructors, factories and prototypes
-details:
-Any constructor or factory to spawn an entity goes here.
+/sys/Mod/prototype/hideLab
+head: hide /lab
 
-* Constructor() - capitalized functions considered to be constructors, so these entities are going to be spawned by
-invoking new Constructor(st), where st is init object.
+/sys/Mod/prototype/hideAll
+head: hide this mode and all included submodes
 
-* factory() - low-cased functions are considered to be factories,
-so these entities will be spawned by applying corresponding
-factory(st) function with an init object as an argument.
-The factory supposed to return a newly constructed object.
+/sys/Mod/prototype/show
+head: show this mod
 
-* plain js object - a regular object is going to be cloned
-to spawn a new entity. If an object has a clone() method,
-it will be called like object.clone(st), where [st]
-is an init object. Otherwise, deep copy of the object
-will be made and augmented with [st] init object
-passed to the spawn function.
+/sys/Mod/prototype/showLab
+head: show /lab
 
+/sys/Mod/prototype/showAll
+head: show this mod and all included submodes
 
+/sys/Mod/prototype/disable
+head: disable incoming events for this mod
 
+/sys/Mod/prototype/disableAll
+head: disable incoming events for this mod and all included submodes
 
+/sys/Mod/prototype/enable
+head: enable incoming events for this mod
 
--------------------------------------------------------------------
-/lab
-head: live entities
+/sys/Mod/prototype/enableAll
+head: enable incoming events for this mod and all included submodes
 
--------------------------------------------------------------------
-/cue
-head: conditional triggers
+/sys/Mod/prototype/on
+head: show, resume and enable all
 
--------------------------------------------------------------------
-/mod
-head: child modes
+/sys/Mod/prototype/off
+head: hide, pause and disable all
 
--------------------------------------------------------------------
-/trap
-head: event traps 
-details:
-This frame contains named function nodes
-each representing a trap for event.
-The trap() itself is a function
-and can be invoked like trap([name], [event-data]).
-That would locate a trap [name] and apply it
-with [event-data] as an argument.
+/sys/Mod/prototype/patchNode
+head: a service call to load or reload a particular unit/path
+details: Used by hot-patching engine to reload updated files.
 
+/sys/Mod/prototype/batchLoad
+head: a service call to schedule a load of a resource
+types:
+@param {number} batch - batch number
+@param {string} url - resource url
+@param {object/Frame} base - resource base
+@param {string} path - attach point for the loaded resource
+@param {function} after - a callback function to call after the resource is loaded
 
--------------------------------------------------------------------
-/job
-head: service jobs
-
-details:
-A place for miscellaneous supporting services
-like server sync, metadata reporter etc...
-
--------------------------------------------------------------------
-/pub
-head: public frame for sharing between mods
-
-details:
-Can be used for convenient data sharing between different mods.
-
-
-notes:
-There are other objects that can be used for global sharing.
-<a href="#./">The root mod $</a> is an obvious candidate,
-but there are others like <a href="#./sys">sys</a>
-and <a href="#./log">log</a>.
-
-However, it is not a good practice to pollute
-the root mod or sys frame which already
-have a lot of different responsibilities.
-
-So keeping shared values in a dedicated frame
-is a much cleaner approach to the sharing problem.
+/sys/Mod/prototype/loadUnits
+head: a service call to load all units
+types:
+@param {object} baseMod - a mod to load units in
+@param {string} target - a loading target path
+details: Used by Collider.JAM on boot-up to load all files included in target path
 
 
 
--------------------------------------------------------------------
-/log
-head: logging functions
-
-details:
-A placeholder for the logging functions.
-
-Use log(msg) for the regular level logging
-and:
-    * log.out(msg)
-    * log.debug(msg)
-    * log.warn(msg)
-    * log.err(msg)
-    * log.raw(msg)
-    * log.dump(obj)
-for more specific levels.
-
---------
-/log/out
-head: default logging, prefixed by ">", the same as log(msg)
-----------
-
-/log/debug
-head: debug level log, prefixed by "."
-
-----------
-/log/warn
-head: warn level log, prefixed by "?"
-
-----------
-/log/err
-head: error level log, prefixed by "!"
-
-----------
-/log/raw
-head: log with no prefix, just like console.log()
-
----------
-/log/dump
-head: dumps object structure and values
-
---------
-/log/tab
-head: dumps object as a table
-
-----------
-/log/sys
-head: used by collider.jam for system messages
-details:
-Use it to log low-level life-cycle related
-activities or jobs.
-Most of the sys level messages are printed
-during the bootstrap, loading and setup.
-
-
--------------------------------------------------------------------
-/boot
-head: loading screen
-
-details:
-Loads in the 0 batch and starts rendering cycle while
-all other resources are loaded and evaluated.
-Boot uses loading progress information from
-<a href="#./res">/res</a> to show loading indicator.
-
-Standard draw() and evo(dt) functions must be present.
-
-The boot is over when the root mod goes into a [started] mode.
-
--------------------------------------------------------------------
-/pak
-head: unit packaging info
-
--------------------------------------------------------------------
-/setup
-head: setup function or frame
-details:
-Setup can be a single function or a frame with multiple functions
-if necessary.
-
-It runs when all resources and objects are loaded, evaluated
-and initialized just before the evolution begins.
-
-Initial game objects can be created here.
-
--------------------------------------------------------------------
-/man
-head: manual metadata
 
