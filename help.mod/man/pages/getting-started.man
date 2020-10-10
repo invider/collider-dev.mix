@@ -13,6 +13,7 @@ or find any other planet with transparent background.
 
 Now, create a file _planet.mod/lab.js_:
 
+```
     // position at the center of the screen
     let x = rx(.5)
     let y = ry(.5)
@@ -42,6 +43,7 @@ Now, create a file _planet.mod/lab.js_:
         circle(x, y, r)       // atmosphere haze
         image(res.mars__type__planet, x-r, y-r, 2**r, 2**r)
     }
+```
 
 That is all you need to have a bouncing planet on the screen.
 

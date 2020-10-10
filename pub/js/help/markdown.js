@@ -45,7 +45,9 @@ function parse(md, nowrap) {
     }
 
     function isSpecial(c) {
+        if (mode === 3 && c === '`') return true
         if (mode > 0) return false
+
         switch(c) {
             case '!':
                 if (ahead() === '[') return true
@@ -53,6 +55,7 @@ function parse(md, nowrap) {
 
             case '[': case '~':
             case '*': case '_':
+            case '`':
                 return true
 
             default:
@@ -88,8 +91,9 @@ function parse(md, nowrap) {
         buffered = true
     }
 
-    function ahead() {
-        return md.charAt(pos)
+    function ahead(n) {
+        n = n || 0
+        return md.charAt(pos + n)
     }
 
     function forward(n) {
@@ -169,6 +173,7 @@ function parse(md, nowrap) {
     const LINE = 10
     const HEADER = 11
     const IGNORE = 13
+    const CODE = 14
     const LINK = 21
     const IMAGE = 22
     function tokenName(type) {
@@ -313,6 +318,22 @@ function parse(md, nowrap) {
 
         }
 
+
+        if (mode === 0 || mode === 3) {
+            switch(c) {
+                case '`':
+                    if (ahead(0) === '`' && ahead(1) === '`') {
+                        getc()
+                        getc()
+                        return {
+                            t: CODE,
+                            v: '`',
+                        }
+                    }
+                    break
+            }
+        }
+
         let span = ''
         while(c && !isNewLine(c) && (!isSpecial(c) || escaped)) {
             if (mode === 0 && c === '\\') {
@@ -450,6 +471,19 @@ function parse(md, nowrap) {
                 }
                 for (let i = 0; i < span.v; i++) out += ' '
 
+            } else if (span.t === CODE) {
+                if (!state.code) {
+                    mode = 3
+                    state.code = true
+                    out += '<pre>'
+                } else {
+                    mode = 0
+                    state.code = false
+                    backspaceIf('\n')
+                    backspaceIf('\r')
+                    out += '</pre>'
+                }
+
             } else if (span.t === LINE) {
                 out += '<hr>'
 
@@ -461,7 +495,7 @@ function parse(md, nowrap) {
 
             } else {
                 //if (span.t !== NL) console.log(`@${line}.${linePos}: ${span.t}:[${span.v}]`)
-                if (state.code && lineSpan === 1) {
+                if (state.code && mode === 1 && lineSpan === 1) {
                     mode = 0
                     state.code = false
                     backspaceIf('\n')
