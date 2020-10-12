@@ -127,8 +127,9 @@ function processModMFX(mfxFrame) {
     })
 }
 
-function processModPages(pageFrame) {
-    const parsedPages = []
+function processModPages(pageFrame, parsedPages) {
+    parsedPages = parsedPages || []
+    if (!pageFrame || !pageFrame._dir) return parsedPages
 
     Object.keys(pageFrame._dir).forEach( name => {
         const pageSrc = pageFrame._dir[name]
@@ -139,16 +140,36 @@ function processModPages(pageFrame) {
                 page.name = name
                 parsedPages.push(page)
             }
+        } else if (pageSrc._dir) {
+            processModPages(pageSrc, parsedPages)
         }
     })
-
-    parsedPages.forEach(page => pageFrame.attach(page, page.name))
+    return parsedPages
 }
 
 function fixMod(mod) {
     if (mod.man) {
         if (mod.man.mfx) processModMFX(mod.man.mfx)
-        if (mod.man.pages) processModPages(mod.man.pages)
+
+        const pages = processModPages(mod.man.pages)
+        if (pages.length > 0) {
+            mod.man.detach(mod.man.pages)
+            const pagesFrame = mod.man.touch('pages')
+
+            pages.sort((o, t) => {
+                if (!o.order && !t.order) {
+                    if (o.name > t.name) return 1
+                    else if (o.name < t.name) return -1
+                    else return 0
+                }
+                if (!o.order && t.order) return 1
+                else if (o.order && !t.order) return -1
+                else if (o.order > t.order) return 1
+                else if (o.order < t.order) return -1
+                else return 0
+            })
+            pages.forEach(page => pagesFrame.attach(page, page.name))
+        }
     }
 
     if (mod.mod._ls.length > 0) {
