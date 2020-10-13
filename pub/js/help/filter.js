@@ -21,11 +21,17 @@ function match(meta, criteria, res) {
     } else if (meta.name && criteria.match(meta.name)) {
         res.exact.push(meta)
 
+    } else if (meta.tags && criteria.match(meta.tags)) {
+        res.tag.push(meta)
+
+    } else if (meta.tags && criteria.matchTags(meta.tags)) {
+        res.tag.push(meta)
+
     } else if (data && criteria.match(data.tags)) {
-        res.path.push(meta)
+        res.tag.push(meta)
 
     } else if (data && criteria.matchTags(data.tags)) {
-        res.exact.push(meta)
+        res.tag.push(meta)
 
     } else if (meta.path && criteria.match(meta.path)) {
         res.path.push(meta)

@@ -1,0 +1,63 @@
+name: Pong
+tags: start,begin,beginner,tutor,tutorial,sample,example,excercise,code,intro,arcade
+
+## Intro
+
+Pong is a classic arcade game.
+
+## Setup
+
+To setup we need to create Paddles:
+```
+function setup() {
+
+    const b = 0
+    lab.spawn('Wall', {
+        x1: rx(b), y1: ry(b), x2: rx(1-b), y2: ry(b),
+    })
+    lab.spawn('Wall', {
+        x1: rx(b), y1: ry(1-b), x2: rx(1-b), y2: ry(1-b),
+    })
+
+    lab.spawn('Wall', {
+        x1: rx(b), y1: ry(b), x2: rx(b), y2: ry(1-b),
+        onHit: function(puck) {
+            kill(puck)
+            trap('score', 'right')
+        }
+    })
+
+    lab.spawn('Wall', {
+        x1: rx(1-b), y1: ry(b), x2: rx(1-b), y2: ry(1-b),
+        onHit: function(puck) {
+            kill(puck)
+            trap('score', 'left')
+        }
+    })
+
+    const shift = 50
+    lab.spawn('Paddle', {
+        name: 'left',
+        left: true,
+        x: shift,
+        y: ry(.5),
+    })
+
+    lab.spawn('Paddle', {
+        name: 'right',
+        left: false,
+        x: rx(1) - shift,
+        y: ry(.5), 
+    })
+
+    env.score = {
+        left: 0,
+        right: 0,
+    }
+
+    trap('puck')
+}
+```
+
+Now we can create necessary classes.
+

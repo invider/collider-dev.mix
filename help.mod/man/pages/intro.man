@@ -1,5 +1,5 @@
 name: Intro
-
+order: 1
 tags: jam, intro, start, begin, beginner, preface, home
 
 <div style="font-size: 110%;">

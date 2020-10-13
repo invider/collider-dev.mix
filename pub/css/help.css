@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'mono-code';
-    src: URL('font/JetBrainsMono-Regular.ttf');
+    src: URL('../font/JetBrainsMono-Regular.ttf');
 }
 
 body {
