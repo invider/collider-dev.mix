@@ -95,7 +95,6 @@ body {
 }
 
 .help {
-    color: #101112;
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
@@ -124,13 +123,17 @@ body {
     padding: 30px;
 
     font-size: 120%;
+    color: #111213;
     /* background: #dfdfca; */
-    background: #faeed4;
+    /* background: #faeed4; */
+    background: #fffcd1;
 }
 .meta a:link { color: #485f69; }
 .meta a:visited { color: #485f69; }
 .meta a:hover { color: #54869c; }
 .meta a:active { color: #54869c; }
+.meta b { color: #666666; }
+.meta i { color: #555555; }
 
 
 .path {
@@ -204,16 +207,19 @@ h3 {
 }
 
 pre {
-    background: #dfcfa9;
+    padding: 10px;
+    // background: #dfcfa9;
+    background: #ffecbd;
     font-family: mono-code;
     font-size: 90%;
     white-space: pre-wrap;
 }
 
 blockquote {
-    background: #9fcfd9;
-    font-family: mono-code;
-    font-size: 90%;
+    padding: 15px;
+    color: #4d4a5f;
+    background: #f0f2f3;
+    font-size: 100%;
 }
 
 .message {
