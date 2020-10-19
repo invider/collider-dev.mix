@@ -2,6 +2,10 @@
     font-family: 'mono-code';
     src: URL('../font/JetBrainsMono-Regular.ttf');
 }
+@font-face {
+    font-family: 'header';
+    src: URL('../font/Oswald-Light.ttf');
+}
 
 body {
     margin: 0;
@@ -95,7 +99,6 @@ body {
 }
 
 .help {
-    color: #101112;
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
@@ -124,18 +127,23 @@ body {
     padding: 30px;
 
     font-size: 120%;
+    color: #111213;
     /* background: #dfdfca; */
-    background: #faeed4;
+    /* background: #faeed4; */
+    background: #fffcd1;
 }
 .meta a:link { color: #485f69; }
 .meta a:visited { color: #485f69; }
 .meta a:hover { color: #54869c; }
 .meta a:active { color: #54869c; }
+.meta b { color: #666666; }
+.meta i { color: #555555; }
 
 
 .path {
     color: #505050;
     font-size: 100%;
+    font-family: mono-code;
 }
 
 .pathLink {
@@ -145,18 +153,21 @@ body {
 .pageTitle {
     color: #166470;
     font-size: 36px;
+    font-family: header;
 }
 
 .metaTitle {
     /* color: #346a73; */
     /* color: #348199; */
     color: #166470;
-    font-size: 24px;
+    font-size: 100%;
+    font-family: mono-code;
 }
 
 .missingTitle {
     color: #bd5f51;
     font-size: 24px;
+    font-family: header;
 }
 
 .metaAt {
@@ -189,31 +200,37 @@ h1 {
     color: #166470;
     font-size: 200%;
     font-weight: normal;
+    font-family: header;
 }
 
 h2 {
     color: #166470;
     font-size: 150%;
     font-weight: normal;
+    font-family: header;
 }
 
 h3 {
     color: #166470;
     font-size: 130%;
     font-weight: normal;
+    font-family: header;
 }
 
 pre {
-    background: #dfcfa9;
+    padding: 10px;
+    // background: #dfcfa9;
+    background: #ffecbd;
     font-family: mono-code;
     font-size: 90%;
     white-space: pre-wrap;
 }
 
 blockquote {
-    background: #9fcfd9;
-    font-family: mono-code;
-    font-size: 90%;
+    padding: 15px;
+    color: #4d4a5f;
+    background: #f0f2f3;
+    font-size: 100%;
 }
 
 .message {
