@@ -2,6 +2,10 @@
     font-family: 'mono-code';
     src: URL('../font/JetBrainsMono-Regular.ttf');
 }
+@font-face {
+    font-family: 'header';
+    src: URL('../font/Oswald-Light.ttf');
+}
 
 body {
     margin: 0;
@@ -139,6 +143,7 @@ body {
 .path {
     color: #505050;
     font-size: 100%;
+    font-family: mono-code;
 }
 
 .pathLink {
@@ -148,18 +153,21 @@ body {
 .pageTitle {
     color: #166470;
     font-size: 36px;
+    font-family: header;
 }
 
 .metaTitle {
     /* color: #346a73; */
     /* color: #348199; */
     color: #166470;
-    font-size: 24px;
+    font-size: 100%;
+    font-family: mono-code;
 }
 
 .missingTitle {
     color: #bd5f51;
     font-size: 24px;
+    font-family: header;
 }
 
 .metaAt {
@@ -192,18 +200,21 @@ h1 {
     color: #166470;
     font-size: 200%;
     font-weight: normal;
+    font-family: header;
 }
 
 h2 {
     color: #166470;
     font-size: 150%;
     font-weight: normal;
+    font-family: header;
 }
 
 h3 {
     color: #166470;
     font-size: 130%;
     font-weight: normal;
+    font-family: header;
 }
 
 pre {
