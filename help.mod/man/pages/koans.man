@@ -1,16 +1,16 @@
 name: Koans
 
-tags: intro, start, design, tips, phylosophy
+tags: intro, start, design, tips, philosophy
 
-_Everything is in it's right place_
+_Everything is in its right place_
 
 _A node in /lab lives and evolves_
 
 _A node in /dna can be spawn_
 
-_It's just a plain js objects + some conventions_
+_It's just plain js objects and some conventions_
 
-_File system folders are reflected to the scene_
+_File system folders are reflected on the scene_
 
 _Methods init(), evo(dt) and draw() is all you need for en entity_
 
