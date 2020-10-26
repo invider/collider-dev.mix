@@ -308,10 +308,19 @@ function parse(md, nowrap) {
                 break
 
             case '>':
-                if (linePos === 1 && isSpace(ahead())) {
-                    return {
-                        t: QUOTE,
-                        v: '>',
+                if (linePos === 1) {
+                    if (isSpace(ahead())) {
+                        return {
+                            t: QUOTE,
+                            v: '>',
+                        }
+                    } else if (isNewLine(ahead())) {
+                        getc()
+                        return {
+                            t: NL,
+                            v: '\n',
+                            s: true,
+                        }
                     }
                 }
                 break
@@ -380,7 +389,16 @@ function parse(md, nowrap) {
         if (!span) return out
         else if (!nowrap) out += '<p>'
 
+            if (md.includes('debugaword')) {
+                console.dir(md)
+            }
+
         while(span) {
+            if (md.includes('debugaword')) {
+                console.log( tokenName(span.t)
+                    + ': [' + span.v + ']'
+                    + (span.s? ' *' : ''))
+            }
             if (span.t === NL) { 
                 lineSpan = 0
                 if (state.list) {
@@ -398,7 +416,7 @@ function parse(md, nowrap) {
                         out += `</h${state.header}>`
                         state.header = 0
 
-                    } else if (state.quote) {
+                    } else if (state.quote && !span.s) {
                         out += '</blockquote>'
                         state.quote = false
 
