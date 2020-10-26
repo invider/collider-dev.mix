@@ -389,16 +389,7 @@ function parse(md, nowrap) {
         if (!span) return out
         else if (!nowrap) out += '<p>'
 
-            if (md.includes('debugaword')) {
-                console.dir(md)
-            }
-
         while(span) {
-            if (md.includes('debugaword')) {
-                console.log( tokenName(span.t)
-                    + ': [' + span.v + ']'
-                    + (span.s? ' *' : ''))
-            }
             if (span.t === NL) { 
                 lineSpan = 0
                 if (state.list) {
