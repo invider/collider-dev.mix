@@ -11,12 +11,6 @@ tags: jam, intro, start, begin, beginner, preface, home
 | [tips](#.tips)
 | [mixes](#.mixes)
 ----
-[collider.land](http://collider.land)
-| [github](https://github.com/invider/collider.jam)
-| [jamming card](http://collider.land/data/jamming-card.pdf)
-| [blog](http://ikhotin.com/posts/)
-| [discord](https://discord.gg/kxNnHc2)
-----
 [mix/$](#./)
 | [scope/alt](#./alt)
 | [res](#./res)
@@ -26,6 +20,12 @@ tags: jam, intro, start, begin, beginner, preface, home
 | [lab](#./lab)
 | [trap](#./trap)
 | [setup](#./setup)
+----
+[collider.land](http://collider.land)
+| [github](https://github.com/invider/collider.jam)
+| [jamming card](http://collider.land/data/jamming-card.pdf)
+| [blog](http://ikhotin.com/posts/)
+| [discord](https://discord.gg/kxNnHc2)
 ----
 </div>
 
