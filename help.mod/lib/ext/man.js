@@ -2,7 +2,7 @@ function man(src, name) {
     const man = {
         name: name,
     }
-
+    
     function setProperty(name, val) {
         // dirty rule - need to rename to preserve after patching
         if (name === 'name') name = 'pageName'
@@ -20,9 +20,7 @@ function man(src, name) {
     const lines = src.split(/[\r\n]/)
 
     let section = 0
-    lines.filter(l => !l.startsWith('#'))
-        .forEach(l => {
-
+    lines.forEach(l => {
             const i = l.indexOf(':')
             if (section === 0 && i > 0) {
                 const name = l.substring(0, i)

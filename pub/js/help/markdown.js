@@ -188,11 +188,16 @@ function parse(md, nowrap) {
             case QUOTE: return '> quote';
             case MARK: return 'mark';
             case IGNORE: return '>>> ignore';
-            case LINE: return '---- line';
+            case LINE: return '----';
             case HEADER: return 'header';
             case LINK: return 'link';
             case IMAGE: return 'image';
         }
+    }
+
+    function token2str(token) {
+        if (token.t === NL) return '↲'
+        return tokenName(token.t) + ': [' + token.v + ']'
     }
 
     function nextSpan() {

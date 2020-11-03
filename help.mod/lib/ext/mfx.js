@@ -1,4 +1,4 @@
-function mfx(src) {
+function mfx(src, mfxName) {
     const fix = {
         _mfx: true,
         ls: [],
@@ -18,9 +18,9 @@ function mfx(src) {
     }
 
     function nextSection(name) {
-        if (!curFix) throw `@${lineNumber}: `
+        if (!curFix) throw `@${mfxName}/${lineNumber}: `
                 + `Can't add section [${name}] without fix path!`
-        if (curFix[name]) throw `@${lineNumber}: `
+        if (curFix[name]) throw `@${mfxName}/${lineNumber}: `
                 + `Section [${name}] is already defined!`
 
         section = name
@@ -30,7 +30,7 @@ function mfx(src) {
     function append(line) {
         if (!section) {
             if (line.trim().length > 0) {
-                throw `@${lineNumber}: Can't append data`
+                throw `@${mfxName}/${lineNumber}: Can't append data`
                     + ` - missing section definition: ${line}`
             } else {
                 return
@@ -50,7 +50,7 @@ function mfx(src) {
         const iColon = l.indexOf(':')
         const iSpace = l.indexOf(' ')
 
-        if (l.startsWith('#') || l.startsWith('--')) {
+        if (l.startsWith('--')) {
             // skip comment
         } else if (l.startsWith('/')) {
             at(l.trim())

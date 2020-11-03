@@ -119,9 +119,18 @@ function processMFX(mfx) {
 }
 
 function processModMFX(mfxFrame) {
+    /*
     mfxFrame._ls.forEach( fixSet => {
         if (isString(fixSet)) {
             fixSet = lib.ext.mfx(fixSet)
+        }
+        if (fixSet) fixSet.ls.forEach( mfx => processMFX(mfx) )
+    })
+    */
+    Object.keys(mfxFrame._dir).forEach( key => {
+        let fixSet = mfxFrame._dir[key]
+        if (isString(fixSet)) {
+            fixSet = lib.ext.mfx(fixSet, key)
         }
         if (fixSet) fixSet.ls.forEach( mfx => processMFX(mfx) )
     })
