@@ -1,4 +1,5 @@
 name: Installation
+------------------
 
 The *Collider.JAM* distribution is available
 through <a href="https://npmjs.com">npm</a>

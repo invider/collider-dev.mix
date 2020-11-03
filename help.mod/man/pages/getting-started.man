@@ -1,5 +1,6 @@
 name: Getting Started
 order: 1
+---------------------
 
 Thank you for <a href="#.install">downloading</a> _Collider.JAM_!
 

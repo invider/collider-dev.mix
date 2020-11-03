@@ -1,5 +1,6 @@
 name: Design
 order: 3
+------------
 
 *Collider.JAM* is a highly opinionated framework.
 

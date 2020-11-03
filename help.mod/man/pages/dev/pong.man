@@ -1,5 +1,6 @@
 name: Pong
 tags: start,begin,beginner,tutor,tutorial,sample,example,excercise,code,intro,arcade
+-------------------------------------
 
 == Intro
 
@@ -24,7 +25,7 @@ a viable Pong version:
 
 There is also an invisible, but nevertheless present,
 simple physics simulation to detect the puck
-collisions with the paddles and the walls.
+collisions with the paddles and the edges.
 
 The game scene is going to be represented by a single *mod*.
 
@@ -48,12 +49,14 @@ There are going to be only two of those - Puck and Paddle.
 A single object in */lab/score.js* will represent the score.
 
 
-The */res* folder will keep all sound effects. We won't need any bitmap graphics in this tutorial, since everything will be drawn in vector.
+The */res* folder will keep all sound effects. We won't need any bitmap or vector graphic resources in this tutorial, since everything will be drawn in code.
 
 > Note, that file location and name are important for Collider.JAM.
+>
 > For example, there won't be any score if *score.js*
 > will be placed outside of */lab*.
 > Because objects in */lab* are "alive".
+>
 > Puck and Paddle MUST be placed in */dna* for similar reason.
 > Constructors and factories are expected to be in */dna*.
 
@@ -82,21 +85,25 @@ _
 > before starting this tutorial.
 > The easiest way is to run "npm i -g collider.jam"
 > in a terminal emulator.
-> Collider.JAM is what makes this JavaScript magic happening.
-
+>
+> Collider.JAM makes all kind of JavaScript magic
+> to remove the boilerplate code and make development
+> as simple as possible.
 _
+
+
 
 == Puck
 
-
-Puck prototype implements the puck behavior and visuals.
-
+This prototype is located in _/dna/Puck.js_ and implements the puck behavior and visuals.
 
 
+=== defaults
 
-
+Let's declare some constants and default values:
 ```
 // dna/Puck.js
+
 const MAX_SPEED = 1500
 const HIT_ACCELERATION = 1.07
 
@@ -105,23 +112,43 @@ const df = {
     y: 0,
     r: 10,
     hold: 1,
-    speed: 150,
+    speed: 100,
 }
+```
 
+
+=== constructor
+
+We'll use _class_ syntax to declare our prototype.
+It's concise and works well except for a few special cases.
+```
 class Puck {
 
     constructor(st) {
-        augment(this, df) // set default values
-        augment(this, st) // set init values
+        augment(this, df, st) // set default  and init values
 
         // select a random direction
         let fi = ( rnd() * .4*PI - .2*PI ) - ( PI * floor(rnd(2)) )
         this.dx = cos(fi)
         this.dy = sin(fi)
     }
+}
+```
+The _augment()_ function is provided by Collider.JAM and augments the target object with values from source objects.
 
+We assign default values from *df* first and init values form *st* later (so init values can override the default ones).
+It is a common idiom in Collider.JAM object initialization - declare an object with default values, pass an object with init values, and then augment the constructed object.
+
+
+=== behavior
+
+The puck needs the _evo(dt)_ function to determine its behavior and the _draw()_ function to define its look.
+
+The _evo(dt)_ is the most complex one:
+```
     evo(dt) {
-        if (lab.score.hold) return // the counter is till on
+        if (lab.score.countdown) return // the counter is still on
+
         if (this.hold > 0) {
             // hold on
             this.hold -= dt
@@ -132,7 +159,9 @@ class Puck {
         // save previous x/y
         const px = this.x
         const py = this.y
+
         // move
+        let touched = false
         this.x += this.dx * this.speed * dt
         this.y += this.dy * this.speed * dt
 
@@ -151,14 +180,17 @@ class Puck {
             // reflect from the top edge
             this.y = r
             this.dy *= -1
+            touched = true
+            lib.sfx(res.sfx.boing, .2)
         } else if (this.y > ry(1)-r) {
             // reflect from the bottom edge
             this.y = ry(1)-r
             this.dy *= -1
+            touched = true
+            lib.sfx(res.sfx.boing, .2)
         }
 
         // detect collision with paddles
-        let touched = false
         const puck = this
         lab._ls.forEach(e => {
             if (e.touch) {
@@ -173,21 +205,59 @@ class Puck {
             // move back to previous coordinates
             this.x = px
             this.y = py
-            this.x += this.dx * this.speed * dt
-            this.y += this.dy * this.speed * dt
         }
     }
+```
 
+First, we need two guards to prevent evolution from happening while the game countdown is still on or we are holding the puck.
+If the countdown value in _lab.score_ object is anything, but 0, we skip the evolution. We let the _score_ object itself handle the countdown behavior.
+
+The _hold_ value tracks the time left to keep the puck frozen - we don't want to launch the puck the moment it's created. We have to reduce the timer until it's 0 or less, then we play a sound effect and the puck evolution begins.
+
+The evolution itself has two main components - movement and collision detection.
+
+We preserve coordinates before the movement to jump back in case of collision. That way we can prevent the tunnel effect through the edges and paddles. It is a crude and not exactly precise approach, but it works fine in our case.
+
+The collision detection itself is split into two phases - collision with the edges and collision with the paddles.
+
+The edge collision is handled by Puck locally. Notice the difference between the left/right and the top/bottom edges. For the top and the bottom edge we have to reflect the puck vector over the Y-axis:
+
+     this.dy *= -1
+
+and play the _boing_ sound effect.
+
+In the case of the left or the right edge, we kill the puck and score the corresponding side. The _score_ logic is moved out into an external trap. It is a game-level event and it is a good practice to keep it in a separate function instead of being hidden in Puck.
+
+The collision detection with paddles is different since it is handled mostly by the paddles.
+
+We iterate over all nodes in _/lab_ and find the ones with *touch* (we assume that *touch()* will be a function here). The *touch()* function will be defined on all entities the puck can touch (paddles).
+
+When the paddle hit is detected, we raise the _touched_ flag and increase the speed. The puck movement vector reflection is done in the paddle itself since it depends on the place on the paddle we hit.
+
+
+=== rendering
+
+The _draw()_ procedures of Puck are pretty simple - we just have to draw a circle.
+
+```
     draw() {
         lineWidth(2)
         stroke(.55, .5, .5)
         circle(this.x, this.y, this.r)
     }
-}
 ```
+To setup the drawing, we set the line width and the stroke color.
+And then call _circle_ function to draw the circle.
+
 
 
 == Paddle
+
+This *class* represents the left and the right paddles.
+
+Its _draw()_ and _evo(dt)_ functions are quite simple.
+
+The _touch()_ method is the most complex one and handles the collision detection with the puck. It is also responsible for the puck movement vector reflection according to the _REFLECT_VECTORS_ table.
 
 ```
 // dna/Paddle.js
@@ -212,8 +282,7 @@ const REFLECT_VECTORS = [
 class Paddle {
 
     constructor(st) {
-        augment(this, df)
-        augment(this, st)
+        augment(this, df, st) // set default and init values
         this.actions = {}
         this.speed = ry(1)
     }
@@ -300,7 +369,9 @@ class Paddle {
 ```
 
 
-== Traps
+
+== Control
+
 Keys are traped by the following 2 functions:
 
 ```
@@ -311,10 +382,10 @@ function keyDown(e) {
             trap('newGame')
             break
 
-        case 'KeyW': lab.left.up(true); break;
-        case 'KeyS': lab.left.down(true); break;
-        case 'ArrowUp': lab.right.up(true); break;
-        case 'ArrowDown': lab.right.down(true); break;
+        case 'KeyW': case 'KeyA': lab.left.up(true); break;
+        case 'KeyS': case 'KeyZ': lab.left.down(true); break;
+        case 'ArrowUp':   case 'PageUp':   lab.right.up(true); break;
+        case 'ArrowDown': case 'PageDown': lab.right.down(true); break;
     }
 }
 ```
@@ -322,148 +393,118 @@ function keyDown(e) {
 // trap/keyUp.js
 function keyUp(e) {
     switch(e.code) {
-        case 'KeyW': lab.left.up(false); break;
-        case 'KeyS': lab.left.down(false); break;
-        case 'ArrowUp': lab.right.up(false); break;
-        case 'ArrowDown': lab.right.down(false); break;
+        case 'KeyW': case 'KeyA': lab.left.up(false); break;
+        case 'KeyS': case 'KeyZ': lab.left.down(false); break;
+        case 'ArrowUp':   case 'PageUp':   lab.right.up(false); break;
+        case 'ArrowDown': case 'PageDown': lab.right.down(false); break;
     }
 }
 ```
-New game event is traped by:
+We raise movement flags in _keyDown()_ and reset them in _keyUp()_.
+
+
+
+== Game Events
+
+
+=== new game
+
+The _"new game"_ event is traped by:
 ```
 // trap/newGame.js
 function newGame() {
+
+    // reset the score
     env.score = {
         left: 0,
         right: 0,
     }
+
+    // move paddles to the center
     lab.left.y = ry(.5)
     lab.right.y = ry(.5)
 
     // replace the puck
     kill(lab.puck)
-    trap('puck')
+    trap('spawnPuck')
 
     // show the start timer
-    lab.score.hold = 3
-    lab.puck.hold = 0
+    lab.score.countdown = 3
+    lab.puck.hold = 0 // puck shouldn't wait
 }
 ```
+Here we do all initial setup and spawning. It is trapped by _setup.js_ when the game starts and also by pressing the Escape key.
 
-The following trap counts the score
+
+=== score
+
+The following trap counts the score:
 ```
 // trap/score.js
 function score(player) {
     env.score[player] ++
-    trap('puck')
+    trap('spawnPuck')
     lib.sfx(res.sfx.score, .8)
 }
 ```
+
+
+== spawn puck
 
 _spawnPuck_ creates a new Puck in _/lab_:
 
 
 ```
 // trap/spawnPuck.js
+function spawnPuck() {
+    lab.spawn('Puck', {
+        name: 'puck',
+        x: rx(.5),
+        y: ry(.5),
+        speed: ry(.8),
+    })
+}
 ```
 
 
 
 == Setup
 
-_setup.js_ contains the function run
-
-just before the game starts:
+_setup.js_ contains the function to run just before the game starts:
 
 ```
 function setup() {
     trap('newGame')
 }
 ```
+It just traps the new game.
 
-It just calls 'newGame' trap.
-
-
-==  Misc
-```
-    trap('newGame')
-```
-
-```
-    evo(dt) {
-        if (lab.score.hold) return // the counter is till on
-        if (this.hold > 0) {
-            // hold on
-            this.hold -= dt
-            if (this.hold < 0) lib.sfx(res.sfx.slide, .5)
-            return
-        }
-
-        // save previous x/y
-        const px = this.x
-        const py = this.y
-        // move
-        this.x += this.dx * this.speed * dt
-        this.y += this.dy * this.speed * dt
-
-        // detect edge collisions
-        const r = this.r
-        if (this.x < r) {
-            // hit the left edge
-            kill(this)
-            trap('score', 'right')
-        } else if (this.x > rx(1)-r) {
-            // hit the right edge
-            kill(this)
-            trap('score', 'left')
-        }
-        if (this.y < r) {
-            // reflect from the top edge
-            this.y = r
-            this.dy *= -1
-        } else if (this.y > ry(1)-r) {
-            // reflect from the bottom edge
-            this.y = ry(1)-r
-            this.dy *= -1
-        }
-
-        // detect collision with paddles
-        let touched = false
-        const puck = this
-        lab._ls.forEach(e => {
-            if (e.touch) {
-                if (e.touch(puck)) {
-                    touched = true
-                    this.speed = min(this.speed * HIT_ACCELERATION, MAX_SPEED)
-                }
-            }
-        })
-
-        if (touched) {
-            // move back to previous coordinates
-            this.x = px
-            this.y = py
-            this.x += this.dx * this.speed * dt
-            this.y += this.dy * this.speed * dt
-        }
-    }
-```
 
 
 == Source Code
 
 
 Full source code is
-
 [available on GitHub](https://github.com/invider/pong-ce.mod).
 
 
+
 == Ideas for Improvement
+
 There are multiple directions you can go from here.
+
 You can introduce more variety into the gameplay by providing some kind of random powerups to modify game properties - like increase paddle speed or size, slow down the puck, etc...
+
+
 You can improve visuals by adding bitmapped graphics or particle effects on collisions.
+
+
 You can implement simple AI to be able to play against a computer.
+
+
 You can add the ability to play over the network.
+
+
 There might be other interesting ideas waiting to be implemented. Even the old and familiar gameplay from Pong can be rethought and refreshed.
 
 
@@ -472,17 +513,21 @@ There might be other interesting ideas waiting to be implemented. Even the old a
 Collider.JAM makes a good job of hiding complexity
 and free you from the boilerplate.
 
-You don't see any imports, exports, requires, load calls to get resources or extend constructions to inherit any of the framework prototypes.
+You don't see any imports, exports, load calls to get resources or extend constructions to inherit any of the framework prototypes.
 
-You just name the functions and place the files in appropriate folders according to Collider.JAM conventions. 
-
-And everything is just magically put together.
+You just name the functions and place the files in appropriate folders according to Collider.JAM conventions. And everything is just magically mixed together.
 
 That is the magic of Collider.JAM!
 
 Also notice how straightforward drawing and other common operations like _sin()_, _cos()_, _trap()_, _augment()_, and _kill()_. They are just functions available from the global context. No need to access those features from the bunch of incomprehensive utility objects like Context and Math. They are just there under your tips when you need them.
 
-It almost makes JavaScript as clear and straightforward as BASIC. The code looks like a polite conversation with Collider.JAM instead of a rude arguing with the object system.
+It makes JavaScript almost as clear and straightforward as BASIC. The code looks like a polite conversation with the framework instead of a rude arguing with the object system.
+
+
+
+
+
+
 
 
 
