@@ -228,6 +228,17 @@ function setup() {
     })
 }
 
+function scrollTo(elementId) {
+    console.log('scrolling to [' + elementId + ']')
+    const el = document.getElementById('.' + elementId)
+    if (el) {
+        el.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest',
+        })
+    }
+}
 
 function syncHash() {
     if (!cache.data) {
@@ -244,18 +255,19 @@ function syncHash() {
         }
 
     } else {
+        // sync to #.sectionId
         const link = location.hash.substring(2)
 
         if (!cache.links) {
             // nothing is printed - just open
             const meta = open(link)
-            return
-        }
 
-        if (!cache.links[link]) {
+        } else if (!cache.links[link]) {
             // looks like the object is not printed
             // need to search and show it by id
             const meta = open(link)
+        } else {
+            scrollTo(link)
         }
     }
 }

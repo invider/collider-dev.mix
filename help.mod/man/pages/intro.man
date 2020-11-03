@@ -1,15 +1,15 @@
 name: Intro
 order: 1
 tags: jam, intro, start, begin, beginner, preface, home
--------------------------------------------------------
+------------------------------------------
 
 <div style="font-size: 110%;">
 [start](#.getting-started)
-| <a href="#.design">design</a>
-| <a href="#.terms">terms</a>
-| <a href="#.jam-card">jamcard</a>
-| <a href="#.tips">tips</a>
-| <a href="#.mixes">mixes</a>
+| [design](#.design)
+| [terms](#.terms)
+| [jamcard](#.jam-card)
+| [tips](#.tips)
+| [mixes](#.mixes)
 ----
 [collider.land](http://collider.land)
 | [github](https://github.com/invider/collider.jam)
@@ -18,11 +18,18 @@ tags: jam, intro, start, begin, beginner, preface, home
 | [discord](https://discord.gg/kxNnHc2)
 ----
 [mix/$](#./)
-| <a href="#./alt">scope/alt</a> | <a href="#./res">res</a> | <a href="#./lib">lib</a> | <a href="#./dna">dna</a> | <a href="#./env">env</a> | <a href="#./lab">lab</a> | <a href="#./trap">trap</a> | <a href="#./setup">setup</a>
+| [scope/alt](#./alt)
+| [res](#./res)
+| [lib](#./lib)
+| [dna](#./dna)
+| [env](#./env)
+| [lab](#./lab)
+| [trap](#./trap)
+| [setup](#./setup)
 ----
 </div>
-buggy
-<h3>Welcome to Collider.JAM!</h3>
+
+=== Welcome to Collider.JAM!
 
 _Collider.JAM_ is a hand-crafted JavaScript game framework for game jamming, creative coding, prototyping, and beyond.
 
@@ -46,36 +53,27 @@ Installation intructions are available
     npm install -g collider.jam
 
 To start, check out
-<a href="#.getting-started">Getting Started</a>.
+[Getting Started](#.getting-started).
 
 The design of the framework is explored in
-<a href="#.design">Design sction</a>.
+[Design section](#.design)
 
 Collider.JAM keeps everything in the right place,
 so it is crucial to know the structure.
-Investigate <a href="#./">the root node</a>.
+Investigate [the root node](#./).
 
-Also, check out useful <a href="#.tips">tips</a>.
+Also, check out useful [tips](#.tips).
 
-And <a href="#.start-jamming">Start Jamming</a>.
+And [Start Jamming](#.start-jamming).
 
 <hr>
 
 <div style="font-size: 110%;">
-<a href="https://github.com/invider/collider.jam">Source Code</a> | <a href="http://collider.land/data/jamming-card.pdf">Jamming Card</a>
-| <a href="http://collider.land">Collider.JAM</a>
-| <a href="http://colliderlabs.com">Collider Labs</a>
+[Source Code](https://github.com/invider/collider.jam)
+| [Jamming Card](http://collider.land/data/jamming-card.pdf)
+| [Collider.JAM](http://collider.land)
+| [Collider Labs](http://colliderlabs.com)
 </div>
 
 <hr>
-
-
-
-
-
-
-
-
-
-
 
