@@ -1,7 +1,6 @@
 name: Koans
------------
-
 tags: intro, start, design, tips, philosophy
+-----------
 
 _Everything is in its right place_
 

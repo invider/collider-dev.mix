@@ -1,7 +1,6 @@
 name: Start Jamming
--------------------
-
 tags: jam, collider.jam, intro, start
+-------------------
 
 To join a game jam, check out <a href="https://itch.io/jams">jams on Itch.io</a>. There is always something going on there.
 
