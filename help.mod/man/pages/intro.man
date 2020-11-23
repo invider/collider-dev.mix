@@ -1,30 +1,48 @@
 name: Intro
 order: 1
 tags: jam, intro, start, begin, beginner, preface, home
+------------------------------------------
 
 <div style="font-size: 110%;">
-<a href="#.getting-started">start</a> | <a href="#.design">design</a> | <a href="#.terms">terms</a> | <a href="#.jam-card">jamcard</a> | <a href="#.tips">tips</a> | <a href="#.mixes">mixes</a>
-<hr>
-<a href="#./">root/$</a> | <a href="#./alt">scope/alt</a> | <a href="#./res">res</a> | <a href="#./lib">lib</a> | <a href="#./dna">dna</a> | <a href="#./env">env</a> | <a href="#./lab">lab</a> | <a href="#./trap">trap</a> | <a href="#./setup">setup</a>
-<hr>
+[start](#.getting-started)
+| [design](#.design)
+| [terms](#.terms)
+| [jamcard](#.jam-card)
+| [tips](#.tips)
+| [mixes](#.mixes)
+----
+[mix/$](#./)
+| [scope/alt](#./alt)
+| [res](#./res)
+| [lib](#./lib)
+| [dna](#./dna)
+| [env](#./env)
+| [lab](#./lab)
+| [trap](#./trap)
+| [setup](#./setup)
+----
+[collider.land](http://collider.land)
+| [github](https://github.com/invider/collider.jam)
+| [jamming card](http://collider.land/data/jamming-card.pdf)
+| [blog](http://ikhotin.com/posts/)
+| [discord](https://discord.gg/kxNnHc2)
+----
 </div>
 
-<h3>Welcome to Collider.JAM!</h3>
+=== Welcome to Collider.JAM!
 
-_Collider.JAM_ is a hand-crafted JavaScript game framework for game jamming, creative coding, prototyping and beyond.
+_Collider.JAM_ is a hand-crafted JavaScript game framework for game jamming, creative coding, prototyping, and beyond.
 
-The development pipeline is based around Web browser and JavaScript,
-but the code is portable and can target multiple
-platforms - from major desktops (macOS, Linux and Windows)
-to mobile (Android and iOS).
+The development pipeline is based on the Web browser and JavaScript, but the code is portable and can target multiple
+platforms - Web, major desktops (macOS, Linux, and Windows), and mobile (Android and iOS).
 
 It is a fun way to prototype and create games.
 
 _Collider.JAM_ conceals rough JavaScript edges,
 turning development into a joyride.
-Actually, it is a perfect way to learn JavaScript,
+It is a pleasant way to learn JavaScript,
 since you don't have to deal with
-HTML, DOM, CSS and MVC frameworks.
+HTML, DOM, CSS, and MVC frameworks.
 
 It is a perfect tool to unlock your creativity
 and deliver the next great game.
@@ -33,26 +51,29 @@ Installation intructions are available
 <a href="#.install">here</a>, the fastest way to install is:
 
     npm install -g collider.jam
+
 To start, check out
-<a href="#.getting-started">Getting Started</a>.
+[Getting Started](#.getting-started).
 
 The design of the framework is explored in
-<a href="#.design">Design sction</a>.
+[Design section](#.design)
 
 Collider.JAM keeps everything in the right place,
 so it is crucial to know the structure.
-Investigate <a href="#./">the root node</a>.
+Investigate [the root node](#./).
 
-Also, check out useful <a href="#.tips">tips</a>.
+Also, check out useful [tips](#.tips).
 
-And <a href="#.start-jamming">Start Jamming</a>.
+And [Start Jamming](#.start-jamming).
 
 <hr>
 
 <div style="font-size: 110%;">
-<a href="https://github.com/invider/collider.jam">Source Code</a> | <a href="http://colliderlabs.com/data/jamming-card.pdf">Jamming Card</a> | <a href="http://colliderlabs.com/jam">Collider.JAM</a> | <a href="http://colliderlabs.com">Collider Labs</a>
+[Source Code](https://github.com/invider/collider.jam)
+| [Jamming Card](http://collider.land/data/jamming-card.pdf)
+| [Collider.JAM](http://collider.land)
+| [Collider Labs](http://colliderlabs.com)
 </div>
 
 <hr>
-
 

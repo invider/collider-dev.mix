@@ -1,5 +1,6 @@
 name: Design
 order: 3
+------------
 
 *Collider.JAM* is a highly opinionated framework.
 
@@ -384,16 +385,17 @@ industry by storm (like Java or Docker).
 Some took decades to build up
 (like JavaScript or Functional Programming).
 Some never got into the mainstream... Yet.
+
 But these ideas are never really gone.
 Sometimes they require the right time and place to blossom.
 And they can stay dormant for decades until
-somebody take them, rethink then,
+somebody take them, rethink them,
 and build a totally new revolutionary product.
 
 The Convention over Configuration approach
 has been used for years in many web frameworks.
 Ruby on Rails is an inspiration and example of simplicity
-you can reacy by applying these principles.
+you can reach by applying these principles.
 
 <a href="https://processing.org">Processing</a>
 and a cool JavaScript library called
@@ -407,6 +409,7 @@ approach in game framework design.
 
 In general, UNIX philosophy played a significant role
 in _Collider.JAM_ architectural style.
+
 Minimalistic but conceptually-rich
 Plan 9 and Inferno operating systems (Bell Labs/Lucent)
 were guiding stars in consistent and lightweight

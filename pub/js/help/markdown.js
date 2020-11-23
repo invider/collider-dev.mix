@@ -188,11 +188,16 @@ function parse(md, nowrap) {
             case QUOTE: return '> quote';
             case MARK: return 'mark';
             case IGNORE: return '>>> ignore';
-            case LINE: return '---- line';
+            case LINE: return '----';
             case HEADER: return 'header';
             case LINK: return 'link';
             case IMAGE: return 'image';
         }
+    }
+
+    function token2str(token) {
+        if (token.t === NL) return '↲'
+        return tokenName(token.t) + ': [' + token.v + ']'
     }
 
     function nextSpan() {
@@ -308,10 +313,19 @@ function parse(md, nowrap) {
                 break
 
             case '>':
-                if (linePos === 1 && isSpace(ahead())) {
-                    return {
-                        t: QUOTE,
-                        v: '>',
+                if (linePos === 1) {
+                    if (isSpace(ahead())) {
+                        return {
+                            t: QUOTE,
+                            v: '>',
+                        }
+                    } else if (isNewLine(ahead())) {
+                        getc()
+                        return {
+                            t: NL,
+                            v: '\n',
+                            s: true,
+                        }
                     }
                 }
                 break
@@ -398,7 +412,7 @@ function parse(md, nowrap) {
                         out += `</h${state.header}>`
                         state.header = 0
 
-                    } else if (state.quote) {
+                    } else if (state.quote && !span.s) {
                         out += '</blockquote>'
                         state.quote = false
 

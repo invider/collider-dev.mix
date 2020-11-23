@@ -1,6 +1,6 @@
 name: HUD
-
 tags: hud, widgets, gadgets, ui
+---------
 
 The _HUD_ is a user interface system included in Collider.JAM.
 

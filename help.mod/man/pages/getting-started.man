@@ -1,48 +1,62 @@
 name: Getting Started
 order: 1
+---------------------
 
-Thanks you for <a href="#.install">downloading</a> _Collider.JAM_!
+Thank you for <a href="#.install">downloading</a> _Collider.JAM_!
 
-Now, it is time to create your first mod.
+Now you can create your first *mod*.
 
-Create a new folder named _planet.mod_
-and a folder named _res_ inside.
+Let's visualize a bouncing planet.
+
+Create a new folder named _planet.mod_ - this is going
+to be a home of our Collider.JAM project.
+
+Next, create a folder named _res_ inside.
+It is going to keep our assets or more precisely,
+a single asset - an image of a planet.
 
 Place a planet image inside the _res_ folder.
-You can get one from <a href="https://opengameart.org/content/mars-type-planet">here</a>
-or find any other planet with transparent background.
+
+You can get one on
+[GitHub](https://github.com/invider/procedural-november.pak/tree/main/planets), from
+[Open Game Art](https://opengameart.org/content/mars-type-planet),
+or find any other planet image with a transparent background.
 
 Now, create a file _planet.mod/lab.js_:
 
 ```
+    // planet.mod/lab.js
+
     // position at the center of the screen
-    let x = rx(.5)
-    let y = ry(.5)
-    let r = 50
+    let x = rx(.5)  // place at 50% of the screen width
+    let y = ry(.5)  // place at 50% of the screen height
+    let r = 50      // planet radius in pixels
 
     let dx = 100 // x-axis speed component
     let dy = 100 // y-axis speed component
 
-    function evo(dt) {
-        // make the movement relative to the time passed
-        x += dx ** dt
-        y += dy ** dt
+    function init() {
+        this.background = '#000000' // black color in hex RGB
+    }
 
-        // bounce from screen edges
-        if (x > rx(1)-r && dx > 0) dx **= -1
-        else if (x < r && dx < 0) dx **= -1
-        if (y > ry(1)-r && dy > 0) dy **= -1
-        else if (y < r && dy < 0) dy **= -1
+    function evo(dt) {
+       // make the movement factored by the delta time dt
+       x += dx * dt
+       y += dy * dt
+
+       // bounce from the screen edges
+       if (x > rx(1)-r && dx > 0) dx *= -1
+       else if (x < r && dx < 0) dx *= -1
+       if (y > ry(1)-r && dy > 0) dy *= -1
+       else if (y < r && dy < 0) dy *= -1
     }
 
     function draw() {
-        background('#000000') // color in hex RGB
-
-        // planet
-        lineWidth(5)
-        stroke(.58, .5, .7)   // color in float HSL
-        circle(x, y, r)       // atmosphere haze
-        image(res.mars__type__planet, x-r, y-r, 2**r, 2**r)
+       // planet
+       lineWidth(5)
+       stroke(.58, .5, .7)   // color in float HSL
+       circle(x, y, r)       // atmosphere haze
+       image(res.mars_type_planet, x-r, y-r, 2*r, 2*r)
     }
 ```
 
@@ -52,21 +66,22 @@ Functions _draw()_ and _evo(dt)_ are going
 to be evaluated in the main game loop,
 since they are part of the _lab_ node.
 
-Everything in the _lab_ is alive.
+*Any object with _draw()_ and _evo()_ in the _lab_ is alive.*
 
 
 The source for this example is available
 at <a href="https://github.com/invider/bits.mix/blob/master/planet.mod/lab.js">bits.mix/planet.mod/lab.js</a>.
 
-You can run it by cloning the _bits.mix_ repository:
+To run it, clone the _bits.mix_ repository:
 
-    git clone https://github.com/invider/bits.mix.git
+    git clone https://github.com/invider/bits.mix
 
-Then, run _Collider.JAM_ inside planet.mod folder:
+Then, run _Collider.JAM_ inside the _planet.mod_ folder:
 
     cd bits.mix/planet.mod
 
     jam
 
-And open the browser at <a href="http://localhost:9999">http://localhost:9999</a>
+And open the browser at
+[http://localhost:9999](http://localhost:9999)
 

@@ -1,6 +1,7 @@
 name: Mixes
-
 tags: jam, collider.jam, intro, start, game, examples, samples, code, snippets
+-----------
+
 
 <span class="metaSection">Collider.JAM Core Mixes:</span>
 

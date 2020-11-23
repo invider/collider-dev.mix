@@ -1,4 +1,5 @@
 name: Terms
+-----------
 
 *mod* - a composable module, located in it's own folder. Think of it as a minigame with it's own resources, dnas, lib and trap handling.
 
