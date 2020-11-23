@@ -28,14 +28,16 @@ collisions with the paddles and the edges.
 
 The game scene is going to be implemented in a single *mod*.
 
+Inside, we will place the */dna* folder to keep our prototypes.
+
 _
 > Collider.JAM has the concept of *mods*, which can represent
 > modules, plugins, scenes, levels, game layers,
 > and game states among other things.
 >
-> You can view a *mod* as a minigame with its code,
+> You can view a *mod* as a minigame with its own code,
 > structure, resources...
-> Like the main menu, or a player configuration screen,
+> It can be the main menu or a player configuration screen,
 > or maybe a map screen.
 >
 > Usually the *mod* structure is determined
@@ -44,9 +46,7 @@ _
 _
 
 
-Inside, we will place the */dna* folder to keep our prototypes.
-
-There are going to be only two of those - Puck and Paddle.
+There are going to be only two prototypes in */dna* - Puck and Paddle.
 
 A single object in */lab/score.js* will represent the score indicator.
 The indicator is a singleton existing for the whole game lifespan.
@@ -58,7 +58,7 @@ The */res* folder will keep all sound effects. We don't need any bitmap or vecto
 The *trap* folder keeps event handlers.
 Control events like _keyDown_ and _keyUp_ as well as custom events like _newGame_ and _spawnPunk_ are trapped here.
 
-> Note, that the file location and name are important for Collider.JAM.
+> Note, that a file location and name are important in Collider.JAM.
 >
 > For example, there won't be any score if *score.js*
 > will be placed outside of */lab*.
@@ -69,8 +69,8 @@ Control events like _keyDown_ and _keyUp_ as well as custom events like _newGame
 > Constructor names MUST be capitalized - that is how
 > Collider.JAM understands it deals with constructors.
 >
-> So be careful with file and object naming and placement.
-> It significantly affects the framework behavior.
+> So be careful with the file and object naming and placement.
+> It often affects the object's behavior.
 
 
 == Foundation
@@ -93,7 +93,8 @@ The _-d_ flag tells Collider.JAM to enable development and debug features.
 It is very useful in developing.
 
 _
-> Make sure you have [Collider.JAM](http://collider.land) installed
+> Make sure you have _Collider.JAM_
+> [installed](#.install)
 > before starting this tutorial.
 > The easiest way is to run "npm i -g collider.jam"
 > in a terminal emulator.
@@ -168,7 +169,7 @@ The _evo(dt)_ is the most complex one:
             // hold on
             this.hold -= dt
             // start the movement when the time is up
-            if (this.hold < 0) lib.sfx(res.sfx.slide, .5)
+            if (this.hold <= 0) lib.sfx(res.sfx.slide, .5)
             return
         }
 
@@ -238,13 +239,14 @@ The edge collision is handled by Puck locally. Notice the difference between the
 
      this.dy *= -1
 
-and play the _boing_ sound effect.
+and play the boing sound effect.
 
 In the case of the left or the right edge, we kill the puck and score the corresponding side. The _score_ logic is moved out into an external trap. It is a game-level event and it is a good practice to keep it in a separate function instead of being hidden in Puck.
 
 The collision detection with paddles is different since it is handled mostly by the paddles.
 
-We iterate over all nodes in _/lab_ and find the ones with *touch* (we assume that *touch()* will be a function here). The *touch()* function will be defined on all entities the puck can touch (paddles in our case).
+We iterate over all nodes in _/lab_ and find the ones with *touch* (we assume that *touch()* will be a function here).
+It means the *touch()* function MUST be defined on all entities the puck can touch (paddles in our case).
 
 When the paddle hit is detected, we raise the _touched_ flag and increase the speed. The puck movement vector reflection is done in the paddle itself since it depends on the place on the paddle we hit.
 
@@ -518,7 +520,7 @@ function newGame() {
     lab.puck.hold = 0 // puck shouldn't wait
 }
 ```
-Here we do all initial setup and spawning. It is trapped by _setup.js_ when the game starts and also manually by pressing the Escape key.
+Here we do the initial setup and object spawning. It is triggered by _setup.js_ when the game starts and also fired manually by pressing the Escape key.
 
 
 === score
@@ -554,19 +556,19 @@ function spawnPuck() {
 The puck is created by the _spawn()_ function in *lab*.
 We pass a DNA name and an init object there.
 
-The provided init object sets the name, the speed, and the puck coordinates. With screen-relative functions _rx()_ and _ry()_ we place it in the middle of the screen.
+The provided init object sets the name, the speed, and the puck's coordinates. With screen-relative functions _rx()_ and _ry()_ we place it in the middle of the screen.
 
 
 == Setup
 
-_setup.js_ contains the function to run just before the game starts:
+_setup.js_ contains the function to setup the game before it starts:
 
 ```
 function setup() {
     trap('newGame')
 }
 ```
-It just traps the new game.
+It just traps the new game event.
 
 
 
@@ -602,7 +604,11 @@ There might be other interesting ideas waiting to be implemented. Even the old a
 Collider.JAM makes a good job of hiding complexity
 and boilerplate.
 
-You don't need any imports, exports, load calls to get resources or extend constructions to inherit any of the framework prototypes.
+You don't need any imports and exports.
+You don't bother yourself with a bunch of load() calls to obtain necessary resources.
+You don't extend any of the framework prototypes
+in order to place something on the screen -
+any plain JS objects will do the trick.
 
 You just name the functions and place the files in appropriate folders according to Collider.JAM conventions. And everything is just magically mixed together.
 
