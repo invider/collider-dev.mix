@@ -8,7 +8,6 @@ Pong was created in 1972 by Allan Alcorn, the 2nd non-founding employee of Atari
 Little did they know, that Pong would become a booster that brought Atari into a multi-billion corporation orbit.
 
 Today, Pong is considered to be an arcade classic.
-
 Also, with its iconic gameplay, it still works as a good exercise in game development.
 
 Thus, this tutorial covers all the steps necessary to implement a web-based clone of Pong with Collider.JAM and JavaScript.
@@ -88,9 +87,9 @@ And run the empty mod with:
 
     jam -d
 
-The _-d_ flag tells Collider.JAM to enable development and debug features.
+The <i>-d</i> flag tells Collider.JAM to enable development and debug features.
 
-It is very useful in developing.
+It is very useful in development.
 
 _
 > Make sure you have _Collider.JAM_
@@ -131,7 +130,7 @@ const df = {
 === constructor
 
 We'll use _class_ syntax to declare our prototype.
-It's concise and works well except for a few special cases.
+It's concise and works well except for a few special cases:
 ```
 // dna/Puck.js
 // ...
@@ -253,7 +252,7 @@ When the paddle hit is detected, we raise the _touched_ flag and increase the sp
 
 === rendering
 
-The _draw()_ procedures of Puck are pretty simple - we just have to draw a circle.
+The _draw()_ procedure of Puck is pretty simple - we just have to draw a circle.
 
 ```
     draw() {
