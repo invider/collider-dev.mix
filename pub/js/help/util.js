@@ -36,3 +36,21 @@ export function isEmpty(o) {
     }
     return false
 }
+
+export function wrapHtml(content) {
+    const html = '<html><head><title>Collider.JAM Help</title>'
+        + '<link rel="Stylesheet" href="css/help.css">'
+        + '</head>'
+        + '<body>'
+        + content
+        + '</body></html>\n'
+    return html
+}
+
+export function download(content, filename) {
+    const data = encodeURIComponent(content)
+    const a = document.createElement('a')
+    a.setAttribute('href', 'data:text/html;charset=utf-8,' + data)
+    a.setAttribute('download', filename)
+    a.click()
+}

@@ -3,7 +3,7 @@
 import { toHtml, preformat } from './format.js'
 import { cache } from './cache.js'
 import { find } from './filter.js'
-import { clear, render } from './util.js'
+import { clear, render, wrapHtml, download } from './util.js'
 
 const HELP_DATA_URL = '../help/data'
 
@@ -17,8 +17,6 @@ const DATA_MISSING = 'Missing help data!<br>'
                 + 'in debug and dynamic mode:<br>'
                 + '<pre><code>    jam -d</code></pre>'
                 + 'and you have loaded project page after.'
-
-let gfield
 
 var state = {}
 
@@ -220,12 +218,15 @@ function setup() {
 
     loadMeta()
 
+    normalSplit()
+    /*
     Split(['#tagsPanel', '#rightPanel'], {
         sizes: [27, 73],
         minSize: [150, 300],
         direction: 'horizontal',
         gutterAlign: 'center',
     })
+    */
 }
 
 function scrollTo(elementId) {
@@ -272,6 +273,48 @@ function syncHash() {
     }
 }
 
+function normalSplit() {
+    Split(['#tagsPanel', '#rightPanel'], {
+        sizes: [27, 73],
+        minSize: [150, 300],
+        direction: 'horizontal',
+        gutterAlign: 'center',
+    })
+}
+
+function hiddenPanelSplit() {
+    /*
+    Split(['#rightPanel'], {
+        sizes: [100],
+        direction: 'horizontal',
+        gutterAlign: 'center',
+    })
+    */
+    const p = document.getElementById('rightPanel')
+    const h = document.getElementById('help')
+    p.style.float = 'center'
+    p.style.overflow = 'visible'
+    p.style.margin = 0
+    p.style.width = '99%'
+    p.style.border = '1px solid blue'
+
+    h.style.float = 'center'
+    h.style.width = '100%'
+    h.style.margin = 0
+    h.style.border = '1px solid red'
+}
+
+function togglePanel() {
+    let e = document.getElementById('tagsPanel')
+    if (e.style.display === "none") {
+        e.style.display = "block"
+        normalSplit()
+    } else {
+        e.style.display = "none"
+        hiddenPanelSplit()
+    }
+}
+
 window.onload = setup
 
 window.onhashchange = syncHash 
@@ -279,15 +322,28 @@ window.onhashchange = syncHash
 window.onkeydown = function(e) {
     if (e.repeat) return
 
-    if (e.code === 'Escape') {
+    const field = document.getElementById(FIELD)
 
-        const field = document.getElementById(FIELD)
+    switch(e.code) {
+        case 'Escape':
 
-        if (document.activeElement === field) {
-            field.value = ''
-            setSearch('')
-        } else {
-            field.focus()
-        }
+            if (document.activeElement === field) {
+                field.value = ''
+                setSearch('')
+            } else {
+                field.focus()
+            }
+            break
+
+        case 'F2':
+            let name = help
+            if (field.value !== '') name = field.value
+
+            download( wrapHtml(help.innerHTML), name + '.html')
+            break
+
+        case 'F10':
+            togglePanel()
+            break
     }
 }
