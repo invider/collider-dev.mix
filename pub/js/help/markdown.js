@@ -369,7 +369,13 @@ function parse(md, nowrap) {
                 c = getc()
             }
         }
-        retc()
+        if (span.length === 0) {
+            // we ALWAYS have to process at least one char in a span
+            // to avoid infinite loops in malformatted markdown
+            span += c
+        } else {
+            retc()
+        }
 
         return {
             t: SPAN,
