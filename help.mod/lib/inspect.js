@@ -17,53 +17,54 @@ function match(path, ignore) {
     return ignored 
 }
 
-function inspectPrototype(node, name, path, cache,
+function inspectPrototype(node, prev, name, path, cache,
                 parentMeta, modMeta, meta, usageRefinements, level) {
     if (name === 'constructor') return
 
-    //for (const name in node) {
-    //Object.getOwnPropertyNames(node).forEach(subname =>  {
-    Object.keys(node).forEach(subname => {
-        const fn = node[subname]
-        if (!fn) return
-        if (fn.name === 'constructor') return
+    if (isClass(node)) {
+        inspectPrototype(node.prototype, node, name, path, cache,
+            parentMeta, modMeta, meta, usageRefinements, level)
+        return
+    }
 
-        let submeta = inspect(fn, subname, meta.path,
-            cache, meta, modMeta, level)
+    if (isObj(node) && !isFun(node)) {
+        //for (const name in node) {
+        //Object.keys(node).forEach(subname => {
+        Object.getOwnPropertyNames(node).forEach(subname =>  {
+            const fn = node[subname]
+            if (!fn) return
+            if (fn.name === 'constructor') return
 
-        if (submeta) {
-            //submeta = sys.clone(submeta)
-            //submeta.path = addPath(meta.path, subname)
-            const refine = usageRefinements[subname]
-            if (refine) submeta.data = supplement(submeta.data, refine)
-            //if (level > 0) submeta.inherited = true
-        }
+            let submeta = inspect(fn, subname, meta.path,
+                cache, meta, modMeta, level)
 
-        if (level > 0) {
-            if (!meta.dir[subname] && !meta.idir[subname]) {
-                meta.idir[subname] = submeta
+            if (submeta) {
+                //submeta = sys.clone(submeta)
+                //submeta.path = addPath(meta.path, subname)
+                const refine = usageRefinements[subname]
+                if (refine) submeta.data = supplement(submeta.data, refine)
+                //if (level > 0) submeta.inherited = true
             }
-        } else {
-            if (!meta.dir[subname]) {
-                meta.dir[subname] = submeta
+
+            if (level > 0) {
+                if (!meta.dir[subname] && !meta.idir[subname]) {
+                    meta.idir[subname] = submeta
+                }
+            } else {
+                if (!meta.dir[subname]) {
+                    meta.dir[subname] = submeta
+                }
             }
-        }
-    })
+        })
+    }
 
+    if (node.prototype) {
+        inspectPrototype(node.prototype, node, name, path, cache,
+            parentMeta, modMeta, meta, usageRefinements, level+1)
+    }
 
-    /*
     if (node.__proto__) {
-        inspectPrototype(node.__proto__, name, path, cache,
-            parentMeta, modMeta, meta, usageRefinements, level+1)
-    }
-    */
-    if (!isEmpty(node.prototype)) {
-        inspectPrototype(node.prototype, name, path, cache,
-            parentMeta, modMeta, meta, usageRefinements, level+1)
-    }
-
-    if (!isEmpty(node.__proto__)) {
-        inspectPrototype(node.__proto__, name, path, cache,
+        inspectPrototype(node.__proto__, node, name, path, cache,
             parentMeta, modMeta, meta, usageRefinements, level+1)
     }
 }
@@ -151,12 +152,24 @@ function inspect(node, name, path, cache, parentMeta, modMeta, level) {
 
         if (node.prototype && (Object.keys(node.prototype).length > 1
                     || node.name.match(/^[A-Z].*/))) {
-            meta.kind = 'cons'
+            meta.kind = isClass(node)? 'class' : 'cons'
             meta.dir = meta.dir || {}
             meta.idir = meta.idir || {}
 
-            inspectPrototype(node.prototype, name, path, cache,
+            console.log(meta.path)
+            if (meta.path === 'sys') debugger
+            inspectPrototype(node.prototype, node, name, path, cache,
+                parentMeta, modMeta, meta, usageRefinements, 0)
+            /*
+            //inspectPrototype(node, node, name, path, cache,
+            //    parentMeta, modMeta, meta, usageRefinements, 0)
+            if (isClass(node)) {
+                inspectPrototype(node, node, name, path, cache,
                     parentMeta, modMeta, meta, usageRefinements, 0)
+            } else {
+            }
+            */
+
             if (isEmpty(meta.dir)) delete meta.dir
             if (isEmpty(meta.idir)) delete meta.idir
         }
