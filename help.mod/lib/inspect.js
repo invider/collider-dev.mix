@@ -183,10 +183,19 @@ function inspect(node, parent, name, path, cache, parentMeta, modMeta, level) {
 
     } else if (isObj(node)) {
         meta.kind = 'Node'
-        if (node.constructor) meta.proto = node.constructor.name
+        if (node.constructor) {
+            meta.kind = node.constructor.name
+            meta.proto = node.constructor.name
+        }
         meta.data = node._meta
 
         meta.dir = {}
+
+        let usageRefinements = {}
+        if (meta.data && meta.data.dir) {
+            usageRefinements = meta.data.dir
+            delete meta.data.dir
+        }
 
         Object.keys(node).forEach(k => {
             if (k.startsWith('_')) return
@@ -208,6 +217,14 @@ function inspect(node, parent, name, path, cache, parentMeta, modMeta, level) {
                 */
             }
         })
+
+        /*
+        // TODO figure out a way to process meta for objects and their prototypes
+        if (node.constructor && node.constructor.prototype) {
+            inspectPrototype(node.constructor.prototype, node, name, path, cache,
+                parentMeta, modMeta, meta, usageRefinements, 0)
+        }
+        */
 
     } else {
         meta.name = name
