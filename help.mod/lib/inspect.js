@@ -35,7 +35,7 @@ function inspectPrototype(node, prev, name, path, cache,
             if (!fn) return
             if (fn.name === 'constructor') return
 
-            let submeta = inspect(fn, subname, meta.path,
+            let submeta = inspect(fn, node, subname, meta.path,
                 cache, meta, modMeta, level)
 
             if (submeta) {
@@ -69,8 +69,9 @@ function inspectPrototype(node, prev, name, path, cache,
     }
 }
 
-function inspect(node, name, path, cache, parentMeta, modMeta, level) {
+function inspect(node, parent, name, path, cache, parentMeta, modMeta, level) {
     if (!node) return
+    if (name === 'constructor') return
     if (node._meta && node._meta.hint === 'ignore') return
 
     const meta = {}
@@ -81,6 +82,7 @@ function inspect(node, name, path, cache, parentMeta, modMeta, level) {
     if (match(meta.path, cache.ignore)) return
 
     const icache = cache.node.indexOf(node)
+
     if (icache >= 0) {
         // fix cached data if on the proper level
         const cachedMeta = cache.meta[icache]
@@ -121,13 +123,12 @@ function inspect(node, name, path, cache, parentMeta, modMeta, level) {
         meta.dir = {}
 
         Object.keys(node._dir).forEach(k => {
-
             const next = node._dir[k]
             const icache = cache.node.indexOf(next)
             if (icache < 0) {
                 let pmod = modMeta
                 if (parentMeta && parentMeta.name === 'mod') pmod = meta
-                const submeta = inspect(next, k, meta.path,
+                const submeta = inspect(next, node, k, meta.path,
                     cache, meta, pmod, level)
                 meta.dir[k] = submeta
 
@@ -156,8 +157,6 @@ function inspect(node, name, path, cache, parentMeta, modMeta, level) {
             meta.dir = meta.dir || {}
             meta.idir = meta.idir || {}
 
-            console.log(meta.path)
-            if (meta.path === 'sys') debugger
             inspectPrototype(node.prototype, node, name, path, cache,
                 parentMeta, modMeta, meta, usageRefinements, 0)
             /*
@@ -194,7 +193,7 @@ function inspect(node, name, path, cache, parentMeta, modMeta, level) {
 
             const next = node[k]
             if (cache.node.indexOf(next) < 0) {
-                const submeta = inspect(next, k, meta.path,
+                const submeta = inspect(next, node, k, meta.path,
                     cache, meta, modMeta, 0)
                 if (submeta) meta.dir[k] = submeta
 

@@ -61,7 +61,7 @@ function doReport(ignore) {
 
     const meta = {}
 
-    meta.scene = lib.inspect($, '$', '', cache)
+    meta.scene = lib.inspect($, null, '$', '', cache)
     //meta.pages = listPages($.man.pages, cache)
     meta.pages = {}
     listPages($, cache, meta.pages)
