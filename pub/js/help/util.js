@@ -23,6 +23,11 @@ export function parentPath(path) {
 export const isObj = function(o) {
     return !!(o && typeof o === 'object')
 }
+
+export function isArray(o) {
+    Array.isArray(o)
+}
+
 export function isEmpty(o) {
     if (!o) return true
     if (isObj(o)) {
