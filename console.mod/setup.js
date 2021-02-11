@@ -59,8 +59,13 @@ module.exports = function setup() {
         if (!fn) fn = getLocal(command)
 
         if (fn) {
-            const res = fn(words, cmd, con)
-            if (res) con.print(res)
+            try {
+                const res = fn(words, cmd, con)
+                if (res) con.print(res)
+            } catch (e) {
+                con.print(e)
+                console.error(e)
+            }
 
         } else {
             // check default handler
@@ -68,8 +73,13 @@ module.exports = function setup() {
             if (!fn) fn = getLocal('_default')
 
             if (fn) {
-                const res = fn(words, cmd, con)
-                if (res) con.print(res)
+                try {
+                    const res = fn(words, cmd, con)
+                    if (res) con.print(res)
+                } catch (e) {
+                    con.print(e)
+                    console.error(e)
+                }
             } else {
                 con.print('unknown command: [' + command + ']')
             }
