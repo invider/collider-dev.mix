@@ -1,8 +1,7 @@
 'use strict'
 
 function exit(args, line, con) {
-    trap('f4Down')
+    lib.control.hide()
 }
 
 exit.info = 'close the console'
-
