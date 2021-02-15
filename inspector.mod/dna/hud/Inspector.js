@@ -75,8 +75,14 @@ Inspector.prototype.switchLayout = function(mode) {
 
 Inspector.prototype.switchPanelMode = function(shift) {
     let mode = this.panelMode + shift
-    if (mode < 0) mode = 0
-    if (mode > 3) mode = 3
+    if (mode < 0) {
+        mode = 0
+        if (this.layoutMode === 0) this.switchLayout(1)
+    }
+    if (mode > 3) {
+        mode = 3
+        if (this.layoutMode === 1) this.switchLayout(0)
+    }
     if (this.panelMode !== mode) {
         this.panelMode = mode
         this.adjust()
