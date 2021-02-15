@@ -7,6 +7,13 @@ function keyDown(e) {
             case 'ArrowDown':
                 lab.hud.inspector.switchLayout(1)
                 break;
+            case 'ArrowLeft':
+                lab.hud.inspector.switchPanelMode(-1)
+                break
+            case 'ArrowRight':
+                lab.hud.inspector.switchPanelMode(1)
+                break
+
         }
     } else {
         switch(e.code) {

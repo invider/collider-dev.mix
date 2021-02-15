@@ -14,6 +14,7 @@ const explorerDefaults = {
 function Inspector(st) {
     this.name = 'inspector'
     this.layoutMode = 0
+    this.panelMode = 3
     this.panel = []
 
     Container.call(this, st)
@@ -72,6 +73,16 @@ Inspector.prototype.switchLayout = function(mode) {
     this.adjust()
 }
 
+Inspector.prototype.switchPanelMode = function(shift) {
+    let mode = this.panelMode + shift
+    if (mode < 0) mode = 0
+    if (mode > 3) mode = 3
+    if (this.panelMode !== mode) {
+        this.panelMode = mode
+        this.adjust()
+    }
+}
+
 Inspector.prototype.sync = function() {
     const dir = this.panel[1].getDir()
     const node = this.panel[1].selectedNode()
@@ -89,6 +100,7 @@ Inspector.prototype.sync = function() {
 }
 
 Inspector.prototype.adjust = function() {
+    // adjust dimensions according to layout
     let h = ry(.5)
     let w = rx(1)
     switch(this.layoutMode) {
@@ -96,21 +108,54 @@ Inspector.prototype.adjust = function() {
             h = ry(1)
             break
     }
-
     this.w = w
     this.h = h
 
-    const n = this.panel.length
+    // place and adjust panels
+    let n = this.panel.length
+    if (n < 4) return
+
+    switch(this.panelMode) {
+        case 0:
+            this.panel[0].hidden = true
+            this.panel[1].hidden = false
+            this.panel[2].hidden = true
+            this.panel[3].hidden = true
+            n = 1
+            break
+        case 1:
+            this.panel[0].hidden = true
+            this.panel[1].hidden = false
+            this.panel[2].hidden = false
+            this.panel[3].hidden = true
+            n = 2
+            break
+        case 2:
+            this.panel[0].hidden = false
+            this.panel[1].hidden = false
+            this.panel[2].hidden = false
+            this.panel[3].hidden = true
+            n = 3
+            break
+        case 3:
+            this.panel[0].hidden = false
+            this.panel[1].hidden = false
+            this.panel[2].hidden = false
+            this.panel[3].hidden = false
+            break
+    }
     const cw = rx(1)/n
 
     let x = 0
-    for (const e of this.panel) {
-        e.x = x
-        e.y = 0
-        e.w = cw
-        e.h = h
-        x += cw
-    }
+    this.panel.forEach(p => {
+        if (!p.hidden) {
+            p.x = x
+            p.y = 0
+            p.w = cw
+            p.h = h
+            x += cw
+        }
+    })
 
     Container.prototype.adjust.call(this)
 }
