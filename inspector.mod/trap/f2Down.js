@@ -4,11 +4,11 @@ module.exports = function(e) {
     if (e.repeat) return
 
     if (_.hidden) {
-        _.hidden = false
-        lab.hud.inspector.show()
+        _.disableOthers()
+        lib.control.show()
     } else {
-        _.hidden = true
-        lab.hud.inspector.hide()
+        _.enableOthers()
+        lib.control.hide()
     }
 
     return false
