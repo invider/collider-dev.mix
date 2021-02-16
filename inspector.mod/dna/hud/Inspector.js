@@ -50,8 +50,9 @@ Inspector.prototype.init = function() {
     }
 
     this.panel[1].onExit = function() {
-        log('exiting...')
-        lib.control.hide()
+        if (inspector.panelMode < 3) inspector.switchPanelMode(1)
+        else if (inspector.layoutMode > 0) inspector.switchLayout()
+        else lib.control.hide()
     }
 
     this.panel[1].disabled = false
