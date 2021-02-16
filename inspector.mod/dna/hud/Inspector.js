@@ -49,6 +49,11 @@ Inspector.prototype.init = function() {
         }
     }
 
+    this.panel[1].onExit = function() {
+        log('exiting...')
+        lib.control.hide()
+    }
+
     this.panel[1].disabled = false
     this.adjust()
     this.sync()
@@ -89,6 +94,14 @@ Inspector.prototype.switchPanelMode = function(shift) {
     }
 }
 
+Inspector.prototype.setPanelMode = function(mode) {
+    if (!mode) mode = 0
+    if (mode < 0) mode = 0
+    if (mode > 3) mode = 3
+    this.panelMode = mode
+    this.adjust()
+}
+
 Inspector.prototype.sync = function() {
     const dir = this.panel[1].getDir()
     const node = this.panel[1].selectedNode()
@@ -103,6 +116,14 @@ Inspector.prototype.sync = function() {
 
     if (node) this.panel[2].open(node)
     else this.panel[2].open()
+}
+
+Inspector.prototype.open = function(node, layoutMode, panelMode) {
+    node = node || $
+    this.panel[1].land(node)
+    if (isNumber(layoutMode)) this.switchLayout(layoutMode)
+    if (isNumber(panelMode)) this.setPanelMode(panelMode)
+    this.sync()
 }
 
 Inspector.prototype.adjust = function() {
