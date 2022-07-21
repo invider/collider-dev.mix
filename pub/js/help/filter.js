@@ -11,9 +11,11 @@ function match(meta, criteria, res) {
     const data = meta.data
 
     if (meta.kind === 'page' && meta.path && criteria.match(meta.path)) {
+        // TODO disable for now - might not need that
         // dirty rule - intro page should always be first
-        if (meta.path === 'intro') res.exact.unshift(meta)
-        else res.exact.push(meta)
+        //if (meta.path === 'intro') res.exact.unshift(meta)
+        //else res.exact.push(meta)
+        res.exact.push(meta)
     
     } else if (meta.kind === 'page' && meta.body && criteria.match(meta.body)) {
         res.misc.push(meta)

@@ -45,7 +45,7 @@ so it obviously doesn't work for orphaned nodes.
 
 -------------------------------------------------------------------
 /sys/Frame/prototype/touch
-head: makes sure specified container exists in the path, creates a new one if needed
+head: makes sure the specified container exists in the path, creates a new one if needed
 types:
 @param {string} path - a path to a frame
 details:
