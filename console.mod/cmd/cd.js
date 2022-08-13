@@ -14,8 +14,14 @@ function cd(args, line, con) {
             if (con.cur.__) con.cur = con.cur.__
         } else if (path === '/') {
             con.cur = _$
-        } else {
+        } else if (path.startsWith('/')) {
             node = _$.selectOne(path)
+            if (node && node._ls) con.cur = node
+            else con.print(`can't cd into [${path}]`)
+        } else {
+            if (con.cur.selectOne) {
+                node = con.cur.selectOne(path)
+            }
             if (node && node._ls) con.cur = node
             else con.print(`can't cd into [${path}]`)
         }
