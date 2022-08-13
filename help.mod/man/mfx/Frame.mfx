@@ -84,8 +84,22 @@ types:
 @param {value} node
 @param {string} [name] - optional name
 notes:
-Use when you don't want to change child node's parent,
-but still want that child node to look like it is in the frame.
+Use when you don't want to change node's parent,
+but still want that node to be listed in another frame.
+
+Doesn't exclude similary named nodes from the frame.
+Use xlink() instead if you need name exclusivity.
+
+-------------------------------------------------------------------
+/sys/Frame/prototype/xlink
+head: exclusively links a node to the frame without attaching it
+types:
+@param {value} node
+@param {string} [name] - optional name
+notes:
+Use when you don't want to change child node's parent
+and need exclusivity of the name.
+Any node with the same name will be detached.
 
 -------------------------------------------------------------------
 /sys/Frame/prototype/detach
