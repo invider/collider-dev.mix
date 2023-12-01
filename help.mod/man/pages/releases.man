@@ -1,6 +1,36 @@
 name: Releases
 --------------
 
+=== 0.0.12-WR0 2023-12-02
+
+>>>
+[+] _evoSpeed factor
+
+[+] Emitter ability to reignite
+
+[*] improved dependency handling and js evaluation
+
+[+] blur and focus traps
+
+[+] toDataURL(), downloadDataURL() and toPlainTextURL()
+
+[+] allowed custom DNA in touch
+
+[*] recursive object/array mix()
+
+[+] TileSet.clone()
+
+[+] math in scope
+
+[*] hash event propagation
+
+[-] fixed Container onMouseMove and onMouseWheel
+
+[-] fixed console cd command
+
+[-] fixed and renamed vector normalize functions
+>>>
+
 === 0.0.11-DR10 2020-04-05
 
 >>>
