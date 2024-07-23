@@ -227,7 +227,7 @@ function parse(md, nowrap) {
                 }
                 // otherwise it is just a comment
             } else if (c === '=') {
-                const sh = matchLine('=') + 1
+                let sh = matchLine('=') + 1
                 if (sh > 6) sh = 6
                 return {
                     t: HEADER,

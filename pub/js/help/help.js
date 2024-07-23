@@ -18,6 +18,8 @@ const DATA_MISSING = 'Missing help data!<br>'
                 + '<pre><code>    jam -d</code></pre>'
                 + 'and you have loaded project page after.'
 
+const UNABLE_TO_PARSE_DATA = `Unable to parse help data!`
+
 var state = {}
 
 function print(content) {
@@ -193,8 +195,8 @@ function loadMeta() {
             showError(DATA_MISSING)
         }
     }).catch(err => {
-        console.dir(err)
-        showError(DATA_MISSING)
+        showError(UNABLE_TO_PARSE_DATA)
+        throw err
     })
 }
 
