@@ -6,10 +6,21 @@
     font-family: 'header';
     src: URL('../font/Oswald-Light.ttf');
 }
+@font-face {
+    font-family: PixelOperator;
+    src: url(../fnt/PixelOperator.ttf);
+}
+@font-face {
+    font-family: PixelOperatorMono;
+    src: url(../fnt/PixelOperatorMono.ttf);
+}
+
 
 body {
     margin: 0;
     font-size: 100%;
+
+    background: var(--body-background);
 
     input[type='text'] {
         font-size: 24px;
@@ -17,26 +28,25 @@ body {
 }
 
 #screen {
-    position: fixed;
-    margin: 0;
-    height: 100%;
-    width: 100%;
-    top:  0;
-    left: 0;
-    overflow:hidden;
+    position:   fixed;
+    margin:     0;
+    height:     100%;
+    width:      100%;
+    top:        0;
+    left:       0;
+    overflow:   hidden;
 }
 
 #tagsPanel {
-    // position: fixed;
-    float: left;
-    overflow-x: hidden;
-    overflow-y: auto;
-    height: 100%;
-    // width: 28%;
-    font-size: 150%;
-    color: #bd8c37;
-    background: #202530;
-    /* background: #505560; */
+    // position:    fixed;
+    float:          left;
+    overflow-x:     hidden;
+    overflow-y:     auto;
+    height:         100%;
+    // width:       28%;
+    font-size:      150%;
+    color:          var(--tags-panel-color);
+    background:     var(--tags-panel-background);
 }
 
 #rightPanel {
@@ -44,12 +54,12 @@ body {
 }
 
 #loading {
-    position: fixed;
-    bottom: 0;
-    right: 0;
+    position:   fixed;
+    bottom:     0;
+    right:      0;
      
-    font-size: 150%;
-    color: #808080;
+    font-size:  150%;
+    color:      var(--loading-color);
 }
 
 #searchBar {
@@ -58,26 +68,23 @@ body {
     top: 0;
     padding: 10px;
 
-
-    background-color: #C09020;
-    /* background-color: #404040; */
+    background-color: var(--search-bar-background-color);
 }
 
 #searchField {
     font-size: 120%;
-    color: #404040;
+    color: var(search-field-color);
+    /* color: #404040; */
 }
 
 .tags {
     padding: 0;
 }
 
-.tags a:link { color:  #bd8c37; }
-.tags a:visited { color: #bd8c37; }
-.tags a:hover { color: #d4c26c; }
-.tags a:active { color: #cf9a61; }
-/* .tags a:link { color: #d4c26c; } */
-/* .tags a:hover { color: #e9edaf; } */
+.tags a:link    { color: var(tags-link-color);    }
+.tags a:visited { color: var(tags-visited-color); }
+.tags a:hover   { color: var(tags-hover-color);   }
+.tags a:active  { color: var(tags-active-color);  }
 
 .tag {
     padding: 20px;
@@ -85,7 +92,8 @@ body {
     cursor: pointer;
 }
 .tag:hover {
-    background: #505050;
+    background: var(--tag-hover-background);
+    /* background: #505050; */
 }
 
 .tagLink {
@@ -118,32 +126,32 @@ body {
     background-position: 50%;
 }
 
+/* main metadata text block */
 .meta {
     /* width: calc(100% - 100px); */
-    width: 80%;
-    margin-left: 10%;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    padding: 30px;
+    width:          80%;
+    margin-left:    10%;
+    margin-top:     15px;
+    margin-bottom:  15px;
+    padding:        30px;
 
-    font-size: 120%;
-    color: #111213;
+    font-size:      120%;
+    color:          var(--meta-color);
+    background:     var(--meta-background);
     /* background: #dfdfca; */
     /* background: #faeed4; */
-    background: #fffcd1;
 }
-.meta a:link { color: #485f69; }
-.meta a:visited { color: #485f69; }
-.meta a:hover { color: #54869c; }
-.meta a:active { color: #54869c; }
-.meta b { color: #666666; }
-.meta i { color: #555555; }
-
+.meta a:link    { color: var(--meta-link-color);    }
+.meta a:visited { color: var(--meta-visited-color); }
+.meta a:hover   { color: var(--meta-hover-color);   }
+.meta a:active  { color: var(--meta-active-color);  }
+.meta b         { color: var(--meta-b-color);       }
+.meta i         { color: var(--meta-i-color);       }
 
 .path {
-    color: #505050;
+    color: var(--path-color);
     font-size: 80%;
-    font-family: mono-code;
+    font-family: var(--path-font-family);
 }
 
 .pathLink {
@@ -151,95 +159,89 @@ body {
 }
 
 .pageTitle {
-    color: #166470;
-    font-size: 36px;
-    font-family: header;
+    color:       var(--page-title-color);
+    font-size:   var(--page-title-font-size);
+    font-family: var(--page-title-font-family);
 }
 
 .metaTitle {
-    /* color: #346a73; */
-    /* color: #348199; */
-    color: #166470;
-    font-size: 100%;
-    font-family: mono-code;
+    color:       var(--meta-title-color);
+    font-size:   var(--meta-title-font-size);
+    font-family: var(--meta-title-font-family);
 }
 
 .missingTitle {
-    color: #bd5f51;
-    font-size: 24px;
-    font-family: header;
+    color:       var(--missing-title-color);
+    font-size:   var(--missing-title-font-size);
+    font-family: var(--missing-title-font-family);
 }
 
 .metaAt {
-    color: #704010;
-    font-style: italic;
-    font-size: 100%;
-    text-indent: 4em;
-    padding-top: 2px;
+    color:          var(--meta-at-color);
+    font-style:     italic;
+    font-size:      100%;
+    text-indent:    4em;
+    padding-top:    2px;
     padding-bottom: 2px;
 }
 
 .metaSubtitle {
-    /* color: #346a73; */
-    /* color: #348199; */
-    color: #202020;
-    font-style: italic;
-    font-size: 120%;
-    text-indent: 1em;
-    padding-top: 12px;
+    color:          var(--meta-subtitle-color);
+    font-style:     italic;
+    font-size:      120%;
+    text-indent:    1em;
+    padding-top:    12px;
     padding-bottom: 10px;
 }
 
 .metaSection {
-    color: #166470;
+    color:          var(--meta-section-color);
     font-size: 120%;
 }
 
 
 h1 {
-    color: #166470;
-    font-size: 200%;
+    color:       var(--h1-color);
+    font-size:   200%;
     font-weight: normal;
-    font-family: header;
+    font-family: var(--h1-font-family);
 }
 
 h2 {
-    color: #166470;
-    font-size: 150%;
+    color:       var(--h2-color);
+    font-size:   150%;
     font-weight: normal;
-    font-family: header;
+    font-family: var(--h2-font-family);
 }
 
 h3 {
-    color: #166470;
-    font-size: 130%;
+    color:       var(--h3-color);
+    font-size:   130%;
     font-weight: normal;
-    font-family: header;
+    font-family: var(--h3-font-family);
 }
 
 pre {
-    padding: 10px;
-    // background: #dfcfa9;
-    background: #ffecbd;
-    font-family: mono-code;
-    font-size: 90%;
-    white-space: pre-wrap;
+    padding:        10px;
+    background:     var(--pre-background);
+    font-family:    mono-code;
+    font-size:      90%;
+    white-space:    pre-wrap;
 }
 
 blockquote {
-    padding: 15px;
-    color: #4d4a5f;
-    background: #f0f2f3;
-    font-size: 100%;
+    padding:    15px;
+    color:      var(--backquote-color);
+    background: var(--backquote-background);
+    font-size:  100%;
 }
 
 .message {
-    width: 80%;
-    margin: auto;
-    padding: 30px;
+    width:      80%;
+    margin:     auto;
+    padding:    30px;
     margin-top: 100px;
 
-    font-size: 100%;
-    background: #f8d8b5;
+    font-size:  100%;
+    background: var(--message-background);
 }
-.meta a:link { color: #485f69; }

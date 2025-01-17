@@ -1,3 +1,4 @@
+import { env } from './env.js'
 
 export function render(index, content) {
     const panel = document.getElementById('tags')
@@ -58,4 +59,18 @@ export function download(content, filename) {
     a.setAttribute('href', 'data:text/html;charset=utf-8,' + data)
     a.setAttribute('download', filename)
     a.click()
+}
+
+export function saveConfig() {
+    localStorage.setItem('collider-help-config', JSON.stringify(env.config))
+}
+
+export function loadConfig() {
+    const savedConfig = localStorage.getItem('collider-help-config')
+    if (!savedConfig) return false
+
+    env.config = JSON.parse(savedConfig)
+    console.log('=== Loaded Help Config ===')
+    console.log(env.config)
+    return true
 }

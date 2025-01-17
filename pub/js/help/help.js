@@ -1,9 +1,10 @@
 'use strict'
 
+import { env } from './env.js'
 import { toHtml, preformat } from './format.js'
 import { cache } from './cache.js'
 import { find } from './filter.js'
-import { clear, render, wrapHtml, download } from './util.js'
+import { clear, render, wrapHtml, download, loadConfig, saveConfig } from './util.js'
 
 const HELP_DATA_URL = '../help/data'
 
@@ -19,6 +20,13 @@ const DATA_MISSING = 'Missing help data!<br>'
                 + 'and you have loaded project page after.'
 
 const UNABLE_TO_PARSE_DATA = `Unable to parse help data!`
+
+const themeData = [
+    'default',      'Default',
+    'dark',         'Dark',
+]
+const themes = themeData.filter((e, i) => i % 2 === 0)
+const themeNames = themeData.filter((e, i) => i % 2 === 1)
 
 var state = {}
 
@@ -218,17 +226,9 @@ function setup() {
         field.value = decodeURI(location.hash.substring(1))
     }
 
+    if (loadConfig()) applyConfig()
     loadMeta()
-
     normalSplit()
-    /*
-    Split(['#tagsPanel', '#rightPanel'], {
-        sizes: [27, 73],
-        minSize: [150, 300],
-        direction: 'horizontal',
-        gutterAlign: 'center',
-    })
-    */
 }
 
 function scrollTo(elementId) {
@@ -317,6 +317,29 @@ function togglePanel() {
     }
 }
 
+function switchTheme(itheme, noSave) {
+    if (itheme === undefined) {
+        itheme = (env.config.itheme || 0) + 1
+        if (itheme >= themes.length) itheme = 0
+    } else {
+        if (!Number.isInteger(itheme) || itheme < 0 || itheme >= themes.length) {
+            throw `Wrong theme index: ${itheme}`
+        }
+    }
+
+    const themeId = themes[itheme]
+    const themeName = themeNames[itheme]
+    console.log(`mood: @${themeId} - [${themeName}]`)
+    document.documentElement.setAttribute('data-theme', themes[itheme])
+
+    env.config.itheme = itheme
+    if (!noSave) saveConfig()
+}
+
+function applyConfig() {
+    switchTheme(env.config.itheme, true)
+}
+
 window.onload = setup
 
 window.onhashchange = syncHash 
@@ -326,26 +349,36 @@ window.onkeydown = function(e) {
 
     const field = document.getElementById(FIELD)
 
-    switch(e.code) {
-        case 'Escape':
+    if (e.ctrlKey) {
+        switch(e.code) {
+            case 'KeyM':
+                switchTheme()
+                break
+        }
 
-            if (document.activeElement === field) {
-                field.value = ''
-                setSearch('')
-            } else {
-                field.focus()
-            }
-            break
+    } else {
+        switch(e.code) {
+            case 'Escape':
 
-        case 'F2':
-            let name = help
-            if (field.value !== '') name = field.value
+                if (document.activeElement === field) {
+                    field.value = ''
+                    setSearch('')
+                } else {
+                    field.focus()
+                }
+                break
 
-            download( wrapHtml(help.innerHTML), name + '.html')
-            break
+            case 'F2':
+                let name = help
+                if (field.value !== '') name = field.value
 
-        case 'F10':
-            togglePanel()
-            break
+                download( wrapHtml(help.innerHTML), name + '.html')
+                break
+
+            case 'F9':
+                // TODO fix layout switching
+                togglePanel()
+                break
+        }
     }
 }

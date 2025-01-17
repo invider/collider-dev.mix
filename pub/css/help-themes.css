@@ -1,0 +1,69 @@
+:root {
+    --body-background:       #ffffff;
+    --tags-panel-background: #202530;
+    --tags-panel-color:      #bd8c37;
+
+    --loading-color:        #808080;
+
+    --search-bar-background-color: #C09020;
+    --search-field-color:   #404040;
+
+    --tags-link-color:      #bd8c37;
+    --tags-visited-color:   #bd8c37;
+    --tags-hover-color:     #d4c26c;
+    --tags-active-color:    #cf9a61;
+
+    --tag-hover-background: #505050;
+
+    --meta-color:           #111213;
+    --meta-background:      #fffcd1;
+    --meta-link-color:      #485f69;
+    --meta-visited-color:   #485f69;
+    --meta-hover-color:     #54869c;
+    --meta-active-color:    #54869c;
+    --meta-b-color:         #666666;
+    --meta-i-color:         #555555;
+
+    --path-color:           #505050;
+    --path-font-family:     mono-code;
+
+    --page-title-color:       #166470;
+    --page-title-font-size:   36px;
+    --page-title-font-family: header;
+
+    --meta-title-color:       #166470;
+    --meta-title-font-size:   100%;
+    --meta-title-font-family: mono-code;
+
+    --missing-title-color:       #bd5f51;
+    --missing-title-font-size:   24px;
+    --missing-title-font-family: header;
+
+    --meta-at-color:        #704010;
+
+    --meta-subtitle-color:  #202020;
+
+    --meta-section-color:   #166470;
+
+    --h1-color:         #166470;
+    --h1-font-family:   header;
+    --h2-color:         #166470;
+    --h2-font-family:   header;
+    --h3-color:         #166470;
+    --h3-font-family:   header;
+
+    --pre-background:       #ffecbd;
+    --pre-font-family:      mono-code;
+
+    --backquote-color:      #4d4a5f;
+    --backquote-background: #f0f2f3;
+
+    --message-background:   #f8d8b5;
+}
+
+[data-theme="dark"] {
+    --body-background:      #000000;
+    --meta-color:           #f8d8b5;
+    --meta-background:      #202530;
+    --pre-background:       #404040
+}
