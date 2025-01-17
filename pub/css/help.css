@@ -23,8 +23,23 @@ body {
     background: var(--body-background);
 
     input[type='text'] {
-        font-size: 24px;
+        font-size:        24px;
+        color:            var(--search-field-color);
+        background-color: var(--search-field-background-color);
     }
+    input::placeholder{
+        color: var(--search-field-placeholder-color);
+    }
+}
+
+hr {
+    background-color: var(--hr-background-color);
+    border-color:     var(--hr-border-color);
+}
+
+mark {
+    color:            var(--mark-color);
+    background-color: var(--mark-background);
 }
 
 #screen {
@@ -69,12 +84,6 @@ body {
     padding: 10px;
 
     background-color: var(--search-bar-background-color);
-}
-
-#searchField {
-    font-size: 120%;
-    color: var(search-field-color);
-    /* color: #404040; */
 }
 
 .tags {

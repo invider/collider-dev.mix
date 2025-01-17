@@ -23,6 +23,8 @@ const UNABLE_TO_PARSE_DATA = `Unable to parse help data!`
 
 const themeData = [
     'default',      'Default',
+    'solarized',    'Solarized',
+    'eclipsed',      'Eclipsed',
     'dark',         'Dark',
 ]
 const themes = themeData.filter((e, i) => i % 2 === 0)
@@ -208,6 +210,10 @@ function loadMeta() {
     })
 }
 
+function boot() {
+    if (loadConfig()) applyConfig()
+}
+
 function setup() {
     const field = document.getElementById(FIELD)
 
@@ -226,7 +232,6 @@ function setup() {
         field.value = decodeURI(location.hash.substring(1))
     }
 
-    if (loadConfig()) applyConfig()
     loadMeta()
     normalSplit()
 }
@@ -382,3 +387,5 @@ window.onkeydown = function(e) {
         }
     }
 }
+
+boot()
