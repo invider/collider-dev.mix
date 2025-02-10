@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# update modules
+npm update
+
+# copy split.js
+mkdir -p ./pub/js/split.js
+cp ./node_modules/split.js/dist/split.min.js ./pub/js/split.js/
+cp ./node_modules/split.js/dist/split.min.js.map ./pub/js/split.js/
+

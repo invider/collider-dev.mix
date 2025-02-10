@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "collider.mix": "git+https://github.com/invider/collider.mix.git"
+    "collider.mix": "git+https://github.com/invider/collider.mix.git",
+    "split.js": "^1.6.5"
   },
   "author": "Igor Khotin & Co.",
   "license": "Zlib"
