@@ -245,15 +245,15 @@ of floating point functions liek <a href="./alt/rnd">rnd(n1, n2)</a>.
 
 
 -------------------------------------------------------------------
-/alt/limit
+/alt/clamp
 
-head: returns the *v* value limited by values of *n1* and *n2*
+head: clamps provided *v* between values *n1* and *n2*
 tags: math
 types:
-    @param {number} v - a sample value
+    @param {number} v - the tested value
     @param {number} n1 - the bottom limit
     @param {number} n2 - the top limit
-    @returns {number} - a value limited to [n1..n2] range
+    @returns {number} - a value clamped into [n1..n2] range
 details:
 For *v*<*n1* it would return *n1*.
 Then, if *v*>*n2* it would return *n2*.
