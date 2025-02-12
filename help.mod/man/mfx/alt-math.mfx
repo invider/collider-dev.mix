@@ -34,6 +34,16 @@ types:
 notes: Just a reference to Math.abs().
 
 -------------------------------------------------------------------
+/alt/sign
+
+head: returns the sign value of a number (-1 or 1 or -0/0 for zero values)
+tags: math
+types:
+    @param {number} n
+    @returns {number} - [ 1 | -1 | 0 | -0 ]
+notes: Just a reference to Math.sign().
+
+-------------------------------------------------------------------
 /alt/pow
 
 head: returns *n* raised to the power of *p*
