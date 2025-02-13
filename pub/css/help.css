@@ -7,23 +7,29 @@
     src: URL('../font/Oswald-Light.ttf');
 }
 @font-face {
-    font-family: PixelOperator;
-    src: url(../fnt/PixelOperator.ttf);
+    font-family: pixel;
+    src: url(../font/PixelOperator.ttf);
 }
 @font-face {
-    font-family: PixelOperatorMono;
-    src: url(../fnt/PixelOperatorMono.ttf);
+    font-family: pixelMono;
+    src: url(../font/PixelOperatorMono.ttf);
+}
+@font-face {
+    font-family: gameboy;
+    src: url(../font/Early-GameBoy.ttf);
 }
 
 
 body {
     margin: 0;
     font-size: 100%;
+    font-family: var(--body-font-family);
 
     background: var(--body-background);
 
     input[type='text'] {
         font-size:        24px;
+        font-family:      var(--search-field-font-family);
         color:            var(--search-field-color);
         background-color: var(--search-field-background-color);
     }
@@ -233,7 +239,7 @@ h3 {
 pre {
     padding:        10px;
     background:     var(--pre-background);
-    font-family:    mono-code;
+    font-family:    var(--pre-font-family);
     font-size:      90%;
     white-space:    pre-wrap;
 }

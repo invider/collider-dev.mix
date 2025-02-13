@@ -1,5 +1,6 @@
 :root {
     --body-background:       #ffffff;
+    --body-font-family:      serif;
     --hr-border-color:       #ffffff;
     --hr-background-color:   #ffffff;
 
@@ -12,6 +13,7 @@
     --search-field-color:             #404040;
     --search-field-background-color:  #ffffff;
     --search-field-placeholder-color: #808080;
+    --search-field-font-family:       serif;
 
     --tags-link-color:      #bd8c37;
     --tags-visited-color:   #bd8c37;
@@ -42,7 +44,7 @@
 
     --missing-title-color:       #bd5f51;
     --missing-title-font-size:   24px;
-    --missing-title-font-family: header;
+    --missing-title-font-family: mono-code;
 
     --meta-at-color:        #704010;
 
@@ -140,9 +142,98 @@ $green:     #859900;
 [data-theme="dark"] {
     --body-background:      #6d6862;
 
+    --tags-panel-background: #202530;
+    --tags-panel-color:      #bd8c37;
+
+    --search-bar-background-color:    #C09020;
+    --search-field-color:             #C0C0C0;
+    --search-field-background-color:  #404550;
+    --search-field-placeholder-color: #A0A0A0;
+
+
+    --page-title-color:       #4b80ca;
+    --page-title-font-size:   36px;
+    --page-title-font-family: header;
+
+    --h1-color:         #4b80ca;
+    --h1-font-family:   header;
+    --h2-color:         #4b80ca;
+    --h2-font-family:   header;
+    --h3-color:         #4b80ca;
+    --h3-font-family:   header;
+
     --meta-color:           #f8d8b5;
     --meta-background:      #202530;
+    --meta-link-color:      #68c2d3;
+    --meta-visited-color:   #4b80ca;
+    --meta-hover-color:     #ede19e;
+    --meta-active-color:    #b45252;
+    --meta-b-color:         #ede19e;
+    --meta-i-color:         #d3a068;
 
-    --pre-background:       #404040
+    --backquote-color:      #a2dcc7;
+    --backquote-background: #45444f;
+
+    --pre-background:       #404040;
+}
+
+[data-theme="dark-pixel"] {
+    --body-background:      #6d6862;
+    --body-font-family:     pixel;
+
+    --tags-panel-background: #202530;
+    --tags-panel-color:      #bd8c37;
+
+    --search-bar-background-color:    #646365;
+    --search-field-color:             #ede19e;
+    --search-field-background-color:  #303540;
+    --search-field-placeholder-color: #A0A0A0;
+    --search-field-font-family:       pixel;
+
+    --page-title-color:       #4b80ca;
+    --page-title-font-size:   36px;
+    --page-title-font-family: gameboy;
+
+    --meta-title-color:       #68c2d3;
+    --meta-title-font-size:   100%;
+    --meta-title-font-family: pixel;
+
+    --missing-title-color:       #b45252;
+    --missing-title-font-size:   24px;
+    --missing-title-font-family: pixel;
+
+    --meta-at-color:        #b2b47e;
+    --meta-subtitle-color:  #c2d368;
+
+    --meta-section-color:   #4b80ca;
+
+    --h1-color:         #4b80ca;
+    --h1-font-family:   gameboy;
+    --h2-color:         #4b80ca;
+    --h2-font-family:   gameboy;
+    --h3-color:         #4b80ca;
+    --h3-font-family:   gameboy;
+
+    --meta-color:           #f8d8b5;
+    --meta-background:      #202530;
+    --meta-link-color:      #68c2d3;
+    --meta-visited-color:   #4b80ca;
+    --meta-hover-color:     #ede19e;
+    --meta-active-color:    #b45252;
+    --meta-b-color:         #ede19e;
+    --meta-i-color:         #d3a068;
+
+
+    --path-color:           #505050;
+    --path-font-family:     pixelMono;
+
+    --backquote-color:      #a2dcc7;
+    --backquote-background: #45444f;
+
+    --pre-background:       #404040;
+    --pre-font-family:      pixel;
+
+    --mark-color:           #45444f;
+    --mark-background:      #d3a068;
 }
 

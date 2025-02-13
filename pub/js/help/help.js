@@ -26,6 +26,7 @@ const themeData = [
     'solarized',    'Solarized',
     'eclipsed',      'Eclipsed',
     'dark',         'Dark',
+    'dark-pixel',   'Dark Pixel',
 ]
 const themes = themeData.filter((e, i) => i % 2 === 0)
 const themeNames = themeData.filter((e, i) => i % 2 === 1)
