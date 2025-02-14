@@ -4,6 +4,10 @@
     --hr-border-color:       #ffffff;
     --hr-background-color:   #ffffff;
 
+    --scrollbar-track:          #303540;
+    --scrollbar-thumb-disabled: #505050;
+    --scrollbar-thumb-focused:  #C09020;
+
     --tags-panel-background: #202530;
     --tags-panel-color:      #bd8c37;
 
@@ -34,6 +38,7 @@
     --path-color:           #505050;
     --path-font-family:     mono-code;
 
+    // right panel style
     --page-title-color:       #166470;
     --page-title-font-size:   36px;
     --page-title-font-family: header;
@@ -150,10 +155,20 @@ $green:     #859900;
     --search-field-background-color:  #404550;
     --search-field-placeholder-color: #A0A0A0;
 
-
     --page-title-color:       #4b80ca;
     --page-title-font-size:   36px;
     --page-title-font-family: header;
+
+    --meta-title-color:       #68c2d3;
+    --meta-title-font-size:   100%;
+    --meta-title-font-family: mono-code;
+
+    --missing-title-color:       #b45252;
+    --missing-title-font-size:   24px;
+    --missing-title-font-family: mono-code;
+
+    --meta-at-color:        #b2b47e;
+    --meta-subtitle-color:  #c2d368;
 
     --h1-color:         #4b80ca;
     --h1-font-family:   header;
@@ -222,7 +237,6 @@ $green:     #859900;
     --meta-active-color:    #b45252;
     --meta-b-color:         #ede19e;
     --meta-i-color:         #d3a068;
-
 
     --path-color:           #505050;
     --path-font-family:     pixelMono;

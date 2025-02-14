@@ -19,6 +19,29 @@
     src: url(../font/Early-GameBoy.ttf);
 }
 
+html {
+    @supports not selector(::-webkit-scrollbar-thumb){
+        scrollbar-color:    var(--scrollbar-thumb-focused) var(--scrollbar-track);
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-disabled);
+    border-radius: 8px;
+    min-height:    40px;
+}
+
+div:hover::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-focused);
+}
 
 body {
     margin: 0;
@@ -36,7 +59,10 @@ body {
     input::placeholder{
         color: var(--search-field-placeholder-color);
     }
+
 }
+
+
 
 hr {
     background-color: var(--hr-background-color);
@@ -71,7 +97,8 @@ mark {
 }
 
 #rightPanel {
-    float: left;
+    float:      left;
+    overflow:   auto;
 }
 
 #loading {
@@ -108,7 +135,6 @@ mark {
 }
 .tag:hover {
     background: var(--tag-hover-background);
-    /* background: #505050; */
 }
 
 .tagLink {
