@@ -1,6 +1,8 @@
 :root {
     --body-background:       #ffffff;
     --body-font-family:      serif;
+    --body-font-size:        100%;
+
     --hr-border-color:       #ffffff;
     --hr-background-color:   #ffffff;
 
@@ -59,10 +61,13 @@
 
     --h1-color:         #166470;
     --h1-font-family:   header;
+    --h1-font-size:     200%;
     --h2-color:         #166470;
     --h2-font-family:   header;
+    --h2-font-size:     150%;
     --h3-color:         #166470;
     --h3-font-family:   header;
+    --h3-font-size:     130%;
 
     --pre-background:       #ffecbd;
     --pre-font-family:      mono-code;
@@ -195,6 +200,7 @@ $green:     #859900;
 [data-theme="dark-pixel"] {
     --body-background:      #6d6862;
     --body-font-family:     pixel;
+    --body-font-size:       130%;
 
     --tags-panel-background: #202530;
     --tags-panel-color:      #bd8c37;
@@ -206,7 +212,7 @@ $green:     #859900;
     --search-field-font-family:       pixel;
 
     --page-title-color:       #4b80ca;
-    --page-title-font-size:   36px;
+    --page-title-font-size:   150%;
     --page-title-font-family: gameboy;
 
     --meta-title-color:       #68c2d3;
@@ -224,10 +230,13 @@ $green:     #859900;
 
     --h1-color:         #4b80ca;
     --h1-font-family:   gameboy;
+    --h1-font-size:     130%;
     --h2-color:         #4b80ca;
     --h2-font-family:   gameboy;
+    --h2-font-size:     100%;
     --h3-color:         #4b80ca;
     --h3-font-family:   gameboy;
+    --h3-font-size:     70%;
 
     --meta-color:           #f8d8b5;
     --meta-background:      #202530;
