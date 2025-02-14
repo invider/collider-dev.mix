@@ -71,6 +71,7 @@
 
     --pre-background:       #ffecbd;
     --pre-font-family:      mono-code;
+    --pre-font-size:        90%;
 
     --backquote-color:      #4d4a5f;
     --backquote-background: #f0f2f3;
@@ -255,6 +256,7 @@ $green:     #859900;
 
     --pre-background:       #404040;
     --pre-font-family:      pixel;
+    --pre-font-size:        100%;
 
     --mark-color:           #45444f;
     --mark-background:      #d3a068;

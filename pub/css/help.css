@@ -264,7 +264,7 @@ pre {
     padding:        10px;
     background:     var(--pre-background);
     font-family:    var(--pre-font-family);
-    font-size:      90%;
+    font-size:      var(--pre-font-size);
     white-space:    pre-wrap;
 }
 
