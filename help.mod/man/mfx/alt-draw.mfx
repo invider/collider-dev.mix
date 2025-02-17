@@ -66,8 +66,12 @@ details: Everything outside the clipping area will not be drawn.
 tags: draw, context, 2d
 head: draw images with anti-aliasing
 -------------------------------------------------------------------
-/alt/blocky
+/alt/pixelated
 tags: draw, context, 2d
+head: enable pixel-art mode - draw images with no anti-aliasing
+-------------------------------------------------------------------
+/alt/blocky
+tags: draw, context, 2d, deprecated
 head: draw images without anti-aliasing (pixel-art mode!)
 -------------------------------------------------------------------
 /alt/alpha
