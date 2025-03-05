@@ -309,12 +309,8 @@ tags: math
 types:
     @param {number} start - a start value
     @param {number} stop - a stop value
-    @param {number} val - a value to amp
-    @param {boolean} limitRange - the result value will be limited to [start..stop] if true
+    @param {number} val - interpolation rate, usually in the range of [0..1]
     @returns {number} - an extrapolated value
-details:
-Use limitRange flag, when you want to limit the values
-between *start* and *stop* even for *v* outside the [0..1] range.
 
 -------------------------------------------------------------------
 /alt/remap
