@@ -72,7 +72,7 @@ head: enable pixel-art mode - draw images with no anti-aliasing
 -------------------------------------------------------------------
 /alt/blocky
 tags: draw, context, 2d, deprecated
-head: draw images without anti-aliasing (pixel-art mode!)
+head: draw images without anti-aliasing (pixel-art mode, deprecated, use pixelated() instead)
 -------------------------------------------------------------------
 /alt/alpha
 tags: draw, context, 2d

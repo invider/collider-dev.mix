@@ -313,6 +313,27 @@ types:
     @returns {number} - an extrapolated value
 
 -------------------------------------------------------------------
+/alt/step
+
+head: returns 1 if the provided value is on or over the edge and 0 otherwise
+tags: math
+types:
+    @param {number} edge - a threshold value
+    @param {number} val - a test value
+    @returns {number} - 0 if (val < edge), 1 otherwise
+
+-------------------------------------------------------------------
+/alt/smoothstep
+
+head: perform smooth Hermite interpolation between [0..1] for values between edge1 and edge2
+tags: math
+types:
+    @param {number} edge1 - the first edge
+    @param {number} edge2 - the second edge
+    @param {number} val - the value to interpolate
+    @returns {number} - 0 if (val <= edge1), 1 if (val >= edge2), smooth interpolated value between (0..1) otherwise
+
+-------------------------------------------------------------------
 /alt/remap
 
 head: remap the *val* from *start*..*stop* range to *targetStart*..*targetStop* range
@@ -330,7 +351,7 @@ Swap the target start and stop values to reverse the mapping,
 e.g. remap(0.25, 0, 1, 1, 0) => 0.75
 
 -------------------------------------------------------------------
-/alt/dist
+/alt/distance
 
 head: returns the distance between two points
 tags: math
@@ -342,7 +363,7 @@ types:
     @returns {number} - a distance between two provided points
 
 -------------------------------------------------------------------
-/alt/len
+/alt/length
 
 head: returns the length of the vector *[x, y]*
 tags: math

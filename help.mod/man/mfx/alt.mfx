@@ -135,6 +135,7 @@ to the original function and then to patchFunction.
 Note, that the object context (this) is preserved among
 all chained functions.
 
+
 -------------------------------------------------------------------
 /alt/chain
 head: returns a chain container function that applies both functions
@@ -155,48 +156,123 @@ will get that object as this.
 
 
 -------------------------------------------------------------------
-/alt/isFun
-head: determines if *target* is a function
+/alt/isBool
+head: determines if the *target* is a boolean
 types:
     @param {any} target - any value to check
-    @returns {boolen} - true if the passed value is a function
+    @returns {boolen} - true if the passed value is a boolean
 
 
 -------------------------------------------------------------------
-/alt/isObj
-head: determines if *target* is an object
+/alt/isBoolean
+head: determines if the *target* is a boolean
 types:
     @param {any} target - any value to check
-    @returns {boolen} - true if the passed value is an object
+    @returns {boolen} - true if the passed value is a boolean
 
 
 -------------------------------------------------------------------
-/alt/isString
-head: determines if *target* is a String
-types:
-    @param {any} target - any value to check
-    @returns {boolen} - true if the passed value is a string
-
-
--------------------------------------------------------------------
-/alt/isNumber
-head: determines if *target* is a Number
+/alt/isNum
+head: determines if the *target* is a Number
 types:
     @param {any} target - any value to check
     @returns {boolen} - true if the passed value is a number
 
 
 -------------------------------------------------------------------
+/alt/isNumber
+head: determines if the *target* is a Number and also not a NaN value
+types:
+    @param {any} target - the value to check
+    @returns {boolen} - true if the passed value is a number and not NaN
+details:
+An extended version of isNum() test that also tests
+for Not-a-Number with Number.isNaN()
+
+
+-------------------------------------------------------------------
+/alt/isStr
+head: determines if the *target* is a String
+types:
+    @param {any} target - any value to check
+    @returns {boolen} - true if the passed value is a string
+
+
+-------------------------------------------------------------------
+/alt/isString
+head: determines if the *target* is a String
+types:
+    @param {any} target - any value to check
+    @returns {boolen} - true if the passed value is a string
+
+
+-------------------------------------------------------------------
+/alt/isFun
+head: determines if the *target* is a function
+types:
+    @param {any} target - any value to check
+    @returns {boolen} - true if the passed value is a function
+
+
+-------------------------------------------------------------------
+/alt/isFunction
+head: determines if the *target* is a function
+types:
+    @param {any} target - any value to check
+    @returns {boolen} - true if the passed value is a function
+
+
+-------------------------------------------------------------------
+/alt/isClass
+head: determines if the *target* is a Class
+types:
+    @param {any} target - any value to check
+    @returns {boolen} - true if the passed value is a Class
+
+
+-------------------------------------------------------------------
+/alt/isObj
+head: determines if the *target* is an object
+types:
+    @param {any} target - any value to check
+    @returns {boolen} - true if the passed value is an object
+
+
+-------------------------------------------------------------------
+/alt/isObject
+head: determines if the *target* is an object and not an array
+types:
+    @param {any} target - any value to check
+    @returns {boolen} - true if the passed value is an object and not an array
+
+
+-------------------------------------------------------------------
+/alt/isContainer
+head: determines if the *target* is a container value - an Object, an Array or a Function
+types:
+    @param {any} target - any value to check
+    @returns {boolen} - true if the passed value is a container value
+
+
+-------------------------------------------------------------------
 /alt/isFrame
-head: determines if *target* is a Frame
+head: determines if the *target* is a Frame
 types:
     @param {any} target - any value to check
     @returns {boolen} - true if the passed value is a Frame
 
 
 -------------------------------------------------------------------
+/alt/isArr
+head: determines if the *target* is an Array
+types:
+    @param {any} target - any value to check
+    @returns {boolen} - true if the passed value is an array
+
+
+-------------------------------------------------------------------
 /alt/isArray
-head: determines if *target* is an Array
+head: determines if the *target* is an Array
 types:
     @param {any} target - any value to check
     @returns {boolen} - true if the passed value is an array
@@ -204,15 +280,18 @@ types:
 
 -------------------------------------------------------------------
 /alt/isEmpty
-head: checks if the *target* object/array is empty 
+head: checks if the the *target* object/array is empty 
 types:
     @param {any | object | array} target - an object or an array to check
-    @returns {boolean} - true if object or array has any own values
+    @returns {boolean} - true if object or array has no own values
 details:
 Returns true for undefined, null, '', 0, false.
 Returns false for any non-object and non-array values.
 
-For objects, only own properties are counted in.
+For objects, only own properties are counted in -
+so it will return false if any own properties are defined.
+For arrays, returns true if array length is 0 and false otherwise.
+
 
 -------------------------------------------------------------------
 /alt/sfx
@@ -221,6 +300,7 @@ types:
     @param {AudioClip} sound - an audio clip to play
     @param {number[0..1]} volume - sound volume
     @param {number[-1..1]} panorama - the placement of sound from left to right
+
 
 -------------------------------------------------------------------
 /alt/kill
@@ -246,6 +326,7 @@ In case there is no node.kill() method,
 a regular parent.detach(node) will be called.
 In that case, the *node* is supposed to have a parent link, i.e. *node.__*.
 
+
 -------------------------------------------------------------------
 /alt/defer
 head: defer a function to run after a scheduled queue
@@ -254,6 +335,7 @@ types:
 
 details:
 Essentially, a more convenient way to run setTimeout(fn, 0)
+
 
 -------------------------------------------------------------------
 /alt/gtrap
@@ -269,6 +351,7 @@ Essentially, a more convenient way to run trap in the global context.
 Synonimous of running:
 
     _$.trap()
+
 
 -------------------------------------------------------------------
 /alt/on
