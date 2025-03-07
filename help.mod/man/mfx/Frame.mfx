@@ -193,7 +193,7 @@ The same, as select(), but returns the top result.
 Look at [select()](#./sys/Frame/select) for predicate syntax details.
 
 -------------------------------------------------------------------
-/sys/Frame/prototype/selectInstanceOf
+/sys/Frame/prototype/selectInstancesOf
 head: returns the list of included nodes of provided type
 types:
 @param {prototype} of - a value to match instanceof
