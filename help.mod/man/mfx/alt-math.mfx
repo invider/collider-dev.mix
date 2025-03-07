@@ -26,7 +26,7 @@ tags: math
 -------------------------------------------------------------------
 /alt/abs
 
-head: returns the absolute value of *n*
+head: compute the absolute value of *n*
 tags: math
 types:
     @param {number} n
@@ -36,7 +36,7 @@ notes: Just a reference to Math.abs().
 -------------------------------------------------------------------
 /alt/sign
 
-head: returns the sign value of a number (-1 or 1 or -0/0 for zero values)
+head: compute the sign value of a number (-1 or 1 or -0/0 for zero values)
 tags: math
 types:
     @param {number} n
@@ -46,7 +46,7 @@ notes: Just a reference to Math.sign().
 -------------------------------------------------------------------
 /alt/pow
 
-head: returns *n* raised to the power of *p*
+head: compute *n* raised to the power of *p*
 tags: math
 types:
     @param {number} n
@@ -55,9 +55,19 @@ types:
 notes: Just a reference to Math.pow().
 
 -------------------------------------------------------------------
+/alt/exp
+
+head: compute the natural exponentiation of n - i.e. E to the power of n
+tags: math
+types:
+    @param {number} n
+    @returns {number} - pow(e, n)
+notes: Just a reference to Math.exp().
+
+-------------------------------------------------------------------
 /alt/sqrt
 
-head: returns the positive square root of *n*
+head: compute the positive square root of *n*
 tags: math
 types:
     @param {number} n
@@ -68,7 +78,7 @@ notes: Just a reference to Math.sqrt().
 -------------------------------------------------------------------
 /alt/min
 
-head: returns the smallest of numbers
+head: determine the smallest of numbers
 tags: math
 types:
     @param {number} n1
@@ -81,10 +91,11 @@ Running without parameters returns Infinity
     min() === Infinity
 notes: Just a reference to Math.min().
 
+
 -------------------------------------------------------------------
 /alt/max
 
-head: returns the largest of numbers
+head: determine the largest of numbers
 tags: math
 types:
     @param {number} n1
@@ -97,35 +108,59 @@ Running without parameters returns -Infinity
     max() === -Infinity
 notes: Just a reference to Math.max().
 
+
 -------------------------------------------------------------------
 /alt/ceil
 
-head: returns the smallest integer greater than or equal to *n*
+head: compute the smallest integer greater than or equal to *n*
 tags: math
 types:
     @param {number} n
     @returns {number}
 notes: Just a reference to Math.ceil().
 
+
 -------------------------------------------------------------------
 /alt/floor
 
-head: returns the largest integer less than or equal to *n*
+head: compute the largest integer less than or equal to *n*
 tags: math
 types:
     @param {number} n
     @returns {number}
 notes: Just a reference to Math.floor().
 
+
 -------------------------------------------------------------------
 /alt/round
 
-head: returns *n* rounded to the nearest integer
+head: compute *n* rounded to the nearest integer
 tags: math
 types:
     @param {number} n
     @returns {number}
 notes: Just a reference to Math.round().
+
+
+-------------------------------------------------------------------
+/alt/trunc
+
+head: computer the integer part of a number by removing the fractional part
+tags: math
+types:
+    @param {number} n
+    @returns {number}
+notes: Just a reference to Math.trunc().
+
+-------------------------------------------------------------------
+/alt/fract
+
+head: compute the fractional part of the argument
+tags: math
+types:
+    @param {number} n
+    @returns {number}
+
 
 -------------------------------------------------------------------
 /alt/sin

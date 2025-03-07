@@ -50,7 +50,7 @@ and deliver the next great game.
 Installation intructions are available
 <a href="#.install">here</a>, the fastest way to install is:
 
-    npm install -g collider.jam
+    npm i -g collider.jam
 
 To start, check out
 [Getting Started](#.getting-started).
