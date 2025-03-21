@@ -29,7 +29,9 @@ tags: jam, intro, start, begin, beginner, preface, home
 ----
 </div>
 
-=== Welcome to Collider.JAM!
+=== Welcome to Collider.JAM {{ .releaseName }}!
+
+_Version: {{ .version }}_
 
 _Collider.JAM_ is a hand-crafted JavaScript game framework for game jamming, creative coding, prototyping, and beyond.
 

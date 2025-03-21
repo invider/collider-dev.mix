@@ -46,5 +46,14 @@ function man(src, name) {
         log(`[man-page-parser] no body - ignoring page [${name}]`)
         return
     }
+
+    if (man.name === 'intro') {
+        // special case templating - just for the intro page now!
+        // TODO maybe make templating a universal feature?
+        const config  = _$.env.config
+        man.body = man.body.replace('{{ .version }}', config.version)
+        man.body = man.body.replace('{{ .releaseName }}', config.releaseName)
+    }
+
     return man
 }
